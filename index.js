@@ -223,7 +223,7 @@ function switchLogin(flag)
 {
 	$("#login").unbind("click");
 	$("#login").bind("click", flag?starlogin:starlogout);
-	$("#login").html(flag?"登录":"登出");
+	$("#login").html(flag?"登录":"退出");
 	
 }
 
@@ -730,7 +730,7 @@ function videoMeetingAddNewVideo(newVideoId, stream, clickCallback)
 
 function vidoeMeetingCreateNewDlg()
 {
-	$("#newMeetingName").val("meeting_"+userId);
+	$("#newMeetingName").val("网页会议_"+userId);
 	videoMeetingCreateDialog.dialog("open");
 }
 
@@ -1348,7 +1348,7 @@ function canvasDrawCallback(points)
 
 function vidoeLiveCreateNewDlg()
 {
-	$("#newLiveName").val("live_"+userId);
+	$("#newLiveName").val("网页直播_"+userId);
 	videoLiveCreateDialog.dialog("open");
 }
 
