@@ -1,6 +1,6 @@
 var activeTab = "main";
 
-var agentId = "BjR6QV3vUJ4d";
+var agentId = "stargWeHN8Y7";
 var userId = "";
 var authKey = "";
 
@@ -351,7 +351,7 @@ function starlogin(evt, _userId)
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId",userId,null);
-	$.get("https://api.starrtc.com/demo/authKey.php?userid="+userId,function (data,status) {
+	$.get("https://api.starrtc.com/public/authKey.php?userid="+userId+"&appid="+agentId,function (data,status) {
 		//traceLog("authKey 返回："+status+"||"+data);
 		if(status === "success"){
 			var obj = JSON.parse(data);
@@ -448,12 +448,8 @@ function starRtcLogin(agentId,userId,authKey,callBack)
 function createWebrtcStream(callback)
 	{
 		rtc.createStream({
-		  "video": {
-				width: { min: 640, ideal: 640, max: 640 },
-				height: { min: 480, ideal: 480, max: 480 },
-				frameRate: { ideal: 15, max: 15 }
-			}
-		  //"audio": true
+				"video":{width: {ideal: 640}, height: {ideal: 480}, facingMode: {ideal: ["user"]}},
+				"audio":{deviceId: {ideal: ["default"]}}
 		}, callback);
 }
 //////////////////////////////////////////////webrtc end//////////////////////////////////////////
@@ -478,7 +474,7 @@ function enterVideoMeetingFunc()
 function loadVideoMeetingList(_callback)
 {
 	$("#videoMeetingList").html("");
-	$.get("https://api.starrtc.com/demo/meeting/list.php",function (data,status) {
+	$.get("https://api.starrtc.com/public/meeting/list.php?appid="+agentId,function (data,status) {
         //traceLog("groupList 返回："+status+"||"+data);
         if(status === "success"){
             var obj = JSON.parse(data);
@@ -799,7 +795,7 @@ function exitVideoLiveFunc()
 function loadVideoLiveList(_callback)
 {
 	$("#videoLiveList").html("");
-	$.get("https://api.starrtc.com/demo/live/list.php",function (data,status) {
+	$.get("https://api.starrtc.com/public/live/list.php?appid="+agentId,function (data,status) {
         //traceLog("groupList 返回："+status+"||"+data);
         if(status === "success"){
             var obj = JSON.parse(data);
