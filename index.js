@@ -10,6 +10,25 @@ var videoLiveMsgWindow = null;
 
 var tmpStream;
 
+//StarRtc.Instance.setLoginServerUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setMsgScheduleUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setChatRoomScheduleUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setSrcScheduleUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setVdnScheduleUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setVoipServerUrl("ips2.starrtc.com");
+
+//StarRtc.Instance.setVoipServerUrl("192.168.0.1");
+
+//StarRtc.Instance.setWorServerUrl("https://api.starrtc.com/public");
+
+//StarRtc.Instance.setWebrtcServerIP("192.168.0.1");
+
+
 var MyCanvas = function(_id, _draw_mode, _draw_callback)
 {
 	var id = _id;
@@ -351,7 +370,7 @@ function starlogin(evt, _userId)
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId",userId,null);
-	$.get("https://api.starrtc.com/public/authKey.php?userid="+userId+"&appid="+agentId,function (data,status) {
+	$.get(StarRtc.Instance.worServerUrl + "/authKey.php?userid="+userId+"&appid="+agentId,function (data,status) {
 		//traceLog("authKey 返回："+status+"||"+data);
 		if(status === "success"){
 			var obj = JSON.parse(data);
@@ -474,7 +493,7 @@ function enterVideoMeetingFunc()
 function loadVideoMeetingList(_callback)
 {
 	$("#videoMeetingList").html("");
-	$.get("https://api.starrtc.com/public/meeting/list.php?appid="+agentId,function (data,status) {
+	$.get(StarRtc.Instance.worServerUrl+"/meeting/list.php?appid="+agentId,function (data,status) {
         //traceLog("groupList 返回："+status+"||"+data);
         if(status === "success"){
             var obj = JSON.parse(data);
@@ -600,7 +619,6 @@ function videoMeetingCallBack(data, status, oper)
 				case "srcApplyUpload":
 					if(data.status == "success")
 					{
-						//data.userData.roomInfo.Name += ":---Big---:" + data.tmpData.bigVideoSSRC + ":---small---:" + data.tmpData.smallVideoSSRC
 						joinMeetingRoom(data.userData.roomInfo);
 					}
 					else
@@ -795,7 +813,7 @@ function exitVideoLiveFunc()
 function loadVideoLiveList(_callback)
 {
 	$("#videoLiveList").html("");
-	$.get("https://api.starrtc.com/public/live/list.php?appid="+agentId,function (data,status) {
+	$.get(StarRtc.Instance.worServerUrl+"/live/list.php?appid="+agentId,function (data,status) {
         //traceLog("groupList 返回："+status+"||"+data);
         if(status === "success"){
             var obj = JSON.parse(data);
@@ -1304,12 +1322,21 @@ function openVideoLive(index, from){
 	if(videoLiveIds[index].Creator == userId || tmpFrom == "applyAgree")
 	{
 		videoLiveMyCanvas = new MyCanvas("videoLiveMyCanvas", true, canvasDrawCallback);
+		var a = $("#videoLiveSelfVideo");
+		if($("#videoLiveSelfVideo").length == 0)
+		{
+			videoLiveAddNewVideo("videoLiveSelfVideo", null, null);
+			$("#videoLiveSelfVideo").attr("muted", "true");
+		}
 		currRoom = StarRtc.Instance.getVideoLiveRoomSDK("src", "open", videoLiveSrcCallBack, {"roomInfo":videoLiveIds[index]});
 	}
 	else
 	{
 		videoLiveMyCanvas = new MyCanvas("videoLiveMyCanvas", true, canvasDrawCallback);
-		$("#videoLiveSelfVideo").parent().hide();
+		if($("#videoLiveSelfVideo").length > 0)
+		{
+			removeNewVideo($("#videoMeetingVideoZone"), $("#videoLiveSelfVideo"));
+		}
 		currRoom = StarRtc.Instance.getVideoLiveRoomSDK("vdn", "open", videoLiveVdnCallBack, {"roomInfo":videoLiveIds[index]});
 	}
 	
@@ -1358,6 +1385,11 @@ function videoLiveCreateNewLive()
 	else
 	{
 		var type = $('#liveTypecheck').is(':checked')?1:0;
+		if($("#videoLiveSelfVideo").length == 0)
+		{
+			videoLiveAddNewVideo("videoLiveSelfVideo", null, null);
+			$("#videoLiveSelfVideo").attr("muted", "true");
+		}
 		currRoom = StarRtc.Instance.getVideoLiveRoomSDK("src", "new", videoLiveSrcCallBack, {"roomInfo":{
 																						"Creator":userId,
 																						"ID":"",
@@ -2062,18 +2094,6 @@ function hideiOSQr(){
 //////////////////////////////////////////////iot car end////////////////////////////////////////
 
 $().ready(function(){
-	
-	/* $.ajax({
-	  type: 'POST',
-	  url: "http://10.80.22.174:5000/calc_hash",
-	  data: {
-			"guid":"1",
-		  "url":"/data1/liuyan3/work/videoIdentify/xzhanjing.mp4",
-		  "callback":"http://10.80.1.175:5001/hello"
-	  }
-	}); 
-	
-	return; */
 	
 	showMainTab();
 	
