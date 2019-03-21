@@ -335,7 +335,7 @@ function starlogin(evt, _userId) {
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId", userId, null);
-	$.get(StarRtc.Instance.worServerUrl + "/authKey.php?userid=" + userId + "&appid=" + agentId, function (data, status) {
+	$.get(StarRtc.Instance.workServerUrl + "/authKey.php?userid=" + userId + "&appid=" + agentId, function (data, status) {
 		//traceLog("authKey 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
@@ -452,7 +452,7 @@ function enterVideoMeetingFunc() {
 
 function loadVideoMeetingList(_callback) {
 	$("#videoMeetingList").html("");
-	$.get(StarRtc.Instance.worServerUrl + "/meeting/list.php?appid=" + agentId, function (data, status) {
+	$.get(StarRtc.Instance.workServerUrl + "/meeting/list.php?appid=" + agentId, function (data, status) {
 		//traceLog("groupList 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
@@ -613,7 +613,7 @@ function videoMeetingCallBack(data, status, oper) {
 					break;
 				case "createChannel":
 					if (data.status == "success") {
-						$.get(StarRtc.Instance.worServerUrl + "/meeting/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+						$.get(StarRtc.Instance.workServerUrl + "/meeting/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
 						videoMeetingCreateDialog.dialog("close");
 						loadVideoMeetingList(function () {
 							var index = -1;
@@ -745,7 +745,7 @@ function exitVideoLiveFunc() {
 //获取视频会议列表 
 function loadVideoLiveList(_callback) {
 	$("#videoLiveList").html("");
-	$.get(StarRtc.Instance.worServerUrl + "/live/list.php?appid=" + agentId, function (data, status) {
+	$.get(StarRtc.Instance.workServerUrl + "/live/list.php?appid=" + agentId, function (data, status) {
 		//traceLog("groupList 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
@@ -869,7 +869,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 						break;
 					case "createChannel":
 						if (data.status == "success") {
-							$.get(StarRtc.Instance.worServerUrl + "/live/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+							$.get(StarRtc.Instance.workServerUrl + "/live/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
 							videoLiveCreateDialog.dialog("close");
 							loadVideoLiveList(function () {
 								var index = -1;
