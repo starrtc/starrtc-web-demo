@@ -330,13 +330,11 @@ function bindEvent() {
 function starlogin(evt, _userId) {
 	if (_userId == undefined) {
 		_userId = "" + (Math.floor(Math.random() * 899999) + 100000);
-		//_userId = "VIP9527";
 	}
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId", userId, null);
 	$.get(StarRtc.Instance.workServerUrl + "/authKey.php?userid=" + userId + "&appid=" + agentId, function (data, status) {
-		//traceLog("authKey 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
 			if (obj.status == 1) {
@@ -360,14 +358,14 @@ function starRtcLoginCallBack(data, status) {
 		case "connect failed":
 		case "connect closed":
 			break;
+		//收到登录消息
+		case "onLoginMessage":
+			console.log("login:" + data.status);
+			break;
 		//收到消息
 		case "onSingleMessage":
 			var fid = data.fromId;
-			//var msgJson = JSON.parse(data.msg);
-			//var msgTxt = msgJson.contentData;
-
 			voipMsgWindow.displayMessage(data.fromId, data.msg.contentData, false);
-			//setSingleMessageInnerHTML(fid+":<br/>&nbsp;&nbsp;&nbsp;"+msgTxt);
 			break;
 		case "onGroupMessage":
 			var gid = data.groupId;
@@ -453,7 +451,6 @@ function enterVideoMeetingFunc() {
 function loadVideoMeetingList(_callback) {
 	$("#videoMeetingList").html("");
 	$.get(StarRtc.Instance.workServerUrl + "/meeting/list.php?appid=" + agentId, function (data, status) {
-		//traceLog("groupList 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
 			if (obj.status == 1) {
@@ -515,7 +512,6 @@ function videoMeetingCallBack(data, status, oper) {
 	switch (status) {
 		//链接状态
 		case "connect success":
-			//alert(status);
 			switch (oper) {
 				case "open":
 					thisRoom.createStream();
@@ -527,11 +523,9 @@ function videoMeetingCallBack(data, status, oper) {
 			break;
 		case "connect failed":
 		case "connect closed":
-			//alert(status + ":" + data.data);
 			stopVideoMeeting();
 			break;
 		case "onChatRoomMessage":
-			//alert(data.type + ":" + data.status);
 			switch (data.type) {
 				case "joinChatRoom":
 					if (data.status == "success") { }
@@ -555,12 +549,10 @@ function videoMeetingCallBack(data, status, oper) {
 			}
 			break;
 		case "onWebrtcMessage":
-			//alert(data.type + ":" + data.status);
 			switch (data.type) {
 				case "streamCreated":
 					if (data.status == "success") {
 						videoMeetingSetStream(data.streamObj);
-						//alert("joinRoom" + ":" + oper);
 						switch (oper) {
 							case "open":
 								thisRoom.joinRoom();
@@ -709,7 +701,6 @@ function videoMeetingCreateNewMeeting() {
 }
 
 function videoMeetingDelMeeting() {
-	//if(selectVideoMeetingIndex != undefined)
 	{
 		if (currRoom != null) {
 			currRoom.deleteCurrRoom();
@@ -746,7 +737,6 @@ function exitVideoLiveFunc() {
 function loadVideoLiveList(_callback) {
 	$("#videoLiveList").html("");
 	$.get(StarRtc.Instance.workServerUrl + "/live/list.php?appid=" + agentId, function (data, status) {
-		//traceLog("groupList 返回："+status+"||"+data);
 		if (status === "success") {
 			var obj = JSON.parse(data);
 			if (obj.status == 1) {
