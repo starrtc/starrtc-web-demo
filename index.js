@@ -399,11 +399,14 @@ function starRtcLoginCallBack(data, status) {
 					$("#callerId").html(data.fromId);
 					voipResponseDlg.dialog("open");
 					break;
+				case "voipHangup":
+					voipResponseDlg.dialog("close");
+					break;
 				case "voipRefuse":
+					voipConnectDlg.dialog("close");
 					$("#callerId").html("");
 					alert("对方拒绝了通话！");
 					break;
-
 			}
 			break;
 		case "onErrorMessage":
@@ -1303,6 +1306,7 @@ function videoLiveLinkStop() {
 //////////////////////////////////////////////voip////////////////////////////////////////////
 
 var voipResponseDlg;
+var voipConnectDlg;
 
 function enterVoipFunc() {
 	currFunc.exit = exitVoipFunc;
@@ -1326,6 +1330,7 @@ function callingVOIP() {
 
 	currRoom = StarRtc.Instance.getVoipRoomSDK("call", voipCallBack, { "roomInfo": { "targetId": targetUid } });
 	currRoom.sigConnect();
+	voipConnectDlg.dialog("open");
 }
 
 function hangupVOIP() {
@@ -1351,12 +1356,18 @@ function voipCallBack(data, status, oper) {
 						thisRoom.joinRoom();
 					}
 					else {
+						voipConnectDlg.dialog("close");
 						alert("获取摄像头视频失败！请检查摄像头设备是否接入！");
 					}
 					break;
 				case "voipCalling":
 					if (data.status == "success") {
 
+					}
+					break;
+				case "voipResponseing":
+					if (data.status == "success") {
+						$('#targetUserId').val(data.userData.roomInfo.targetId);
 					}
 					break;
 				case "voipStreamReady":
@@ -1367,6 +1378,7 @@ function voipCallBack(data, status, oper) {
 		case "onVoipMessage":
 			switch (data.type) {
 				case "voipRefuse":
+					voipConnectDlg.dialog("close");
 					$("#callerId").html("");
 					alert("对方拒绝了通话！");
 					thisRoom.sigDisconnect();
@@ -1376,6 +1388,7 @@ function voipCallBack(data, status, oper) {
 					thisRoom.sigDisconnect();
 					break;
 				case "voipConnect":
+					voipConnectDlg.dialog("close");
 					break;
 				case "voipBusy":
 					alert("对方正忙！");
@@ -1425,6 +1438,11 @@ function voipRefuseCall() {
 	var targetId = $("#callerId").html();
 	StarRtc.Instance.sendVoipRefuseMsg(targetId);
 	voipResponseDlg.dialog("close");
+}
+
+function voipCancleCall() {
+	hangupVOIP();
+	voipConnectDlg.dialog("close");
 }
 
 function stopVoip() {
@@ -1898,6 +1916,22 @@ $().ready(function () {
 		buttons: {
 			"同意": voipAcceptCall,
 			"拒绝": voipRefuseCall
+		},
+		open:function(event,ui){
+			$(".ui-dialog-titlebar-close").hide();
+		},
+	});
+	
+	voipConnectDlg = $("#voipConnectDlg").dialog({
+		autoOpen: false,
+		height: 220,
+		width: 300,
+		modal: true,
+		buttons: {
+			"取消呼叫": voipCancleCall
+		},
+		open:function(event,ui){
+			$(".ui-dialog-titlebar-close").hide();
 		},
 	});
 
