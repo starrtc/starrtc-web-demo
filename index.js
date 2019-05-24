@@ -11,6 +11,29 @@ var videoLiveApplyDialog = null;
 
 var tmpStream;
 
+////////////////////////共有云私有云区别搜索 StarRtc.Instance.configModePulic 查看
+
+////////////////////////私有云改配置///////////////////////
+///////////////////////以下10.90.7.70需替换为私有部署IP////
+
+//StarRtc.Instance.setConfigModePulic(false);
+
+//StarRtc.Instance.setMsgServerInfo("10.90.7.70", 19903) 					//ip, websocket port  //需要手动从浏览器输入 https://10.90.7.70:29991 信任证书
+
+//StarRtc.Instance.setchatRoomServerInfo("10.90.7.70", 19906) 			//ip, websocket port //需要手动从浏览器输入 https://10.90.7.70:29993 信任证书
+
+//StarRtc.Instance.setSrcServerInfo("10.90.7.70", 19934, 19935)  			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29994 信任证书
+
+//StarRtc.Instance.setVdnServerInfo("10.90.7.70", 19940, 19941) 			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29995 信任证书
+
+//StarRtc.Instance.setVoipServerInfo("10.90.7.70", 10086, 10087, 10088) 	//ip, voipServer port, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29992 信任证书
+
+//StarRtc.Instance.setWebrtcServerIP("10.90.7.70");
+
+////////////////////////公有云改配置///////////////////////
+
+//StarRtc.Instance.setConfigModePulic(true);
+
 //StarRtc.Instance.setLoginServerUrl("ips2.starrtc.com");
 
 //StarRtc.Instance.setMsgScheduleUrl("ips2.starrtc.com");
@@ -334,21 +357,28 @@ function starlogin(evt, _userId) {
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId", userId, null);
-	$.get(StarRtc.Instance.workServerUrl + "/authKey.php?userid=" + userId + "&appid=" + agentId, function (data, status) {
-		if (status === "success") {
-			var obj = JSON.parse(data);
-			if (obj.status == 1) {
-				authKey = obj.data;
-				setCookie("starrtc_authKey", authKey, null);
+	if (StarRtc.Instance.configModePulic) {
+		$.get(StarRtc.Instance.workServerUrl + "/authKey.php?userid=" + userId + "&appid=" + agentId, function (data, status) {
+			if (status === "success") {
+				var obj = JSON.parse(data);
+				if (obj.status == 1) {
+					authKey = obj.data;
+					setCookie("starrtc_authKey", authKey, null);
 
-				loginSuccessViewSet();
+					loginSuccessViewSet();
 
-				starRtcLogin(agentId, userId, authKey, starRtcLoginCallBack);
+					starRtcLogin(agentId, userId, authKey, starRtcLoginCallBack);
+				}
+			} else {
+				$('#userId').html("登录失败");
 			}
-		} else {
-			$('#userId').html("登录失败");
-		}
-	});
+		});
+	}
+	else {
+		loginSuccessViewSet();
+		starRtcLogin(agentId, userId, "", starRtcLoginCallBack);
+	}
+
 }
 
 function starRtcLoginCallBack(data, status) {
@@ -453,26 +483,42 @@ function enterVideoMeetingFunc() {
 
 function loadVideoMeetingList(_callback) {
 	$("#videoMeetingList").html("");
-	$.get(StarRtc.Instance.workServerUrl + "/meeting/list.php?appid=" + agentId, function (data, status) {
-		if (status === "success") {
-			var obj = JSON.parse(data);
-			if (obj.status == 1) {
-				videoMeetingIds = obj.data;
-				for (var i = 0; i < videoMeetingIds.length; i++) {
-					var item = videoMeetingIds[i];
-					$("#videoMeetingList")[0].innerHTML +=
-						"<div class='button2' onclick='openVideoMeeting(" + i + ")'>" + item.Name + "</div>";
-				}
-				if (_callback != undefined) {
-					_callback();
+	if (StarRtc.Instance.configModePulic) {
+		$.get(StarRtc.Instance.workServerUrl + "/meeting/list.php?appid=" + agentId, function (data, status) {
+			if (status === "success") {
+				var obj = JSON.parse(data);
+				if (obj.status == 1) {
+					videoMeetingIds = obj.data;
+					for (var i = 0; i < videoMeetingIds.length; i++) {
+						var item = videoMeetingIds[i];
+						$("#videoMeetingList")[0].innerHTML +=
+							"<div class='button2' onclick='openVideoMeeting(" + i + ")'>" + item.Name + "</div>";
+					}
+					if (_callback != undefined) {
+						_callback();
+					}
+				} else {
+					$("videoMeetingList").html("获取失败");
 				}
 			} else {
 				$("videoMeetingList").html("获取失败");
 			}
-		} else {
-			$("videoMeetingList").html("获取失败");
-		}
-	});
+		});
+	}
+	else {
+		StarRtc.Instance.queryVideoMeetingRoom(function (status, listData) {
+			videoMeetingIds = listData;
+			for (var i = 0; i < listData.length; i++) {
+				var item = listData[i];
+				$("#videoMeetingList")[0].innerHTML +=
+					"<div class='button2' onclick='openVideoMeeting(" + i + ")'>" + item.Name + "</div>";
+			}
+			if (_callback != undefined) {
+				_callback();
+			}
+		});
+	}
+
 }
 
 //进入视频会议
@@ -608,7 +654,14 @@ function videoMeetingCallBack(data, status, oper) {
 					break;
 				case "createChannel":
 					if (data.status == "success") {
-						$.get(StarRtc.Instance.workServerUrl + "/meeting/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+						if (StarRtc.Instance.configModePulic) {
+							$.get(StarRtc.Instance.workServerUrl + "/meeting/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+						}
+						else {
+							StarRtc.Instance.reportRoom(CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING, data.userData.roomInfo, function (status) {
+								console.log("创建" + status);
+							});
+						}
 						videoMeetingCreateDialog.dialog("close");
 						loadVideoMeetingList(function () {
 							var index = -1;
@@ -739,26 +792,41 @@ function exitVideoLiveFunc() {
 //获取视频会议列表 
 function loadVideoLiveList(_callback) {
 	$("#videoLiveList").html("");
-	$.get(StarRtc.Instance.workServerUrl + "/live/list.php?appid=" + agentId, function (data, status) {
-		if (status === "success") {
-			var obj = JSON.parse(data);
-			if (obj.status == 1) {
-				videoLiveIds = obj.data;
-				for (var i = 0; i < videoLiveIds.length; i++) {
-					var item = videoLiveIds[i];
-					$("#videoLiveList")[0].innerHTML +=
-						"<div class='button2' onclick='openVideoLive(" + i + ")'>" + item.Name + "</div>";
-				}
-				if (_callback != undefined) {
-					_callback();
+	if (StarRtc.Instance.configModePulic) {
+		$.get(StarRtc.Instance.workServerUrl + "/live/list.php?appid=" + agentId, function (data, status) {
+			if (status === "success") {
+				var obj = JSON.parse(data);
+				if (obj.status == 1) {
+					videoLiveIds = obj.data;
+					for (var i = 0; i < videoLiveIds.length; i++) {
+						var item = videoLiveIds[i];
+						$("#videoLiveList")[0].innerHTML +=
+							"<div class='button2' onclick='openVideoLive(" + i + ")'>" + item.Name + "</div>";
+					}
+					if (_callback != undefined) {
+						_callback();
+					}
+				} else {
+					$("videoLiveList").html("获取失败");
 				}
 			} else {
 				$("videoLiveList").html("获取失败");
 			}
-		} else {
-			$("videoLiveList").html("获取失败");
-		}
-	});
+		});
+	}
+	else {
+		StarRtc.Instance.queryVideoLiveRoom(function (status, listData) {
+			videoLiveIds = listData;
+			for (var i = 0; i < listData.length; i++) {
+				var item = listData[i];
+				$("#videoLiveList")[0].innerHTML +=
+					"<div class='button2' onclick='openVideoLive(" + i + ")'>" + item.Name + "</div>";
+			}
+			if (_callback != undefined) {
+				_callback();
+			}
+		})
+	}
 }
 
 function joinLiveRoom(liveInfo) {
@@ -862,7 +930,14 @@ function videoLiveSrcCallBack(data, status, oper) {
 						break;
 					case "createChannel":
 						if (data.status == "success") {
-							$.get(StarRtc.Instance.workServerUrl + "/live/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+							if (StarRtc.Instance.configModePulic) {
+								$.get(StarRtc.Instance.workServerUrl + "/live/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
+							}
+							else {
+								StarRtc.Instance.reportRoom(CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE, data.userData.roomInfo, function (status) {
+									console.log("创建" + status);
+								});
+							}
 							videoLiveCreateDialog.dialog("close");
 							loadVideoLiveList(function () {
 								var index = -1;
@@ -1917,11 +1992,11 @@ $().ready(function () {
 			"同意": voipAcceptCall,
 			"拒绝": voipRefuseCall
 		},
-		open:function(event,ui){
+		open: function (event, ui) {
 			$(".ui-dialog-titlebar-close").hide();
 		},
 	});
-	
+
 	voipConnectDlg = $("#voipConnectDlg").dialog({
 		autoOpen: false,
 		height: 220,
@@ -1930,7 +2005,7 @@ $().ready(function () {
 		buttons: {
 			"取消呼叫": voipCancleCall
 		},
-		open:function(event,ui){
+		open: function (event, ui) {
 			$(".ui-dialog-titlebar-close").hide();
 		},
 	});
