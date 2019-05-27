@@ -658,7 +658,7 @@ function videoMeetingCallBack(data, status, oper) {
 							$.get(StarRtc.Instance.workServerUrl + "/meeting/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
 						}
 						else {
-							StarRtc.Instance.reportRoom(CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING, data.userData.roomInfo, function (status) {
+							StarRtc.Instance.reportVideoMeetingRoom(data.userData.roomInfo, function (status) {
 								console.log("创建" + status);
 							});
 						}
@@ -934,7 +934,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 								$.get(StarRtc.Instance.workServerUrl + "/live/store?appid=" + agentId + "&ID=" + data.userData.roomInfo.ID + "&Name=" + data.userData.roomInfo.Name + "&Creator=" + data.userData.roomInfo.Creator);
 							}
 							else {
-								StarRtc.Instance.reportRoom(CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE, data.userData.roomInfo, function (status) {
+								StarRtc.Instance.reportVideoLiveRoom(data.userData.roomInfo, function (status) {
 									console.log("创建" + status);
 								});
 							}
