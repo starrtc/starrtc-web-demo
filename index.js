@@ -448,6 +448,14 @@ function starRtcLoginCallBack(data, status) {
 					break;
 			}
 			break;
+		case "onGetGroupList":
+			break;
+		case "onGetOnlineNumber":
+			break;
+		case "onGetGroupUserList":
+			break;
+		case "onGetAllUserList":
+			break;
 	}
 };
 
@@ -2112,7 +2120,7 @@ $().ready(function () {
 
 	var localId = getCookie("starrtc_userId");
 	var localAuthKey = getCookie("starrtc_authKey");
-	if (localId != "" && localAuthKey != "") {
+	if (localId != "" && (localAuthKey != "" || (!StarRtc.Instance.configModePulic))) {
 		userId = localId;
 		authKey = localAuthKey;
 		loginSuccessViewSet();

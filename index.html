@@ -1,184 +1,170 @@
 <html>
+
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<style>
- body{
-	margin:0px;
-	padding:0px;
- }
- 
-	.tab
-	{
-		width:100%;
-		height:100%;
-		/* 设置背景颜色，背景图加载过程中会显示背景色 */
-		background-color: #464646;
-	}
- 
-	#mainTab
-	{
-		/* 加载背景图 */
-		background-image: url(images/bg.jpg);
-		/* 背景图垂直、水平均居中 */
-		background-position: center center;
-		/* 背景图不平铺 */
-		/*background-repeat: no-repeat;*/
-		/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
-		background-attachment: fixed;
-		/* 让背景图基于容器大小伸缩 */
-		background-size: 100% 100%;
-		
-	}
-	
-	.loginInfo
-	{
-		padding-top : 80px;
-	}
-	
-	.userId
-	{
-		color:white;
-		text-align: center;
-		font-size: 16px;
-	}
-	
-	.backButton
-	{
-		padding :20px 0px 0px 0px;
-		text-align: center;
-		font-size: 20px;
-		width:200px;
-		height:50px;
-		background-color:black;
-		color:white;
-		cursor:pointer;
-	}
-	
-	.contentcontent
-	{
-		background-color: #67CF22;
-	}
-	
-	.topic
-	{
-		border-radius: 20px;
-		margin: 30px auto 30px auto;
-		padding :20px 0px 0px 0px;
-		text-align: center;
-		font-size: 20px;
-		color:white;
-		width:400px;
-		height:50px;
-		background-color:#3dc25a;
-		cursor:pointer;
-	}
-	.logintopic
-	{		
-		margin: 5px auto 5px auto;
-		padding :0px 0px 0px 0px;
-		text-align: center;
-		font-size: 20px;
-		color:white;
-		width:50px;
-		height:30px;
-		background-color:#B22222;
-		cursor:pointer;
-	}
-	.button2
-	{ 
-		height:30px;
-		background-color: transparent;
-		text-align: center; 
-		line-height:30px;
-		cursor:pointer;
-		border:inset;
-		border-width: 1px;
-		border-color:transparent;
-		border-bottom-color: #e5e5ce;
-	}
-	
-	.left
-	{
-		float:left;
-		width:10%;
-		height:100%;
-		background-color: #ffffff;
-	}
-	
-	.left .backButton
-	{
-		width:100%;
-	}
-	
-	.right
-	{
-		float:right;
-		width:90%;
-		height:100%;
-	}
-	
-	.title
-	{
-		padding :20px 0px 0px 0px;
-		text-align: center;
-		font-size: 20px;
-		width:100%;
-		height:50px;
-		background-color:#464646;
-		color:#ffffff;
-	}
-	
-	.messageButton
-	{
-		position:absolute;
-		right:20px;
-		bottom:20px;
-		width:100px;
-		height:100px;
-		margin:auto;
-		z-index:1;
-		//background-color:red;
-	}
-	
-	#videoMeetingZone
-	{
-		width:100%;
-		margin:0px auto 0px auto;
-		background-color:#464646;
-	}
-	
-	.msgBubble
-	{
-		text-align:left;
-		word-wrap:break-word;
-		-moz-border-radius:10px;
-		-webkit-border-radius:10px;
-		border-radius:10px;
-		padding:5px;
-		margin:5px auto 5px auto;
-	}
-	
-	.circle
-	{
-		border-radius: 50%;      
-		-moz-border-radius: 50%;      
-		-webkit-border-radius: 50%;
-		text-align: center;
-		font-size: 20px;
-	}
-	
-</style>
-<link rel="stylesheet" type="text/css" href="css/effect.css">
-<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
-<script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="jquery-ui.min.js"></script>
-<script type="text/javascript" src="msg_box_plugin.js"></script>
-<script type="text/javascript" src="star_rtc_video.min.js"></script>
-<script type="text/javascript" src="star_rtc_lib.min.js"></script>
-<script type="text/javascript" src="cookie_tools.js"></script>
-<script type="text/javascript" src="index.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+		body {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		.tab {
+			width: 100%;
+			height: 100%;
+			/* 设置背景颜色，背景图加载过程中会显示背景色 */
+			background-color: #464646;
+		}
+
+		#mainTab {
+			/* 加载背景图 */
+			background-image: url(images/bg.jpg);
+			/* 背景图垂直、水平均居中 */
+			background-position: center center;
+			/* 背景图不平铺 */
+			/*background-repeat: no-repeat;*/
+			/* 当内容高度大于图片高度时，背景图像的位置相对于viewport固定 */
+			background-attachment: fixed;
+			/* 让背景图基于容器大小伸缩 */
+			background-size: 100% 100%;
+
+		}
+
+		.loginInfo {
+			padding-top: 80px;
+		}
+
+		.userId {
+			color: white;
+			text-align: center;
+			font-size: 16px;
+		}
+
+		.backButton {
+			padding: 20px 0px 0px 0px;
+			text-align: center;
+			font-size: 20px;
+			width: 200px;
+			height: 50px;
+			background-color: black;
+			color: white;
+			cursor: pointer;
+		}
+
+		.contentcontent {
+			background-color: #67CF22;
+		}
+
+		.topic {
+			border-radius: 20px;
+			margin: 30px auto 30px auto;
+			padding: 20px 0px 0px 0px;
+			text-align: center;
+			font-size: 20px;
+			color: white;
+			width: 400px;
+			height: 50px;
+			background-color: #3dc25a;
+			cursor: pointer;
+		}
+
+		.logintopic {
+			margin: 5px auto 5px auto;
+			padding: 0px 0px 0px 0px;
+			text-align: center;
+			font-size: 20px;
+			color: white;
+			width: 50px;
+			height: 30px;
+			background-color: #B22222;
+			cursor: pointer;
+		}
+
+		.button2 {
+			height: 30px;
+			background-color: transparent;
+			text-align: center;
+			line-height: 30px;
+			cursor: pointer;
+			border: inset;
+			border-width: 1px;
+			border-color: transparent;
+			border-bottom-color: #e5e5ce;
+		}
+
+		.left {
+			float: left;
+			width: 10%;
+			height: 100%;
+			background-color: #ffffff;
+		}
+
+		.left .backButton {
+			width: 100%;
+		}
+
+		.right {
+			float: right;
+			width: 90%;
+			height: 100%;
+		}
+
+		.title {
+			padding: 20px 0px 0px 0px;
+			text-align: center;
+			font-size: 20px;
+			width: 100%;
+			height: 50px;
+			background-color: #464646;
+			color: #ffffff;
+		}
+
+		.messageButton {
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
+			width: 100px;
+			height: 100px;
+			margin: auto;
+			z-index: 1;
+			//background-color:red;
+		}
+
+		#videoMeetingZone {
+			width: 100%;
+			margin: 0px auto 0px auto;
+			background-color: #464646;
+		}
+
+		.msgBubble {
+			text-align: left;
+			word-wrap: break-word;
+			-moz-border-radius: 10px;
+			-webkit-border-radius: 10px;
+			border-radius: 10px;
+			padding: 5px;
+			margin: 5px auto 5px auto;
+		}
+
+		.circle {
+			border-radius: 50%;
+			-moz-border-radius: 50%;
+			-webkit-border-radius: 50%;
+			text-align: center;
+			font-size: 20px;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="css/effect.css">
+	<link rel="stylesheet" type="text/css" href="jquery-ui.min.css">
+	<script type="text/javascript" src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+	<script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="jquery-ui.min.js"></script>
+	<script type="text/javascript" src="msg_box_plugin.js"></script>
+	<script type="text/javascript" src="star_rtc_video.min.js"></script>
+	<script type="text/javascript" src="star_rtc_lib.min.js"></script>
+	<script type="text/javascript" src="cookie_tools.js"></script>
+	<script type="text/javascript" src="index.js"></script>
 </head>
+
 <body>
 	<div id="mainTab" class="tab">
 		<div class="loginInfo">
@@ -186,35 +172,42 @@
 				<div id="userImage" class="spinner">
 				</div>
 			</div>
-		<div id="userId" class="userId">请先登录</div>
-		<div id="login" class="logintopic">登录</div>
+			<div id="userId" class="userId">请先登录</div>
+			<div id="login" class="logintopic">登录</div>
 		</div>
 		<div class="starServ" style="margin-top:100px">
-			<p><center style="color:white;">注：需要有摄像头才能正常使用！请使用电脑版最新的chrome浏览器测试，其它浏览器暂不打算兼容！</center></p>
+			<p>
+				<center style="color:white;">注：需要有摄像头才能正常使用！请使用电脑版最新的chrome浏览器测试，其它浏览器暂不打算兼容！</center>
+			</p>
 			<div id="voipButton" class="topic">一对一视频</div>
 			<div id="videoLiveButton" class="topic">互动直播</div>
-			<div id="videoMeetingButton" class="topic">多人会议</div>			
+			<div id="videoMeetingButton" class="topic">多人会议</div>
 			<div id="iotCarButton" class="topic">小车演示</div>
-			
+
 			<center>安卓和iOS程序也可以和这个页面互通：
-			<a id = "continue" onMouseOut="hideAndroidQr()" onmouseover="showAndroidQr()" class="a_pay">下载安卓版</a>
-			<!--<a id = "continue" onMouseOut="hideiOSQr()" onmouseover="showiOSQr()" class="a_pay">下载iOS版</a>-->
-			&nbsp;&nbsp;
-			<a href='https://www.starrtc.com/demo/im/' target="_blank">匿名公共聊天室</a>
+				<a id="continue" onMouseOut="hideAndroidQr()" onmouseover="showAndroidQr()" class="a_pay">下载安卓版</a>
+				<!--<a id = "continue" onMouseOut="hideiOSQr()" onmouseover="showiOSQr()" class="a_pay">下载iOS版</a>-->
+				&nbsp;&nbsp;
+				<a href='https://www.starrtc.com/demo/im/' target="_blank">匿名公共聊天室</a>
 			</center>
-			
-			<p><center style="color:white;">Copyright &copy; <a href='https://docs.starrtc.com/en/download/'>starRTC.com</a>&nbsp;&nbsp;&nbsp;v1.0.3</center></p>
-			
-			<div id="android_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img src="android.png"/></div>
-			<div id="ios_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img src="ios.png"/></div>
+
+			<p>
+				<center style="color:white;">Copyright &copy; <a
+						href='https://docs.starrtc.com/en/download/'>starRTC.com</a>&nbsp;&nbsp;&nbsp;v1.0.3</center>
+			</p>
+
+			<div id="android_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img
+					src="android.png" /></div>
+			<div id="ios_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img src="ios.png" />
+			</div>
 		</div>
 	</div>
 	<div id="voipTab" class="tab" style="display:none">
 		<div id="voipResponseDlg" title="收到视频聊天申请">
-		  <p class="validateTips">收到来自用户：<span id="callerId"></span>的视频聊天申请.</p>
+			<p class="validateTips">收到来自用户：<span id="callerId"></span>的视频聊天申请.</p>
 		</div>
 		<div id="voipConnectDlg" title="正在呼叫用户">
-		    <div class="validateTips">
+			<div class="validateTips">
 				<div class="spinner" style="width:100px;margin-top:10px;">
 					<div class="rect1" style="margin-left:5px;"></div>
 					<div class="rect2" style="margin-left:5px;"></div>
@@ -225,26 +218,32 @@
 			</div>
 		</div>
 		<div class="left">
-			<div class="backButton" >返回</div>
+			<div class="backButton">返回</div>
 			<div id="voipCtrl">
 				<div style="width:100%;height:100px;padding-top:25px;">
-					<div id="voipCalling" style="width:75px;height:75px;margin:0 auto;background-image: url(images/call.jpg);background-size: cover;cursor:pointer;"></div>
+					<div id="voipCalling"
+						style="width:75px;height:75px;margin:0 auto;background-image: url(images/call.jpg);background-size: cover;cursor:pointer;">
+					</div>
 				</div>
 				<div style="width:100%;height:100px;padding-top:25px;">
-					<div id="voipHangup" style="width:75px;height:75px;margin:0 auto;background-image: url(images/hangup.jpg);background-size: cover;cursor:pointer;"></div>
+					<div id="voipHangup"
+						style="width:75px;height:75px;margin:0 auto;background-image: url(images/hangup.jpg);background-size: cover;cursor:pointer;">
+					</div>
 				</div>
 			</div>
 		</div>
 		<div class="right">
 			<div id="voipTargetIdInputWrapper" class="title" style="height:70px;padding:0px;">
-				<input id="targetUserId" type="text" style="width: 100%;height: 100%;background: whitesmoke;padding: 0;border-width: 0;text-align: center"  placeholder="点击这里 输入对方ID" />
+				<input id="targetUserId" type="text"
+					style="width: 100%;height: 100%;background: whitesmoke;padding: 0;border-width: 0;text-align: center"
+					placeholder="点击这里 输入对方ID" />
 			</div>
 			<div id="voipZone" style="width:100%;height:100%">
 				<div id="voipVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%;position:relative;">
 						<div id="voipCanvas" style="width:100%;height:100%;z-index=1;position:absolute;top:0px;left:0px;">
-								<canvas id="voipMyCanvas" style="width:100%;height:100%">
-								</canvas>
+							<canvas id="voipMyCanvas" style="width:100%;height:100%">
+							</canvas>
 						</div>
 						<video id="voipSmallVideo" muted="true" style="width:15%;max-height:100%;float:left"></video>
 						<video id="voipBigVideo" style="max-width:85%;height:100%"></video>
@@ -254,7 +253,23 @@
 				</div>
 				<div id="voipMessageButton" class="messageButton" style="display:none">
 					<span class="svg-icon flat-line" id="line-email">
-						<span class="svg-icon flat-line" id="line-message"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path><g class="icon"><path class="back" d="M75.139,28.854h-3.807l-8.125-8.125c-0.381-0.38-0.999-0.382-1.381,0l-8.124,8.125H36.428c-2.79,0-5.05,2.261-5.05,5.048v25.247c0,2.79,2.26,5.051,5.05,5.051h38.711c2.789,0,5.05-2.261,5.05-5.051V33.902C80.188,31.115,77.928,28.854,75.139,28.854z"></path><path class="front" d="M63.571,35.8H24.862c-2.789,0-5.05,2.262-5.05,5.049v25.247c0,2.788,2.261,5.049,5.05,5.049h3.806l8.125,8.125c0.382,0.381,1,0.383,1.381,0l8.125-8.125h17.275c2.788,0,5.05-2.261,5.05-5.049V40.85C68.62,38.062,66.361,35.8,63.571,35.8z"></path><path class="dots" d="M34.743,50.108c-1.858,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.367-1.507,3.367-3.367C38.109,51.615,36.603,50.108,34.743,50.108z M44.842,50.108c-1.858,0-3.367,1.507-3.367,3.366c0,1.86,1.507,3.367,3.367,3.367c1.859,0,3.366-1.507,3.366-3.367C48.208,51.615,46.701,50.108,44.842,50.108z M54.94,50.108c-1.857,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.366-1.507,3.366-3.367C58.307,51.615,56.8,50.108,54.94,50.108z"></path></g></svg></span>
+						<span class="svg-icon flat-line" id="line-message"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
+								width="100px" height="100px" viewBox="0 0 100 100">
+								<path class="circle"
+									d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+								</path>
+								<g class="icon">
+									<path class="back"
+										d="M75.139,28.854h-3.807l-8.125-8.125c-0.381-0.38-0.999-0.382-1.381,0l-8.124,8.125H36.428c-2.79,0-5.05,2.261-5.05,5.048v25.247c0,2.79,2.26,5.051,5.05,5.051h38.711c2.789,0,5.05-2.261,5.05-5.051V33.902C80.188,31.115,77.928,28.854,75.139,28.854z">
+									</path>
+									<path class="front"
+										d="M63.571,35.8H24.862c-2.789,0-5.05,2.262-5.05,5.049v25.247c0,2.788,2.261,5.049,5.05,5.049h3.806l8.125,8.125c0.382,0.381,1,0.383,1.381,0l8.125-8.125h17.275c2.788,0,5.05-2.261,5.05-5.049V40.85C68.62,38.062,66.361,35.8,63.571,35.8z">
+									</path>
+									<path class="dots"
+										d="M34.743,50.108c-1.858,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.367-1.507,3.367-3.367C38.109,51.615,36.603,50.108,34.743,50.108z M44.842,50.108c-1.858,0-3.367,1.507-3.367,3.366c0,1.86,1.507,3.367,3.367,3.367c1.859,0,3.366-1.507,3.366-3.367C48.208,51.615,46.701,50.108,44.842,50.108z M54.94,50.108c-1.857,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.366-1.507,3.366-3.367C58.307,51.615,56.8,50.108,54.94,50.108z">
+									</path>
+								</g>
+							</svg></span>
 					</span>
 				</div>
 			</div>
@@ -262,16 +277,17 @@
 	</div>
 	<div id="videoLiveTab" class="tab" style="display:none">
 		<div id="videoLiveCreateDlg" title="创建直播">
-		  <p class="validateTips">请输入直播的名称.</p>
-		  <div>
-			<input type="text" name="newLiveName" id="newLiveName" value="" class="text ui-widget-content ui-corner-all">
-		  </div>
-		  <div style="margin-top:10px">
-			<input type="checkbox" id="liveTypecheck" style="display:none"><label for="liveTypecheck" style="display:none">公开</label>
-		  </div>
+			<p class="validateTips">请输入直播的名称.</p>
+			<div>
+				<input type="text" name="newLiveName" id="newLiveName" value="" class="text ui-widget-content ui-corner-all">
+			</div>
+			<div style="margin-top:10px">
+				<input type="checkbox" id="liveTypecheck" style="display:none"><label for="liveTypecheck"
+					style="display:none">公开</label>
+			</div>
 		</div>
 		<div id="videoLiveDelDlg" title="离开直播">
-		  <p class="validateTips">确定要离开直播间吗？</p>
+			<p class="validateTips">确定要离开直播间吗？</p>
 		</div>
 		<div id="videoLiveCanvasDlg" title="画板">
 			<div style="width:100%;height:100%;position:relative;">
@@ -282,101 +298,206 @@
 			</div>
 		</div>
 		<div id="videoLiveApplyDlg" title="申请直播连麦">
-		  <p class="validateTips">申请直播连麦吗？</p>
+			<p class="validateTips">申请直播连麦吗？</p>
 		</div>
 		<div id="videoLiveManageDlg" title="用户管理">
-		  <p class="validateTips">收到来自用户：<span id="applyTargetId"></span>的连麦申请.</p>
+			<p class="validateTips">收到来自用户：<span id="applyTargetId"></span>的连麦申请.</p>
 		</div>
-	
+
 		<div class="left">
-			<div class="backButton" >返回</div>
+			<div class="backButton">返回</div>
 			<div id="videoLiveList"></div>
 		</div>
 		<div class="right" style="position:relative;">
-			<div id="videoLiveTitle" class="title" ></div>
+			<div id="videoLiveTitle" class="title"></div>
 			<div id="videoLiveZone" style="width:100%;height:100%;background-color:#464646;position:relative;">
 				<div id="videoLiveVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%">
-						<video id="videoLiveSelfVideo" muted="true" style="width:100%;height:100%"/>
+						<video id="videoLiveSelfVideo" muted="true" style="width:100%;height:100%" />
 					</div>
 				</div>
 				<div id="videoLiveMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
 				</div>
 				<div id="vidoeLiveMessageButton" class="messageButton">
 					<span class="svg-icon flat-line" id="line-email">
-						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
-							<path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path>
+						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+							viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
 							<g class="icon">
-								<path class="top" d="M76.162,35.079c1.113,0.731,1.113,1.917,0,2.647L52.013,53.615c-1.11,0.731-2.915,0.731-4.024,0l-24.15-15.889c-1.111-0.73-1.111-1.916,0-2.647l24.15-15.889c1.11-0.729,2.914-0.729,4.024,0L76.162,35.079z"></path><path class="paper" d="M30.105,32.763h39.791v28.421H30.105V32.763z"></path>
-								<path class="base" d="M23.003,36.404L50,54.165l26.997-17.761c0,0,0.006-0.667,0.006,1.688v27.002c0,2.354-1.91,4.264-4.264,4.264H27.262c-2.354,0-4.264-1.91-4.264-4.264V38.092C23,35.738,23.003,36.404,23.003,36.404z"></path>
-								<path class="text" d="M36.145,38.27h27.71c0.199,0,0.357-0.16,0.357-0.356c0-0.195-0.158-0.355-0.357-0.355h-27.71c-0.197,0-0.355,0.16-0.355,0.355C35.788,38.11,35.947,38.27,36.145,38.27z M63.854,39.691H36.144c-0.197,0-0.355,0.159-0.355,0.356c0,0.196,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.16,0.357-0.355C64.211,39.849,64.053,39.691,63.854,39.691z M63.854,41.822H36.144c-0.197,0-0.355,0.161-0.355,0.356c0,0.197,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.158,0.357-0.355C64.211,41.982,64.053,41.822,63.854,41.822z"></path>
+								<path class="top"
+									d="M76.162,35.079c1.113,0.731,1.113,1.917,0,2.647L52.013,53.615c-1.11,0.731-2.915,0.731-4.024,0l-24.15-15.889c-1.111-0.73-1.111-1.916,0-2.647l24.15-15.889c1.11-0.729,2.914-0.729,4.024,0L76.162,35.079z">
+								</path>
+								<path class="paper" d="M30.105,32.763h39.791v28.421H30.105V32.763z"></path>
+								<path class="base"
+									d="M23.003,36.404L50,54.165l26.997-17.761c0,0,0.006-0.667,0.006,1.688v27.002c0,2.354-1.91,4.264-4.264,4.264H27.262c-2.354,0-4.264-1.91-4.264-4.264V38.092C23,35.738,23.003,36.404,23.003,36.404z">
+								</path>
+								<path class="text"
+									d="M36.145,38.27h27.71c0.199,0,0.357-0.16,0.357-0.356c0-0.195-0.158-0.355-0.357-0.355h-27.71c-0.197,0-0.355,0.16-0.355,0.355C35.788,38.11,35.947,38.27,36.145,38.27z M63.854,39.691H36.144c-0.197,0-0.355,0.159-0.355,0.356c0,0.196,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.16,0.357-0.355C64.211,39.849,64.053,39.691,63.854,39.691z M63.854,41.822H36.144c-0.197,0-0.355,0.161-0.355,0.356c0,0.197,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.158,0.357-0.355C64.211,41.982,64.053,41.822,63.854,41.822z">
+								</path>
 							</g>
 						</svg>
 					</span>
 				</div>
-				<div id="vidoeLiveApplyButton" style="position:absolute;left:20px;bottom:150px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path><g class="icon"><path class="base" d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z"></path><path class="stand" d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z"></path><path class="bars_left" d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z"></path><g class="bars_right"><rect x="55.187" y="33.146" width="10.371" height="3.458"></rect><rect x="55.187" y="39.196" width="10.371" height="3.457"></rect><rect x="55.187" y="45.246" width="10.371" height="3.458"></rect></g></g></svg></span>
+				<div id="vidoeLiveApplyButton"
+					style="position:absolute;left:20px;bottom:150px;width:100px;height:100px;margin:auto;z-index:1">
+					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
+							width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
+							<g class="icon">
+								<path class="base"
+									d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z">
+								</path>
+								<path class="stand"
+									d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z">
+								</path>
+								<path class="bars_left"
+									d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z">
+								</path>
+								<g class="bars_right">
+									<rect x="55.187" y="33.146" width="10.371" height="3.458"></rect>
+									<rect x="55.187" y="39.196" width="10.371" height="3.457"></rect>
+									<rect x="55.187" y="45.246" width="10.371" height="3.458"></rect>
+								</g>
+							</g>
+						</svg></span>
 				</div>
-				<div id="vidoeCanvasButton" style="position:absolute;left:150px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path><g class="icon"><path class="base" d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z"></path><path class="stand" d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z"></path><path class="bars_left" d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z"></path><g class="bars_right"><rect x="55.187" y="33.146" width="10.371" height="3.458"></rect><rect x="55.187" y="39.196" width="10.371" height="3.457"></rect><rect x="55.187" y="45.246" width="10.371" height="3.458"></rect></g></g></svg></span>
+				<div id="vidoeCanvasButton"
+					style="position:absolute;left:150px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
+					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
+							width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
+							<g class="icon">
+								<path class="base"
+									d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z">
+								</path>
+								<path class="stand"
+									d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z">
+								</path>
+								<path class="bars_left"
+									d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z">
+								</path>
+								<g class="bars_right">
+									<rect x="55.187" y="33.146" width="10.371" height="3.458"></rect>
+									<rect x="55.187" y="39.196" width="10.371" height="3.457"></rect>
+									<rect x="55.187" y="45.246" width="10.371" height="3.458"></rect>
+								</g>
+							</g>
+						</svg></span>
 				</div>
-				<div id="vidoeLiveCreateButton" style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z"></path><g class="icon"><path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path><path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path><path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path><path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z"></path><path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path><path class="eraser" d="M65.004,23.567l10.455,10.461c1.926,1.926,1.926,5.049,0,6.975L58.03,23.567C59.958,21.642,63.078,21.642,65.004,23.567z"></path><path class="metal" d="M58.555,22.899l17.429,17.437c0.322,0.321,0.322,0.843,0,1.163l-4.244,4.246c-0.32,0.322-0.841,0.322-1.163,0L53.147,28.308c-0.319-0.32-0.319-0.842,0-1.161l4.245-4.248C57.715,22.578,58.235,22.578,58.555,22.899z"></path></g></svg></span>
+				<div id="vidoeLiveCreateButton"
+					style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
+					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
+							width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z">
+							</path>
+							<g class="icon">
+								<path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path>
+								<path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
+								<path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
+								<path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
+								</path>
+								<path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path>
+								<path class="eraser"
+									d="M65.004,23.567l10.455,10.461c1.926,1.926,1.926,5.049,0,6.975L58.03,23.567C59.958,21.642,63.078,21.642,65.004,23.567z">
+								</path>
+								<path class="metal"
+									d="M58.555,22.899l17.429,17.437c0.322,0.321,0.322,0.843,0,1.163l-4.244,4.246c-0.32,0.322-0.841,0.322-1.163,0L53.147,28.308c-0.319-0.32-0.319-0.842,0-1.161l4.245-4.248C57.715,22.578,58.235,22.578,58.555,22.899z">
+								</path>
+							</g>
+						</svg></span>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="videoMeetingTab" class="tab" style="display:none">
-	
+
 		<div id="videoMeetingCreateDlg" title="创建会议室">
-		  <p class="validateTips">请输入会议室的名称.</p>
-		  <div>
-			<input type="text" name="newMeetingName" id="newMeetingName" value="" class="text ui-widget-content ui-corner-all">
-		  </div>
-		  <div style="margin-top:10px">
-			<input type="checkbox" id="meetingTypecheck"><label for="meetingTypecheck">公开</label>
-		  </div>
+			<p class="validateTips">请输入会议室的名称.</p>
+			<div>
+				<input type="text" name="newMeetingName" id="newMeetingName" value=""
+					class="text ui-widget-content ui-corner-all">
+			</div>
+			<div style="margin-top:10px">
+				<input type="checkbox" id="meetingTypecheck"><label for="meetingTypecheck">公开</label>
+			</div>
 		</div>
-		
+
 		<div id="videoMeetingDelDlg" title="离开会议室">
-		  <p class="validateTips">确定要离开会议室吗？</p>
+			<p class="validateTips">确定要离开会议室吗？</p>
 		</div>
-	
+
 		<div class="left">
-			<div class="backButton" >返回</div>
+			<div class="backButton">返回</div>
 			<div id="videoMeetingList"></div>
 		</div>
 		<div class="right" style="position:relative;">
-			<div id="videoMeetingTitle" class="title" ></div>
+			<div id="videoMeetingTitle" class="title"></div>
 			<div id="videoMeetingZone" style="width:100%;height:100%">
 				<div id="videoMeetingVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%">
-						<video id="videoMeetingSelfVideo" muted="true" style="width:100%;height:100%"/>
+						<video id="videoMeetingSelfVideo" muted="true" style="width:100%;height:100%" />
 					</div>
 				</div>
 				<div id="videoMeetingMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
 				</div>
 				<div id="vidoeMeetingMessageButton" class="messageButton">
 					<span class="svg-icon flat-line" id="line-email">
-						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
-							<path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path>
+						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+							viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
 							<g class="icon">
-								<path class="top" d="M76.162,35.079c1.113,0.731,1.113,1.917,0,2.647L52.013,53.615c-1.11,0.731-2.915,0.731-4.024,0l-24.15-15.889c-1.111-0.73-1.111-1.916,0-2.647l24.15-15.889c1.11-0.729,2.914-0.729,4.024,0L76.162,35.079z"></path><path class="paper" d="M30.105,32.763h39.791v28.421H30.105V32.763z"></path>
-								<path class="base" d="M23.003,36.404L50,54.165l26.997-17.761c0,0,0.006-0.667,0.006,1.688v27.002c0,2.354-1.91,4.264-4.264,4.264H27.262c-2.354,0-4.264-1.91-4.264-4.264V38.092C23,35.738,23.003,36.404,23.003,36.404z"></path>
-								<path class="text" d="M36.145,38.27h27.71c0.199,0,0.357-0.16,0.357-0.356c0-0.195-0.158-0.355-0.357-0.355h-27.71c-0.197,0-0.355,0.16-0.355,0.355C35.788,38.11,35.947,38.27,36.145,38.27z M63.854,39.691H36.144c-0.197,0-0.355,0.159-0.355,0.356c0,0.196,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.16,0.357-0.355C64.211,39.849,64.053,39.691,63.854,39.691z M63.854,41.822H36.144c-0.197,0-0.355,0.161-0.355,0.356c0,0.197,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.158,0.357-0.355C64.211,41.982,64.053,41.822,63.854,41.822z"></path>
+								<path class="top"
+									d="M76.162,35.079c1.113,0.731,1.113,1.917,0,2.647L52.013,53.615c-1.11,0.731-2.915,0.731-4.024,0l-24.15-15.889c-1.111-0.73-1.111-1.916,0-2.647l24.15-15.889c1.11-0.729,2.914-0.729,4.024,0L76.162,35.079z">
+								</path>
+								<path class="paper" d="M30.105,32.763h39.791v28.421H30.105V32.763z"></path>
+								<path class="base"
+									d="M23.003,36.404L50,54.165l26.997-17.761c0,0,0.006-0.667,0.006,1.688v27.002c0,2.354-1.91,4.264-4.264,4.264H27.262c-2.354,0-4.264-1.91-4.264-4.264V38.092C23,35.738,23.003,36.404,23.003,36.404z">
+								</path>
+								<path class="text"
+									d="M36.145,38.27h27.71c0.199,0,0.357-0.16,0.357-0.356c0-0.195-0.158-0.355-0.357-0.355h-27.71c-0.197,0-0.355,0.16-0.355,0.355C35.788,38.11,35.947,38.27,36.145,38.27z M63.854,39.691H36.144c-0.197,0-0.355,0.159-0.355,0.356c0,0.196,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.16,0.357-0.355C64.211,39.849,64.053,39.691,63.854,39.691z M63.854,41.822H36.144c-0.197,0-0.355,0.161-0.355,0.356c0,0.197,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.158,0.357-0.355C64.211,41.982,64.053,41.822,63.854,41.822z">
+								</path>
 							</g>
 						</svg>
 					</span>
 				</div>
-				<div id="vidoeMeetingCreateButton" style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z"></path><g class="icon"><path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path><path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path><path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path><path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z"></path><path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path><path class="eraser" d="M65.004,23.567l10.455,10.461c1.926,1.926,1.926,5.049,0,6.975L58.03,23.567C59.958,21.642,63.078,21.642,65.004,23.567z"></path><path class="metal" d="M58.555,22.899l17.429,17.437c0.322,0.321,0.322,0.843,0,1.163l-4.244,4.246c-0.32,0.322-0.841,0.322-1.163,0L53.147,28.308c-0.319-0.32-0.319-0.842,0-1.161l4.245-4.248C57.715,22.578,58.235,22.578,58.555,22.899z"></path></g></svg></span>
+				<div id="vidoeMeetingCreateButton"
+					style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
+					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
+							width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z">
+							</path>
+							<g class="icon">
+								<path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path>
+								<path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
+								<path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
+								<path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
+								</path>
+								<path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path>
+								<path class="eraser"
+									d="M65.004,23.567l10.455,10.461c1.926,1.926,1.926,5.049,0,6.975L58.03,23.567C59.958,21.642,63.078,21.642,65.004,23.567z">
+								</path>
+								<path class="metal"
+									d="M58.555,22.899l17.429,17.437c0.322,0.321,0.322,0.843,0,1.163l-4.244,4.246c-0.32,0.322-0.841,0.322-1.163,0L53.147,28.308c-0.319-0.32-0.319-0.842,0-1.161l4.245-4.248C57.715,22.578,58.235,22.578,58.555,22.899z">
+								</path>
+							</g>
+						</svg></span>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="iotCarTab" class="tab" style="display:none">
 		<div class="left">
-			<div class="backButton" >返回</div>
+			<div class="backButton">返回</div>
 		</div>
 		<div class="right">
 			<div id="iotCarTitle" class="title">
@@ -385,32 +506,44 @@
 			<div id="iotCarZone" style="width:100%;height:100%">
 				<div id="iotCarCtrlZone" style="width:30%;height:100%;float:left">
 					<div style="width:100%;height:15%;position:relative;">
-						<div id="iotCarStart" class="topic" style="background-color:white;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">启动小车</div>
+						<div id="iotCarStart" class="topic"
+							style="background-color:white;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">启动小车</div>
 					</div>
 					<div style="width:100%;height:20%;position:relative;">
-						<div id="iotCarCtrlUp" style="background-image: url(images/icon_ctrl_up.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;"></div>
+						<div id="iotCarCtrlUp"
+							style="background-image: url(images/icon_ctrl_up.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;">
+						</div>
 					</div>
 					<div style="width:50%;height:20%;position:relative;float:left">
-						<div id="iotCarCtrlLeft" style="background-image: url(images/icon_ctrl_left.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;"></div>
+						<div id="iotCarCtrlLeft"
+							style="background-image: url(images/icon_ctrl_left.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;">
+						</div>
 					</div>
 					<div style="width:50%;height:20%;position:relative;float:right">
-						<div id="iotCarCtrlRight" style="background-image: url(images/icon_ctrl_right.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;"></div>
+						<div id="iotCarCtrlRight"
+							style="background-image: url(images/icon_ctrl_right.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;">
+						</div>
 					</div>
 					<div style="width:100%;height:20%;position:relative;clear:both">
-						<div id="iotCarCtrlDown"  style="background-image: url(images/icon_ctrl_down.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;"></div>
+						<div id="iotCarCtrlDown"
+							style="background-image: url(images/icon_ctrl_down.png);background-size: cover;width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;cursor:pointer;">
+						</div>
 					</div>
 					<div style="width:100%;height:25%;position:relative;">
-						<div id="iotCarDragZone" class="circle" style="background-color:white;width:200px;height:200px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
+						<div id="iotCarDragZone" class="circle"
+							style="background-color:white;width:200px;height:200px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
 							<div style="width:100%;height:100%;position:relative;">
 								<div style="width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
-									<div id="iotCarDrag" class="circle" style="cursor:pointer;background-color:#464646;width:100px;height:100px;line-height:100px;">云台控制</div>
+									<div id="iotCarDrag" class="circle"
+										style="cursor:pointer;background-color:#464646;width:100px;height:100px;line-height:100px;">云台控制
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div id="iotCarVideoZone" style="width:70%;height:100%;float:right;">
-					
+
 				</div>
 				<!-- <div id="iotCarMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
 				</div>
@@ -423,4 +556,5 @@
 		</div>
 	</div>
 </body>
+
 </html>
