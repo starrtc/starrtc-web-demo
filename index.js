@@ -653,6 +653,9 @@ function videoMeetingCallBack(data, status, oper) {
 					break;
 				case "delChannel":
 					if (data.status == "success") {
+						if (!StarRtc.Instance.configModePulic) {
+							StarRtc.Instance.delVideoMeetingRoom(data.userData.roomInfo, null);
+						}
 						videoMeetingDelDialog.dialog("close");
 						loadVideoMeetingList();
 					}
@@ -929,6 +932,9 @@ function videoLiveSrcCallBack(data, status, oper) {
 						break;
 					case "delChannel":
 						if (data.status == "success") {
+							if (!StarRtc.Instance.configModePulic) {
+								StarRtc.Instance.delVideoLiveRoom(data.userData.roomInfo, null);
+							}
 							videoLiveDelDialog.dialog("close");
 							loadVideoLiveList();
 						}
