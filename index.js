@@ -745,7 +745,7 @@ function exitVideoMeetingFunc() {
 function videoMeetingAddNewVideo(newVideoId, stream, clickCallback) {
 	var parentObj = $("#videoMeetingVideoZone");
 	var wrapperObj = $("<div></div>");
-	var videoObj = $("<video id=\"" + newVideoId + "\" style=\"width:100%;height:100%\" muted=\"true\"></video>");
+	var videoObj = $("<video id=\"" + newVideoId + "\" style=\"width:100%;height:100%\"></video>");
 
 	videoObj.bind("click", clickCallback);
 
