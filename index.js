@@ -482,14 +482,6 @@ function starRtcLogin(agentId, userId, authKey, callBack) {
 	StarRtc.Instance.login(agentId, userId, authKey, callBack);
 }
 //////////////////////////////////////////////star box end////////////////////////////////////////
-//////////////////////////////////////////////webrtc//////////////////////////////////////////////
-function createWebrtcStream(callback) {
-	rtc.createStream({
-		"video": { width: { ideal: 640 }, height: { ideal: 480 }, facingMode: { ideal: ["user"] } },
-		"audio": { deviceId: { ideal: ["default"] } }
-	}, callback);
-}
-//////////////////////////////////////////////webrtc end//////////////////////////////////////////
 //////////////////////////////////////////////videoMeeting////////////////////////////////////////
 var videoMeetingIds;
 var selectVideoMeetingIndex;
@@ -638,7 +630,7 @@ function videoMeetingCallBack(data, status, oper) {
 						}
 					}
 					else {
-						alert("获取摄像头视频失败！请检查摄像头设备是否接入！");
+						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
 				case "srcApplyUpload":
@@ -909,7 +901,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 							}
 						}
 						else {
-							alert("获取摄像头视频失败！请检查摄像头设备是否接入！");
+							alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 						}
 						break;
 					case "srcApplyUpload":
@@ -1078,7 +1070,7 @@ function videoLiveVdnCallBack(data, status, oper) {
 						thisRoom.joinRoom();
 					}
 					else {
-						alert("获取摄像头视频失败！请检查摄像头设备是否接入！");
+						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
 				case "vdnApplyDownload":
@@ -1458,7 +1450,7 @@ function voipCallBack(data, status, oper) {
 					}
 					else {
 						voipConnectDlg.dialog("close");
-						alert("获取摄像头视频失败！请检查摄像头设备是否接入！");
+						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
 				case "voipCalling":
