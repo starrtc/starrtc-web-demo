@@ -1,7 +1,15 @@
 # webrtc-demo
 在线效果演示： https://www.starrtc.com/demo/web/
 
-请使用最新版chrome浏览器进行测试。至少要72以上!
+请使用最新版chrome浏览器进行测试。至少要72以上! 
+
+私有部署请参考：https://docs.starrtc.com/en/docs/web-10.html
+
+本地测试可以直接拖到浏览器里。 放在服务器上需要web服务器支持https才行（没有https，没法使用webrtc api，这是谷歌定的 ）。
+
+部署https方法（有备案好的域名和正规证书的情况下）：http://www.elesos.com/index.php?title=Nginx%E9%85%8D%E7%BD%AEHTTPS
+
+没有正规证书时：
 
 本产品完全免费，并且提供免费的私有部署服务端程序，支持全部功能，并提供第三方拉流、推流功能。
 
