@@ -30,7 +30,7 @@
 		}
 
 		.loginInfo {
-			padding-top: 80px;
+			padding-top: 50px;
 		}
 
 		.userId {
@@ -175,14 +175,16 @@
 			<div id="userId" class="userId">请先登录</div>
 			<div id="login" class="logintopic">登录</div>
 		</div>
-		<div class="starServ" style="margin-top:100px">
+		<div class="starServ" style="margin-top:20px">
 			<p>
-				<center style="color:white;">注：需要有摄像头才能正常使用！请使用电脑版最新的chrome浏览器测试，其它浏览器暂不打算兼容！</center>
+				<center style="color:white;">注：请使用电脑版最新的chrome浏览器测试（至少为chrome72及以上版本），其它浏览器暂不打算兼容！</center>
 			</p>
 			<div id="voipButton" class="topic">一对一视频</div>
 			<div id="videoLiveButton" class="topic">互动直播</div>
 			<div id="videoMeetingButton" class="topic">多人会议</div>
-			<div id="iotCarButton" class="topic">小车演示</div>
+			<div id="iotCarButton" class="topic" style="display:none">小车演示</div>
+			<div id="superTalkButton" class="topic">超级对讲</div>
+			<div id="superVideoButton" class="topic">超级监控</div>
 
 			<center>安卓和iOS程序也可以和这个页面互通：
 				<a id="continue" onMouseOut="hideAndroidQr()" onmouseover="showAndroidQr()" class="a_pay">下载安卓版</a>
@@ -193,12 +195,14 @@
 
 			<p>
 				<center style="color:white;">Copyright &copy; <a
-						href='https://docs.starrtc.com/en/download/'>starRTC.com</a>&nbsp;&nbsp;&nbsp;v1.0.3</center>
+						href='https://docs.starrtc.com/en/download/'>starRTC.com</a>&nbsp;&nbsp;&nbsp;<span
+						id="sdkVersion">v1.0.3<span></center>
 			</p>
 
 			<div id="android_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img
 					src="android.png" /></div>
-			<div id="ios_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img src="ios.png" />
+			<div id="ios_app" style="display:none;height:200px;back-ground:#f00;position:absolute;"><img
+					src="ios.png" />
 			</div>
 		</div>
 	</div>
@@ -241,11 +245,12 @@
 			<div id="voipZone" style="width:100%;height:100%">
 				<div id="voipVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%;position:relative;">
-						<div id="voipCanvas" style="width:100%;height:100%;z-index=1;position:absolute;top:0px;left:0px;">
+						<div id="voipCanvas"
+							style="width:100%;height:100%;z-index=1;position:absolute;top:0px;left:0px;">
 							<canvas id="voipMyCanvas" style="width:100%;height:100%">
 							</canvas>
 						</div>
-						<video id="voipSmallVideo" muted="true" style="width:15%;max-height:100%;float:left"></video>
+						<video id="voipSmallVideo" muted style="width:15%;max-height:100%;float:left"></video>
 						<video id="voipBigVideo" style="max-width:85%;height:100%"></video>
 					</div>
 				</div>
@@ -253,8 +258,8 @@
 				</div>
 				<div id="voipMessageButton" class="messageButton" style="display:none">
 					<span class="svg-icon flat-line" id="line-email">
-						<span class="svg-icon flat-line" id="line-message"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
-								width="100px" height="100px" viewBox="0 0 100 100">
+						<span class="svg-icon flat-line" id="line-message"><svg class="flat_icon"
+								xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
 								<path class="circle"
 									d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
 								</path>
@@ -279,11 +284,13 @@
 		<div id="videoLiveCreateDlg" title="创建直播">
 			<p class="validateTips">请输入直播的名称.</p>
 			<div>
-				<input type="text" name="newLiveName" id="newLiveName" value="" class="text ui-widget-content ui-corner-all">
+				<input type="text" name="newLiveName" id="newLiveName" value=""
+					class="text ui-widget-content ui-corner-all">
 			</div>
 			<div style="margin-top:10px">
 				<input type="checkbox" id="liveTypecheck" style="display:none"><label for="liveTypecheck"
 					style="display:none">公开</label>
+				<input type="checkbox" id="liveMediaSourceTypeCheck"><label for="liveMediaSourceTypeCheck">分享屏幕</label>
 			</div>
 		</div>
 		<div id="videoLiveDelDlg" title="离开直播">
@@ -313,12 +320,12 @@
 			<div id="videoLiveZone" style="width:100%;height:100%;background-color:#464646;position:relative;">
 				<div id="videoLiveVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%">
-						<video id="videoLiveSelfVideo" muted="true" style="width:100%;height:100%" />
+						<video id="videoLiveSelfVideo" muted style="width:100%;height:100%" />
 					</div>
 				</div>
 				<div id="videoLiveMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
 				</div>
-				<div id="vidoeLiveMessageButton" class="messageButton">
+				<div id="videoLiveMessageButton" class="messageButton">
 					<span class="svg-icon flat-line" id="line-email">
 						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
 							viewBox="0 0 100 100">
@@ -340,10 +347,10 @@
 						</svg>
 					</span>
 				</div>
-				<div id="vidoeLiveApplyButton"
+				<div id="videoLiveApplyButton"
 					style="position:absolute;left:20px;bottom:150px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
-							width="100px" height="100px" viewBox="0 0 100 100">
+					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
 							<path class="circle"
 								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
 							</path>
@@ -365,10 +372,10 @@
 							</g>
 						</svg></span>
 				</div>
-				<div id="vidoeCanvasButton"
+				<div id="videoCanvasButton"
 					style="position:absolute;left:150px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
-							width="100px" height="100px" viewBox="0 0 100 100">
+					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
 							<path class="circle"
 								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
 							</path>
@@ -390,18 +397,21 @@
 							</g>
 						</svg></span>
 				</div>
-				<div id="vidoeLiveCreateButton"
+				<div id="videoLiveCreateButton"
 					style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
-							width="100px" height="100px" viewBox="0 0 100 100">
+					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
 							<path class="circle"
 								d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z">
 							</path>
 							<g class="icon">
 								<path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path>
-								<path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
-								<path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
-								<path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
+								<path class="base_top"
+									d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
+								<path class="base_bottom"
+									d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
+								<path class="base_middle"
+									d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
 								</path>
 								<path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path>
 								<path class="eraser"
@@ -425,7 +435,10 @@
 					class="text ui-widget-content ui-corner-all">
 			</div>
 			<div style="margin-top:10px">
-				<input type="checkbox" id="meetingTypecheck"><label for="meetingTypecheck">公开</label>
+				<input type="checkbox" id="meetingTypecheck" style="display:none"><label for="meetingTypecheck"
+					style="display:none">公开</label>
+				<input type="checkbox" id="meetingMediaSourceTypeCheck"><label
+					for="meetingMediaSourceTypeCheck">分享屏幕</label>
 			</div>
 		</div>
 
@@ -442,12 +455,12 @@
 			<div id="videoMeetingZone" style="width:100%;height:100%">
 				<div id="videoMeetingVideoZone" style="width:100%;height:100%">
 					<div class="" style="width:100%;height:100%">
-						<video id="videoMeetingSelfVideo" muted="true" style="width:100%;height:100%" />
+						<video id="videoMeetingSelfVideo" muted style="width:100%;height:100%" />
 					</div>
 				</div>
 				<div id="videoMeetingMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
 				</div>
-				<div id="vidoeMeetingMessageButton" class="messageButton">
+				<div id="videoMeetingMessageButton" class="messageButton">
 					<span class="svg-icon flat-line" id="line-email">
 						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
 							viewBox="0 0 100 100">
@@ -469,18 +482,21 @@
 						</svg>
 					</span>
 				</div>
-				<div id="vidoeMeetingCreateButton"
+				<div id="videoMeetingCreateButton"
 					style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
-					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg"
-							width="100px" height="100px" viewBox="0 0 100 100">
+					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
 							<path class="circle"
 								d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z">
 							</path>
 							<g class="icon">
 								<path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path>
-								<path class="base_top" d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
-								<path class="base_bottom" d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
-								<path class="base_middle" d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
+								<path class="base_top"
+									d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
+								<path class="base_bottom"
+									d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
+								<path class="base_middle"
+									d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
 								</path>
 								<path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path>
 								<path class="eraser"
@@ -507,7 +523,8 @@
 				<div id="iotCarCtrlZone" style="width:30%;height:100%;float:left">
 					<div style="width:100%;height:15%;position:relative;">
 						<div id="iotCarStart" class="topic"
-							style="background-color:white;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">启动小车</div>
+							style="background-color:white;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
+							启动小车</div>
 					</div>
 					<div style="width:100%;height:20%;position:relative;">
 						<div id="iotCarCtrlUp"
@@ -533,9 +550,11 @@
 						<div id="iotCarDragZone" class="circle"
 							style="background-color:white;width:200px;height:200px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
 							<div style="width:100%;height:100%;position:relative;">
-								<div style="width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
+								<div
+									style="width:100px;height:100px;margin:auto;position:absolute;top:0;left:0;bottom:0;right:0;">
 									<div id="iotCarDrag" class="circle"
-										style="cursor:pointer;background-color:#464646;width:100px;height:100px;line-height:100px;">云台控制
+										style="cursor:pointer;background-color:#464646;width:100px;height:100px;line-height:100px;">
+										云台控制
 									</div>
 								</div>
 							</div>
@@ -552,6 +571,391 @@
 						<span class="svg-icon flat-line" id="line-message"><svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100"><path class="circle" d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z"></path><g class="icon"><path class="back" d="M75.139,28.854h-3.807l-8.125-8.125c-0.381-0.38-0.999-0.382-1.381,0l-8.124,8.125H36.428c-2.79,0-5.05,2.261-5.05,5.048v25.247c0,2.79,2.26,5.051,5.05,5.051h38.711c2.789,0,5.05-2.261,5.05-5.051V33.902C80.188,31.115,77.928,28.854,75.139,28.854z"></path><path class="front" d="M63.571,35.8H24.862c-2.789,0-5.05,2.262-5.05,5.049v25.247c0,2.788,2.261,5.049,5.05,5.049h3.806l8.125,8.125c0.382,0.381,1,0.383,1.381,0l8.125-8.125h17.275c2.788,0,5.05-2.261,5.05-5.049V40.85C68.62,38.062,66.361,35.8,63.571,35.8z"></path><path class="dots" d="M34.743,50.108c-1.858,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.367-1.507,3.367-3.367C38.109,51.615,36.603,50.108,34.743,50.108z M44.842,50.108c-1.858,0-3.367,1.507-3.367,3.366c0,1.86,1.507,3.367,3.367,3.367c1.859,0,3.366-1.507,3.366-3.367C48.208,51.615,46.701,50.108,44.842,50.108z M54.94,50.108c-1.857,0-3.365,1.507-3.365,3.366c0,1.86,1.506,3.367,3.365,3.367c1.86,0,3.366-1.507,3.366-3.367C58.307,51.615,56.8,50.108,54.94,50.108z"></path></g></svg></span>
 					</span>
 				</div> -->
+			</div>
+		</div>
+	</div>
+	<div id="superTalkTab" class="tab" style="display:none">
+		<div id="superTalkCreateDlg" title="创建超级聊天室">
+			<p class="validateTips">请输入超级聊天室的名称.</p>
+			<div>
+				<input type="text" name="newSuperTalkName" id="newSuperTalkName" value=""
+					class="text ui-widget-content ui-corner-all">
+			</div>
+		</div>
+
+		<div id="superTalkDelDlg" title="离开超级聊天室">
+			<p class="validateTips">确定要离开超级聊天室吗？</p>
+		</div>
+		<div id="superTalkStartTalkDlg" title="开始说话">
+			<p class="validateTips">确定要开始说话吗？</p>
+		</div>
+		<div id="superTalkEndTalkDlg" title="结束说话">
+			<p class="validateTips">确定要结束说话吗？</p>
+		</div>
+		<div id="superTalkStartTalkConnectDlg" title="正在开启说话">
+			<div class="validateTips">
+				<div class="spinner" style="width:100px;margin-top:10px;">
+					<div class="rect1" style="margin-left:5px;"></div>
+					<div class="rect2" style="margin-left:5px;"></div>
+					<div class="rect3" style="margin-left:5px;"></div>
+					<div class="rect4" style="margin-left:5px;"></div>
+					<div class="rect5" style="margin-left:5px;"></div>
+				</div>
+			</div>
+		</div>
+		<div class="left">
+			<div class="backButton">返回</div>
+			<div id="superTalkList"></div>
+		</div>
+		<div class="right" style="position:relative;">
+			<div id="superTalkTitle" class="title"></div>
+			<div id="superTalkZone" style="width:100%;height:100%">
+				<div id="superTalkAudioZone" style="width:100%;height:100%">
+					<div id="superTalkUser0" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName0" class="title"></div>
+						<audio id="superTalkAudioUser0" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser1" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName1" class="title"></div>
+						<audio id="superTalkAudioUser1" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser2" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName2" class="title"></div>
+						<audio id="superTalkAudioUser2" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser3" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName3" class="title"></div>
+						<audio id="superTalkAudioUser3" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser4" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName4" class="title"></div>
+						<audio id="superTalkAudioUser4" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser5" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName5" class="title"></div>
+						<audio id="superTalkAudioUser5" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superTalkUser6" class="" style="width:25%;height:50%;float:left;display:none">
+						<div style="display: flex;align-items: center;justify-content: center;">
+							<span class="svg-icon flat-shadow" id="shadow-user"><svg class="flat_icon"
+									xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+									viewBox="0 0 100 100">
+									<path class="circle"
+										d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+									</path>
+									<g class="icon">
+										<path class="body"
+											d="M74.302,78.127H25.698c-2.982,0-5.4-2.419-5.4-5.4l0,0l0,0c0-19.884,13.501-25.202,29.702-25.202s29.702,5.318,29.702,25.202l0,0C79.702,75.71,77.283,78.127,74.302,78.127z">
+										</path>
+										<polygon class="collar_right" points="63.501,49.325 50,54.726 55.4,62.826 ">
+										</polygon>
+										<polygon class="collar_left"
+											points="46.977,62.826 52.377,54.726 38.876,49.325 "></polygon>
+										<path class="head"
+											d="M50.877,21.873c8.947,0,16.201,7.254,16.201,16.201c0,8.948-7.254,16.201-16.201,16.201c-8.947,0-16.201-7.253-16.201-16.201C34.676,29.127,41.928,21.873,50.877,21.873z">
+										</path>
+										<path class="hair"
+											d="M67.918,39.683c-1.019,0.116-2.053,0.193-3.114,0.193c-8.816,0-16.3-4.136-19.082-9.9h-0.565c-1.256,2.194-3.435,4.371-6.296,6.022c-1.684,0.972-3.41,1.646-5.062,2.043c0.386-7.127,5.121-13.086,11.609-15.266h0.087c0.83-0.279,1.686-0.499,2.564-0.653c0.055-0.009,0.11-0.018,0.166-0.023c0.371-0.061,0.745-0.111,1.124-0.148c0.497-0.044,0.997-0.075,1.504-0.075c7.674,0,14.167,5.054,16.332,12.016c0.168,0.537,0.309,1.083,0.423,1.638c0.229,1.114,0.349,2.267,0.349,3.447C67.954,39.215,67.928,39.445,67.918,39.683z">
+										</path>
+									</g>
+								</svg></span>
+						</div>
+						<div id="superTalkUserName6" class="title"></div>
+						<audio id="superTalkAudioUser6" autoplay muted style="width:100%;height:100%" />
+					</div>
+				</div>
+				<div id="superTalkMsgWindow" style="width:15%;height:100%;float:right;position:relative;">
+				</div>
+				<div id="superTalkMessageButton" class="messageButton">
+					<span class="svg-icon flat-line" id="line-email">
+						<svg class="flat_icon" xmlns="http://www.w3.org/2000/svg" width="100px" height="100px"
+							viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
+							<g class="icon">
+								<path class="top"
+									d="M76.162,35.079c1.113,0.731,1.113,1.917,0,2.647L52.013,53.615c-1.11,0.731-2.915,0.731-4.024,0l-24.15-15.889c-1.111-0.73-1.111-1.916,0-2.647l24.15-15.889c1.11-0.729,2.914-0.729,4.024,0L76.162,35.079z">
+								</path>
+								<path class="paper" d="M30.105,32.763h39.791v28.421H30.105V32.763z"></path>
+								<path class="base"
+									d="M23.003,36.404L50,54.165l26.997-17.761c0,0,0.006-0.667,0.006,1.688v27.002c0,2.354-1.91,4.264-4.264,4.264H27.262c-2.354,0-4.264-1.91-4.264-4.264V38.092C23,35.738,23.003,36.404,23.003,36.404z">
+								</path>
+								<path class="text"
+									d="M36.145,38.27h27.71c0.199,0,0.357-0.16,0.357-0.356c0-0.195-0.158-0.355-0.357-0.355h-27.71c-0.197,0-0.355,0.16-0.355,0.355C35.788,38.11,35.947,38.27,36.145,38.27z M63.854,39.691H36.144c-0.197,0-0.355,0.159-0.355,0.356c0,0.196,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.16,0.357-0.355C64.211,39.849,64.053,39.691,63.854,39.691z M63.854,41.822H36.144c-0.197,0-0.355,0.161-0.355,0.356c0,0.197,0.158,0.355,0.355,0.355h27.711c0.197,0,0.357-0.158,0.357-0.355C64.211,41.982,64.053,41.822,63.854,41.822z">
+								</path>
+							</g>
+						</svg>
+					</span>
+				</div>
+				<div id="superTalkEndTalkButton"
+					style="position:absolute;left:150px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1;display:none">
+					<span class="svg-icon flat-filled" id="filled-mic"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
+							<g class="icon">
+								<path class="base"
+									d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z">
+								</path>
+								<path class="stand"
+									d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z">
+								</path>
+								<path class="bars_left"
+									d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z">
+								</path>
+								<g class="bars_right">
+									<rect x="55.187" y="33.146" width="10.371" height="3.458"></rect>
+									<rect x="55.187" y="39.196" width="10.371" height="3.457"></rect>
+									<rect x="55.187" y="45.246" width="10.371" height="3.458"></rect>
+								</g>
+							</g>
+						</svg></span>
+				</div>
+				<div id="superTalkStartTalkButton"
+					style="position:absolute;left:150px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1;display:none">
+					<span class="svg-icon flat-line" id="line-mic"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,2.125c26.441,0,47.875,21.434,47.875,47.875c0,26.441-21.434,47.875-47.875,47.875C17.857,97.875,2.125,76.441,2.125,50C2.125,23.559,23.559,2.125,50,2.125z">
+							</path>
+							<g class="icon">
+								<path class="base"
+									d="M50,19.317c8.592,0,15.557,6.964,15.557,15.558v12.101c0,8.593-6.965,15.558-15.557,15.558s-15.558-6.965-15.558-15.558V34.875C34.443,26.281,41.408,19.317,50,19.317z">
+								</path>
+								<path class="stand"
+									d="M74.201,46.975c0-1.433-1.161-2.594-2.592-2.594c-1.434,0-2.595,1.161-2.595,2.594c0,10.501-8.512,19.015-19.014,19.015c-10.501,0-19.015-8.514-19.015-19.015c0-1.433-1.16-2.594-2.593-2.594c-1.432,0-2.593,1.161-2.593,2.594c0,12.49,9.461,22.765,21.607,24.06v4.461h-6.913c-1.432,0-2.594,1.162-2.594,2.594s1.161,2.594,2.594,2.594h19.014c1.433,0,2.593-1.162,2.593-2.594s-1.16-2.594-2.593-2.594h-6.915v-4.461C64.739,69.74,74.201,59.463,74.201,46.975z">
+								</path>
+								<path class="bars_left"
+									d="M34.443,33.146v3.458h10.372v-3.458H34.443z M34.443,42.653h10.372v-3.457H34.443V42.653z M34.443,48.704h10.372v-3.458H34.443V48.704z">
+								</path>
+								<g class="bars_right">
+									<rect x="55.187" y="33.146" width="10.371" height="3.458"></rect>
+									<rect x="55.187" y="39.196" width="10.371" height="3.457"></rect>
+									<rect x="55.187" y="45.246" width="10.371" height="3.458"></rect>
+								</g>
+							</g>
+						</svg></span>
+				</div>
+				<div id="superTalkCreateButton"
+					style="position:absolute;left:20px;bottom:20px;width:100px;height:100px;margin:auto;z-index:1">
+					<span class="svg-icon flat-line" id="line-pencil"><svg class="flat_icon"
+							xmlns="http://www.w3.org/2000/svg" width="100px" height="100px" viewBox="0 0 100 100">
+							<path class="circle"
+								d="M50,4.25c26.441,0,47.875,21.434,47.875,47.875C97.875,78.566,76.441,100,50,100C17.857,100,2.125,78.566,2.125,52.125C2.125,25.684,23.559,4.25,50,4.25z">
+							</path>
+							<g class="icon">
+								<path class="wood" d="M26.683,55.108l16.801,16.84L23.62,75.635L26.683,55.108z"></path>
+								<path class="base_top"
+									d="M53.408,28.524l5.809,5.813L32.489,61.012l-5.807-5.75L53.408,28.524z"></path>
+								<path class="base_bottom"
+									d="M63.639,38.64l6.569,6.572L43.483,71.948l-6.635-6.575L63.639,38.64z"></path>
+								<path class="base_middle"
+									d="M58.868,33.931l6.569,6.573L38.714,67.239l-6.569-6.574L58.868,33.931z">
+								</path>
+								<path class="tip" d="M31.731,74.101l-8.635,1.776l1.776-8.638L31.731,74.101z"></path>
+								<path class="eraser"
+									d="M65.004,23.567l10.455,10.461c1.926,1.926,1.926,5.049,0,6.975L58.03,23.567C59.958,21.642,63.078,21.642,65.004,23.567z">
+								</path>
+								<path class="metal"
+									d="M58.555,22.899l17.429,17.437c0.322,0.321,0.322,0.843,0,1.163l-4.244,4.246c-0.32,0.322-0.841,0.322-1.163,0L53.147,28.308c-0.319-0.32-0.319-0.842,0-1.161l4.245-4.248C57.715,22.578,58.235,22.578,58.555,22.899z">
+								</path>
+							</g>
+						</svg></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="superVideoTab" class="tab" style="display:none">
+		<div class="left">
+			<div class="backButton">返回</div>
+			<div id="superVideoList">
+				<div class='button2' onclick='openSuperVideoMeeting()'>超级会议监控</div>
+				<div class='button2' onclick='openSuperVideoLive()'>超级直播监控</div>
+			</div>
+		</div>
+		<div class="right" style="position:relative;">
+			<div id="superVideoTitle" class="title"></div>
+			<div id="superVideoZone" style="width:100%;height:100%">
+				<div id="superVideoVideoZone" style="width:100%;height:100%">
+					<div id="superVideo0" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName0" class="title"></div>
+						<video id="superVideoVideo0" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo1" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName1" class="title"></div>
+						<video id="superVideoVideo1" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo2" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName2" class="title"></div>
+						<video id="superVideoVideo2" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo3" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName3" class="title"></div>
+						<video id="superVideoVideo3" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo4" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName0" class="title"></div>
+						<video id="superVideoVideo4" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo5" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName5" class="title"></div>
+						<video id="superVideoVideo5" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo6" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName6" class="title"></div>
+						<video id="superVideoVideo6" autoplay muted style="width:100%;height:100%" />
+					</div>
+					<div id="superVideo7" class="" style="width:25%;height:50%;float:left;display:none">
+						<div id="superVideoName7" class="title"></div>
+						<video id="superVideoVideo7" autoplay muted style="width:100%;height:100%" />
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

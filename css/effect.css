@@ -1,53 +1,2489 @@
 .svg-icon {
     display: inline-block;
     width: 134px;
-    height: 138px;
-    //margin: 40px 30px;
+    height: 138px; //margin: 40px 30px;
     float: left;
-	}
-	.svg-icon:hover { cursor: pointer }
-	
-	.flat-line {
-		display: inline-block;
-		width: 100px;
-		height: 100px;
-		//margin: 40px 30px;
-	}
-	
-	/*Genral*/
-	.flat-line .icon > path {
-		stroke: #fff;
-		stroke-width: 3px;
-		fill: transparent;
-		transform: translate(0px, 0px) scale(1,1);
-		-webkit-transform: translate(0px ,0px) scale(1,1);
-		-moz-transform: translate(0px ,0px) scale(1,1);
-	}
-	.flat-line .circle {
-		stroke: #fff;
-		stroke-width: 3px;
-		fill: #52be7f;
-		transform: translate(0px, 0px) scale(1,1);
-		-webkit-transform: translate(0px ,0px) scale(1,1);
-		-moz-transform: translate(0px ,0px) scale(1,1);
-	}
-	/*Exceptions*/
-	.flat-line .icon > .lightning {
-		stroke: #fff;
-		stroke-width: 1.5px;
-		fill: transparent;
-		transform: translate(0px, 0px) scale(1,1);
-		-webkit-transform: translate(0px ,0px) scale(1,1);
-		-moz-transform: translate(0px ,0px) scale(1,1);
-	}
-	
-	/*=============================================
+}
+
+.svg-icon:hover {
+    cursor: pointer
+}
+
+.flat-line {
+    display: inline-block;
+    width: 100px;
+    height: 100px; //margin: 40px 30px;
+}
+
+.flat-filled {
+    display: inline-block;
+    width: 100px;
+    height: 100px; //margin: 40px 30px;
+}
+
+.flat-shadow {
+    display: inline-block;
+    width: 100px;
+    height: 100px; //margin: 40px 30px;
+}
+
+/*=============================================
+[ Inactive Styles ]
+==============================================*/
+
+.social-line {
+    display: inline-block;
+    width: 134px;
+    height: 138px;
+    margin-right: 54px;
+}
+
+.social-line:hover {
+    cursor: pointer
+}
+
+/* Gradient Offsets */
+
+.offset0 {
+    stop-color: #000000;
+    stop-opacity: 0.5;
+}
+
+.offset1 {
+    stop-color: #000000;
+    stop-opacity: 0.2;
+}
+
+.offset2 {
+    stop-color: #000000;
+    stop-opacity: 0.173;
+}
+
+.offset3 {
+    stop-color: #000000;
+    stop-opacity: 0;
+}
+
+.offset4 {
+    stop-color: #000000;
+    stop-opacity: 0.7;
+}
+
+.offset5 {
+    stop-color: #000000;
+    stop-opacity: 0.1143;
+}
+
+.offset6 {
+    stop-color: #000000;
+    stop-opacity: 0.1106;
+}
+
+.social-line {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.social-line .icon_circle_shadow {
+    fill: none;
+    fill-opacity: 0;
+    opacity: 0;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all 4s ease;
+    transition: all .4s ease;
+}
+
+.social-line .icon_shape_shadow {
+    fill: none;
+    fill-opacity: 0;
+}
+
+.social-line .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: none;
+}
+
+.social-line .icon_shape {
+    fill: #FFFFFF
+}
+
+/*=============================================
 [ Hover Styles ]
 ==============================================*/
+
+.social-line:hover {
+    overflow: visible;
+    -webkit-transform: scale(1.15, 1.15);
+    -moz-transform: scale(1.15, 1.15);
+    transform: scale(1.15, 1.15);
+}
+
+/* Gradient IDs */
+
+.social-line:hover .icon_circle_shadow {
+    fill: url(#icon_circle_gradient);
+    fill-opacity: 0.7;
+    opacity: 1;
+}
+
+.social-line:hover .icon_shape_shadow {
+    fill: url(#icon_shape_gradient);
+    fill-opacity: 0.9;
+    -webkit-transition-delay: .4s;
+    -moz-transition-delay: .4s;
+    transition-delay: .4s;
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    transform: scale(1, 1);
+}
+
+/* Icon Styles */
+
+.social-line:hover .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: none;
+}
+
+.social-line:hover path.icon_shape {
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    /*animation-name*/
+    -webkit-animation-name: burst;
+    -moz-animation-name: burst;
+    -ms-animation-name: burst;
+    -o-animation-name: burst;
+    animation-name: burst;
+    /*animation-duration*/
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 40px 38px !important;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+/*=============================================
+[ KeyFrame Animations ]
+==============================================*/
+
+@-webkit-keyframes burst {
+        {
+        -webkit-transform: scale(1.1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -webkit-transform: scale(1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -webkit-transform: scale(1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -webkit-transform: scale(1.1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -webkit-transform: scale(1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -webkit-transform: scale(1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -webkit-transform: scale(1.4);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: scale(1.1);
+        animation-timing-function: ease-out;
+    }
+}
+
+@-moz-keyframes burst {
+        {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -moz-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -moz-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -moz-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+}
+
+@keyframes burst {
+        {
+        transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+}
+
+/*=============================================
+[ Inactive Styles ]
+==============================================*/
+
+.social-shadow {
+    display: inline-block;
+    overflow: visible;
+    margin-right: 0;
+}
+
+/* Gradient Offsets */
+
+.offset0 {
+    stop-color: #000000;
+    stop-opacity: 0.5;
+}
+
+.offset1 {
+    stop-color: #000000;
+    stop-opacity: 0.2;
+}
+
+.offset2 {
+    stop-color: #000000;
+    stop-opacity: 0.173;
+}
+
+.offset3 {
+    stop-color: #000000;
+    stop-opacity: 0;
+}
+
+.offset4 {
+    stop-color: #000000;
+    stop-opacity: 0.7;
+}
+
+.offset5 {
+    stop-color: #000000;
+    stop-opacity: 0.1143;
+}
+
+.offset6 {
+    stop-color: #000000;
+    stop-opacity: 0.1106;
+}
+
+.social-shadow {
+    overflow: visible
+}
+
+/* Gradient IDs */
+
+.social-shadow .icon_circle_shadow {
+    fill: url(#icon_circle_gradient);
+    fill-opacity: 0.7;
+    opacity: 1;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all 4s ease;
+    transition: all .4s ease;
+}
+
+.social-shadow .icon_shape_shadow {
+    fill: url(#icon_shape_gradient);
+    fill-opacity: 0.9;
+}
+
+/* Icon Styles */
+
+.social-shadow .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: none;
+}
+
+.social-shadow .icon_shape {
+    fill: #fff
+}
+
+/*=============================================
+[ Hover Styles ]
+==============================================*/
+
+.social-shadow:hover {
+    display: inline-block;
+    width: 134px;
+    height: 138px;
+    cursor: pointer;
+}
+
+.social-shadow:hover .social-shadow {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.social-shadow:hover .icon_circle_shadow {
+    opacity: 0
+}
+
+.social-shadow:hover .icon_shape_shadow {
+    opacity: 0
+}
+
+.social-shadow:hover .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: none;
+}
+
+.social-shadow:hover .icon_shape {
+    fill: #FFFFFF
+}
+
+.social-shadow:hover .icon_shape {
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    /*animation-name*/
+    -webkit-animation-name: burst2;
+    -moz-animation-name: burst2;
+    -ms-animation-name: burst2;
+    -o-animation-name: burst2;
+    animation-name: burst2;
+    /*animation-duration*/
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 40px 38px !important;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+/*=============================================
+[ KeyFrame Animations ]
+==============================================*/
+
+@-webkit-keyframes burst2 {
+    100% {
+        -webkit-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -webkit-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -webkit-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -webkit-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -webkit-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -webkit-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -webkit-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+@-moz-keyframes burst2 {
+    100% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -moz-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -moz-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -moz-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+@keyframes burst2 {
+    100% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+/*=============================================
+[ Inactive Styles ]
+==============================================*/
+
+.social-filled {
+    display: inline-block;
+    width: 134px;
+    height: 138px;
+    margin-right: 54px;
+}
+
+.social-filled:hover {
+    cursor: pointer
+}
+
+/* Gradient Offsets */
+
+.offset0 {
+    stop-color: #000000;
+    stop-opacity: 0.5;
+}
+
+.offset1 {
+    stop-color: #000000;
+    stop-opacity: 0.2;
+}
+
+.offset2 {
+    stop-color: #000000;
+    stop-opacity: 0.173;
+}
+
+.offset3 {
+    stop-color: #000000;
+    stop-opacity: 0;
+}
+
+.offset4 {
+    stop-color: #000000;
+    stop-opacity: 0.7;
+}
+
+.offset5 {
+    stop-color: #000000;
+    stop-opacity: 0.1143;
+}
+
+.offset6 {
+    stop-color: #000000;
+    stop-opacity: 0.1106;
+}
+
+.social-filled {
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+}
+
+.social-filled .icon_circle_shadow {
+    fill: none;
+    fill-opacity: 0;
+    opacity: 0;
+    -webkit-transition: all .4s ease;
+    -moz-transition: all 4s ease;
+    transition: all .4s ease;
+}
+
+.social-filled .icon_shape_shadow {
+    fill: none;
+    fill-opacity: 0;
+}
+
+.social-filled .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: #fff;
+}
+
+.social-filled .icon_shape {
+    fill: #af7ac4
+}
+
+/*=============================================
+[ Hover Styles ]
+==============================================*/
+
+.social-filled:hover {
+    overflow: visible;
+    -webkit-transform: scale(1.25, 1.25);
+    -moz-transform: scale(1.25, 1.25);
+    transform: scale(1.25, 1.25);
+}
+
+/* Gradient IDs */
+
+.social-filled:hover .icon_circle_shadow {
+    fill: url(#icon_circle_gradient);
+    fill-opacity: 0.7;
+    opacity: 1;
+}
+
+.social-filled:hover .icon_shape_shadow {
+    fill: url(#icon_shape_gradient);
+    fill-opacity: 0.9;
+    -webkit-transition-delay: .4s;
+    -moz-transition-delay: .4s;
+    transition-delay: .4s;
+}
+
+/* Icon Styles */
+
+.social-filled:hover .icon_circle {
+    stroke: #FFFFFF;
+    stroke-width: 5;
+    stroke-miterlimit: 10;
+    fill: none;
+}
+
+.social-filled:hover path.icon_shape {
+    fill: #fff;
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    /*animation-name*/
+    -webkit-animation-name: burst3;
+    -moz-animation-name: burst3;
+    -ms-animation-name: burst3;
+    -o-animation-name: burst3;
+    animation-name: burst3;
+    /*animation-duration*/
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 40px 38px !important;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+/*=============================================
+[ KeyFrame Animations ]
+==============================================*/
+
+@-webkit-keyframes burst3 {
+    100% {
+        -webkit-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -webkit-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -webkit-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -webkit-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -webkit-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -webkit-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -webkit-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+@-moz-keyframes burst3 {
+    100% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -moz-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -moz-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -moz-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+@keyframes burst3 {
+    100% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+}
+
+/*=============================================
+[ Inactive Styles ]
+==============================================*/
+
+/*Genral*/
+
+.flat-filled .icon>path {
+    fill: #f26c63;
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+.flat-filled .icon>.lightning {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+.flat-filled .circle {
+    fill: #fff;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+/*Exceptions*/
+
+#filled-user .collar_right {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+#filled-user .collar_left {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+#filled-lightning .bolt {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+#filled-lightning .highlight {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+#filled-mic .bars_right rect {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+}
+
+#filled-coffee .top {
+    fill: #f26c63;
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+    transform: translate(0px, 0px) scale(1, 1);
+    : ;
+}
+
+/*Specifics*/
+
+#filled-browser .green {
+    fill: #FFF
+}
+
+#filled-browser .orange {
+    fill: #FFF
+}
+
+#filled-browser .red {
+    fill: #FFF
+}
+
+#filled-brush .brush_silver {
+    fill: #FFF
+}
+
+#filled-calander .number {
+    fill: #FFF
+}
+
+#filled-camera .lens_inner {
+    fill: #FFF
+}
+
+#filled-clock .seconds {
+    fill: #FFF
+}
+
+#filled-clock .middle {
+    fill: #FFF
+}
+
+#filled-clock .hour {
+    fill: #FFF
+}
+
+#filled-clock .minute {
+    fill: #FFF
+}
+
+#filled-coffee .middle {
+    fill: #FFF
+}
+
+#filled-diamond .middle {
+    fill: #FFF
+}
+
+#filled-diamond .top_3 {
+    fill: #FFF
+}
+
+#filled-disk .top {
+    fill: #FFF
+}
+
+#filled-disk .top_right {
+    fill: #FFF
+}
+
+#filled-disk .text {
+    fill: #FFF
+}
+
+#filled-email .paper {
+    fill: #FFF
+}
+
+#filled-home .hole {
+    fill: #FFF
+}
+
+#filled-location .inner {
+    fill: #FFF
+}
+
+#filled-lock .keyhole {
+    fill: #FFF
+}
+
+#filled-message .dots {
+    fill: #FFF
+}
+
+#filled-picture .sun {
+    fill: #FFF
+}
+
+#filled-picture .mountain {
+    fill: #FFF
+}
+
+#filled-mic .bars_left {
+    fill: #FFF
+}
+
+#filled-mic .bars_right rect {
+    fill: #FFF
+}
+
+#filled-paper .text {
+    fill: #FFF
+}
+
+#filled-paper .corner {
+    fill: #FFF
+}
+
+#filled-pencil .metal {
+    fill: #FFF
+}
+
+#filled-phone .screen {
+    fill: #FFF
+}
+
+#filled-phone .details {
+    fill: #FFF
+}
+
+#filled-robot .eyes {
+    fill: #FFFFFF
+}
+
+#filled-suitcase .buttons {
+    fill: #FFF
+}
+
+#filled-tag .dot {
+    fill: #FFF
+}
+
+#filled-thumbsdown .dot {
+    fill: #FFFFFF
+}
+
+#filled-thumbsup .dot {
+    fill: #FFFFFF
+}
+
+#filled-trash .details {
+    fill: #FFF
+}
+
+#filled-winner .text {
+    fill: #FFFFFF
+}
+
+/*=============================================
+[ Hover Styles ]
+==============================================*/
+
+#filled-browser:hover .circle {
+    fill: #B1EB5B
+}
+
+#filled-browser:hover .screen {
+    fill: #d6d6d6
+}
+
+#filled-browser:hover .base {
+    fill: #b0b0b0
+}
+
+#filled-browser:hover .top {
+    fill: #8F8F8F
+}
+
+#filled-browser:hover .green {
+    fill: #AEE42D
+}
+
+#filled-browser:hover .orange {
+    fill: #FFD02C
+}
+
+#filled-browser:hover .red {
+    fill: #E64545
+}
+
+#filled-brush:hover .brush_base {
+    fill: #00A3C6
+}
+
+#filled-brush:hover .brush_highlight {
+    fill: #43C1DC
+}
+
+#filled-brush:hover .brush_silver {
+    fill: #C8C8C8
+}
+
+#filled-brush:hover .brush_tip {
+    fill: #917152
+}
+
+#filled-brush:hover .circle {
+    fill: #F0A878
+}
+
+#filled-calander:hover .circle {
+    fill: #F3CF3F
+}
+
+#filled-calander:hover .base_top {
+    fill: #5B3F89
+}
+
+#filled-calander:hover .left {
+    fill: #848484
+}
+
+#filled-calander:hover .right {
+    fill: #848484
+}
+
+#filled-calander:hover .number {
+    fill: #fff
+}
+
+#filled-calander:hover .base_bottom {
+    fill: #644892
+}
+
+#filled-camera:hover .circle {
+    fill: #F39C12
+}
+
+#filled-camera:hover .base {
+    fill: #E0DECD
+}
+
+#filled-camera:hover .strip {
+    fill: #3376D2
+}
+
+#filled-camera:hover .lens {
+    fill: #CAC8B7
+}
+
+#filled-camera:hover .lens_inner {
+    fill: #A6A495
+}
+
+#filled-camera:hover .flash {
+    fill: #FFF
+}
+
+#filled-camera:hover .red {
+    fill: #D25133
+}
+
+#filled-camera:hover .button {
+    fill: #A6A496
+}
+
+#filled-clock:hover .circle {
+    fill: #02BD85
+}
+
+#filled-clock:hover .base {
+    fill: #FF8933
+}
+
+#filled-clock:hover .face {
+    fill: #FFF
+}
+
+#filled-clock:hover .seconds {
+    fill: #FF725F
+}
+
+#filled-clock:hover .middle {
+    fill: #808080
+}
+
+#filled-clock:hover .hour {
+    fill: #808080
+}
+
+#filled-clock:hover .minute {
+    fill: #808080
+}
+
+#filled-coffee:hover .circle {
+    fill: #82D8B5
+}
+
+#filled-coffee:hover .base {
+    fill: #8F6349
+}
+
+#filled-coffee:hover .middle {
+    fill: #9C8679
+}
+
+#filled-coffee:hover .top {
+    fill: #F1F1F1
+}
+
+#filled-diamond:hover .circle {
+    fill: #02BD85
+}
+
+#filled-diamond:hover .middle {
+    fill: #D87598
+}
+
+#filled-diamond:hover .top_3 {
+    fill: #FFC8DB
+}
+
+#filled-diamond:hover .top_2 {
+    fill: #F2A0BD
+}
+
+#filled-diamond:hover .top_1 {
+    fill: #F2A0BD
+}
+
+#filled-diamond:hover .top_left {
+    fill: #D87598
+}
+
+#filled-diamond:hover .top_right {
+    fill: #D87598
+}
+
+#filled-diamond:hover .right {
+    fill: #C15179
+}
+
+#filled-diamond:hover .left {
+    fill: #FFC8DB
+}
+
+#filled-disk:hover .circle {
+    fill: #F3CF3F
+}
+
+#filled-disk:hover .base {
+    fill: #5D699B
+}
+
+#filled-disk:hover .top {
+    fill: #B2B2B2
+}
+
+#filled-disk:hover .top_right {
+    fill: #747A90
+}
+
+#filled-disk:hover .bottom {
+    fill: #D9D9C2
+}
+
+#filled-disk:hover .text {
+    fill: #747A90
+}
+
+#filled-email:hover .circle {
+    fill: #7D79BC
+}
+
+#filled-email:hover .top {
+    fill: #3DD97F
+}
+
+#filled-email:hover .paper {
+    fill: #FFFFFF
+}
+
+#filled-email:hover .base {
+    fill: #2DB466
+}
+
+#filled-email:hover .text {
+    fill: #BBBBBB
+}
+
+#filled-film:hover .circle {
+    fill: #8DD0BE
+}
+
+#filled-film:hover .base {
+    fill: #6E6E6E
+}
+
+#filled-film:hover .bottom {
+    fill: #515151
+}
+
+#filled-film:hover .top {
+    fill: #8C8C8C
+}
+
+#filled-flag:hover .circle {
+    fill: #8DD0BE
+}
+
+#filled-flag:hover .bottom {
+    fill: #FF5400
+}
+
+#filled-flag:hover .shadow {
+    fill: #C03F00
+}
+
+#filled-flag:hover .top {
+    fill: #FF5400
+}
+
+#filled-flag:hover .pole {
+    fill: #676767
+}
+
+#filled-folder:hover .circle {
+    fill: #82D8B5
+}
+
+#filled-folder:hover .back {
+    fill: #9C4588
+}
+
+#filled-folder:hover .paper_back {
+    fill: #D9D9D9
+}
+
+#filled-folder:hover .paper_front {
+    fill: #fff
+}
+
+#filled-folder:hover .front {
+    fill: #BF67AB
+}
+
+#filled-graph:hover .circle {
+    fill: #E3A7C0
+}
+
+#filled-graph:hover .bar_left {
+    fill: #7BC156
+}
+
+#filled-graph:hover .bar_middle {
+    fill: #92D76C
+}
+
+#filled-graph:hover .bar_right {
+    fill: #64A242
+}
+
+#filled-graph:hover .front {
+    fill:
+}
+
+#filled-graph:hover .dot_4, #filled-graph:hover .dot_3, #filled-graph:hover .dot_2, #filled-graph:hover .dot_1 {
+    fill: #fff
+}
+
+#filled-heart:hover .circle {
+    fill: #02BD85
+}
+
+#filled-heart:hover .base {
+    fill: #BC4B36
+}
+
+#filled-heart:hover .left {
+    fill: #db5940
+}
+
+#filled-home:hover .circle {
+    fill: #02BD85
+}
+
+#filled-home:hover .base {
+    fill: #F1F1F1
+}
+
+#filled-home:hover .hole {
+    fill: #C3C3C3
+}
+
+#filled-home:hover .roof {
+    fill: #D34141
+}
+
+#filled-lightning:hover .circle {
+    fill: #423D5B
+}
+
+#filled-lightning:hover .bolt {
+    fill: #FFD928
+}
+
+#filled-lightning:hover .highlight {
+    fill: #FFF3B9
+}
+
+#filled-location:hover .circle {
+    fill: #4890A8
+}
+
+#filled-location:hover .base {
+    fill: #B6351B
+}
+
+#filled-location:hover .inner {
+    fill: #7E2412
+}
+
+#filled-lock:hover .circle {
+    fill: #02AF7E
+}
+
+#filled-lock:hover .base {
+    fill: #C9A80D
+}
+
+#filled-lock:hover .baselight {
+    fill: #D9BC36
+}
+
+#filled-lock:hover .keyhole {
+    fill: #8A7200
+}
+
+#filled-lock:hover .bar {
+    fill: #C6C6C6
+}
+
+#filled-magnify:hover .circle {
+    fill: #F2D65F
+}
+
+#filled-magnify:hover .base {
+    fill: #34B9F1
+}
+
+#filled-magnify:hover .glass {
+    fill: #8DDDFF
+}
+
+#filled-message:hover .circle {
+    fill: #AC5D9F
+}
+
+#filled-message:hover .back {
+    fill: #FFAD10
+}
+
+#filled-message:hover .front {
+    fill: #00A3C6
+}
+
+#filled-message:hover .dots {
+    fill: #006A81
+}
+
+#filled-mic:hover .circle {
+    fill: #F3CF3F
+}
+
+#filled-mic:hover .base {
+    fill: #40979F
+}
+
+#filled-mic:hover .stand {
+    fill: #5F8083
+}
+
+#filled-mic:hover .bars_left {
+    fill: #267178
+}
+
+#filled-mic:hover .bars_right rect {
+    fill: #267178
+}
+
+#filled-paper:hover .circle {
+    fill: #D6D6B8
+}
+
+#filled-paper:hover .base {
+    fill: #929292
+}
+
+#filled-paper:hover .front {
+    fill: #FFFFFF
+}
+
+#filled-paper:hover .corner {
+    fill: #D6D6D6
+}
+
+#filled-paper:hover .text {
+    fill: #BBBBBB
+}
+
+#filled-pencil:hover .circle {
+    fill: #CDEFE1
+}
+
+#filled-pencil:hover .wood {
+    fill: #FFC833
+}
+
+#filled-pencil:hover .base_top {
+    fill: #456FD8
+}
+
+#filled-pencil:hover .base_bottom {
+    fill: #3258B6
+}
+
+#filled-pencil:hover .base_middle {
+    fill: #567FE5
+}
+
+#filled-pencil:hover .tip {
+    fill: #567FE5
+}
+
+#filled-pencil:hover .eraser {
+    fill: #FF72B1
+}
+
+#filled-pencil:hover .metal {
+    fill: #C6C6C6
+}
+
+#filled-phone:hover .circle {
+    fill: #E55D57
+}
+
+#filled-phone:hover .base {
+    fill: #6F82A4
+}
+
+#filled-phone:hover .screen {
+    fill: #A5B5D3
+}
+
+#filled-phone:hover .details {
+    fill: #516078
+}
+
+#filled-picture:hover .circle {
+    fill: #B1EB5B
+}
+
+#filled-picture:hover .back {
+    fill: #A46B49
+}
+
+#filled-picture:hover .front {
+    fill: #CE8A61
+}
+
+#filled-picture:hover .sky {
+    fill: #DCF5FF
+}
+
+#filled-picture:hover .sun {
+    fill: #FF7800
+}
+
+#filled-picture:hover .mountain {
+    fill: #3B8C1E
+}
+
+#filled-plane:hover .circle {
+    fill: #E88D70
+}
+
+#filled-plane:hover .bottom {
+    fill: #007D7E
+}
+
+#filled-plane:hover .right {
+    fill: #4ED0D1
+}
+
+#filled-plane:hover .middle {
+    fill: #3AAAAB
+}
+
+#filled-plane:hover .left {
+    fill: #4ED0D1
+}
+
+#filled-present:hover .circle {
+    fill: #4890A8
+}
+
+#filled-present:hover .base {
+    fill: #F1F1F1
+}
+
+#filled-present:hover .top {
+    fill: #C3C3C3
+}
+
+#filled-present:hover .ribbon {
+    fill: #D34141
+}
+
+#filled-robot:hover .circle {
+    fill: #E88D70
+}
+
+#filled-robot:hover .ears {
+    fill: #39517A
+}
+
+#filled-robot:hover .base {
+    fill: #4C70AF
+}
+
+#filled-robot:hover .highlight {
+    fill: #6384BE
+}
+
+#filled-robot:hover .antenna {
+    fill: #A0ABBD
+}
+
+#filled-robot:hover .eyes {
+    fill: #FFFFFF
+}
+
+#filled-rocket:hover .circle {
+    fill: #4BAE97
+}
+
+#filled-rocket:hover .engine {
+    fill: #7D7D7D
+}
+
+#filled-rocket:hover .base {
+    fill: #B0CED8
+}
+
+#filled-rocket:hover .window {
+    fill: #8BABB6
+}
+
+#filled-rocket:hover .glass {
+    fill: #FFFFFF
+}
+
+#filled-rocket:hover .flame {
+    fill: #FF5400
+}
+
+#filled-screen:hover .circle {
+    fill: #F8B243
+}
+
+#filled-screen:hover .stand {
+    fill: #516078
+}
+
+#filled-screen:hover .base {
+    fill: #6F82A4
+}
+
+#filled-screen:hover .highlight {
+    fill: #A5B5D3
+}
+
+#filled-screen:hover .logo {
+    fill: #516078
+}
+
+#filled-settings:hover .circle {
+    fill: #E3A7C0
+}
+
+#filled-settings:hover .base {
+    fill: #8BAE5D
+}
+
+#filled-settings:hover .top {
+    fill: #698741
+}
+
+#filled-spaceship:hover .circle {
+    fill: #02BD85
+}
+
+#filled-spaceship:hover .light {
+    fill: #FFF3B9
+}
+
+#filled-spaceship:hover .glass {
+    fill: #8DDDFF
+}
+
+#filled-spaceship:hover .base {
+    fill: #7E8CA6
+}
+
+#filled-spaceship:hover .circles {
+    fill: #56627A
+}
+
+#filled-storm:hover .circle {
+    fill: #90C0D8
+}
+
+#filled-storm:hover .cloud {
+    fill: #858585
+}
+
+#filled-storm:hover .lightning {
+    fill: #FFAD10
+}
+
+#filled-suitcase:hover .circle {
+    fill: #02BD85
+}
+
+#filled-suitcase:hover .top {
+    fill: #9A4C1D
+}
+
+#filled-suitcase:hover .bottom {
+    fill: #B75B24
+}
+
+#filled-suitcase:hover .buttons {
+    fill: #C89211
+}
+
+#filled-tag:hover .circle {
+    fill: #D6D6B8
+}
+
+#filled-tag:hover .base {
+    fill: #FFBA00
+}
+
+#filled-tag:hover .dot {
+    fill: #C38E00
+}
+
+#filled-thumbsdown:hover .circle {
+    fill: #E74C3C
+}
+
+#filled-thumbsdown:hover .base {
+    fill: #F1CDB0
+}
+
+#filled-thumbsdown:hover .sleeve {
+    fill: #E1AF45
+}
+
+#filled-thumbsdown:hover .cuff {
+    fill: #339FA9
+}
+
+#filled-thumbsdown:hover .dot {
+    fill: #FFFFFF
+}
+
+#filled-thumbsup:hover .circle {
+    fill: #02BD85
+}
+
+#filled-thumbsup:hover .base {
+    fill: #F1CDB0
+}
+
+#filled-thumbsup:hover .sleeve {
+    fill: #854D37
+}
+
+#filled-thumbsup:hover .cuff {
+    fill: #C24C28
+}
+
+#filled-thumbsup:hover .dot {
+    fill: #FFFFFF
+}
+
+#filled-trash:hover .circle {
+    fill: #90C0D8
+}
+
+#filled-trash:hover .base {
+    fill: #8C8C8C
+}
+
+#filled-trash:hover .details {
+    fill: #515151
+}
+
+#filled-trash:hover .lid {
+    fill: #6E6E6E
+}
+
+#filled-user:hover .circle {
+    fill: #D1F274
+}
+
+#filled-user:hover .body {
+    fill: #44B2B6
+}
+
+#filled-user:hover .collar_right {
+    fill: #FFFFFF
+}
+
+#filled-user:hover .collar_left {
+    fill: #FFFFFF
+}
+
+#filled-user:hover .head {
+    fill: #F1CDB0
+}
+
+#filled-user:hover .hair {
+    fill: #AB6125
+}
+
+#filled-winner:hover .circle {
+    fill: #F8B243
+}
+
+#filled-winner:hover .ribbon {
+    fill: #5BB3F0
+}
+
+#filled-winner:hover .base {
+    fill: #1983CD
+}
+
+#filled-winner:hover .text {
+    fill: #FFFFFF
+}
+
+/*=============================================
+[ Animation Styles ]
+==============================================*/
+
+/*LEFT*/
+
+#filled-winner:hover .text, #filled-user:hover .hair, #filled-trash:hover .lid, #filled-thumbsdown:hover .base, #filled-thumbsup:hover .base, #filled-suitcase:hover .buttons, #filled-spaceship:hover .light, #filled-screen:hover .highlight, #filled-rocket:hover .glass, #filled-robot:hover .eyes, #filled-robot:hover .ears, #filled-present:hover .ribbon, #filled-plane:hover .middle, #filled-picture:hover .sun, #filled-phone:hover .screen, #filled-pencil:hover .metal, #filled-mic:hover .bars_left, #filled-message:hover .dots, #filled-lock:hover .keyhole, #filled-lightning:hover .highlight, #filled-home:hover .hole, #filled-heart:hover .left, #filled-graph:hover .bar_left, #filled-folder:hover .paper_front, #filled-flag:hover .pole, #filled-film:hover .bottom, #filled-email:hover .text, #filled-disk:hover .bottom, #filled-disk:hover .text, #filled-diamond:hover .middle, #filled-coffee:hover .middle, #filled-clock:hover .seconds, #filled-camera:hover .strip, #filled-calander:hover .left, #filled-brush:hover .brush_silver, #filled-browser:hover .screen {
+    -webkit-animation-delay: .2s;
+    -moz-animation-delay: 0.2s;
+    -ms-animation-delay: 0.2s;
+    -o-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: left;
+    -moz-animation-name: left;
+    -ms-animation-name: left;
+    -o-animation-name: left;
+    animation-name: left;
+}
+
+/*RIGHT*/
+
+#filled-winner:hover .base, #filled-user:hover .body, #filled-trash:hover .base, #filled-thumbsdown:hover .sleeve, #filled-thumbsup:hover .sleeve, #filled-tag:hover .base, #filled-storm:hover .cloud, #filled-spaceship:hover .base, #filled-screen:hover .base, #filled-rocket:hover .base, #filled-robot:hover .base, #filled-present:hover .base, #filled-picture:hover .mountain, #filled-phone:hover .base, #filled-pencil:hover .base_middle, #filled-paper:hover .base, #filled-mic:hover .bars_right rect, #filled-magnify:hover .glass, #filled-lock:hover .base, #filled-location:hover .inner, #filled-home:hover .base, #filled-graph:hover .bar_middle, #filled-folder:hover .paper_back, #filled-flag:hover .top, #filled-film:hover .base, #filled-email:hover .base, #filled-disk:hover .base, #filled-diamond:hover .right, #filled-coffee:hover .base, #filled-clock:hover .base, #filled-camera:hover .base, #filled-calander:hover .base_top, #filled-browser:hover .base {
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: right;
+    -moz-animation-name: right;
+    -ms-animation-name: right;
+    -o-animation-name: right;
+    animation-name: right;
+}
+
+/*TOP RIGHT*/
+
+#filled-user:hover .head, #filled-thumbsdown:hover .cuff, #filled-thumbsdown:hover .cuff, #filled-suitcase:hover .top, #filled-storm:hover .lightning, #filled-spaceship:hover .circles, #filled-spaceship:hover .glass, #filled-settings:hover .top, #filled-rocket:hover .engine, #filled-robot:hover .highlight, #filled-present:hover .top, #filled-plane:hover .right, #filled-picture:hover .sky, #filled-phone:hover .details, #filled-pencil:hover .eraser, #filled-pencil:hover .base_bottom, #filled-paper:hover .front, #filled-mic:hover .base, #filled-mic:hover .stand, #filled-lock:hover .baselight, #filled-location:hover .base, #filled-lightning:hover .bolt, #filled-home:hover .roof, #filled-heart:hover .base, #filled-graph:hover .bar_right, #filled-graph:hover .dot_4, #filled-flag:hover .bottom, #filled-film:hover .top, #filled-disk:hover .top_right, #filled-diamond:hover .top_right, #filled-diamond:hover .left, #filled-coffee:hover .top, #filled-clock:hover .face, #filled-calander:hover .right, #filled-brush:hover .brush_base, #filled-browser:hover .top {
+    -webkit-animation-delay: .1s;
+    -moz-animation-delay: 0.1s;
+    -ms-animation-delay: 0.1s;
+    -o-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: right-top;
+    -moz-animation-name: right-top;
+    -ms-animation-name: right-top;
+    -o-animation-name: right-top;
+    animation-name: right-top;
+}
+
+/*TOP LEFT*/
+
+#filled-winner:hover .ribbon, #filled-trash:hover .details, #filled-thumbsdown:hover .dot, #filled-thumbsup:hover .dot, #filled-tag:hover .dot, #filled-suitcase:hover .bottom, #filled-settings:hover .base, #filled-screen:hover .stand, #filled-rocket:hover .window, #filled-robot:hover .antenna, #filled-plane:hover .left, #filled-picture:hover .front, #filled-pencil:hover .base_top, #filled-paper:hover .corner, #filled-magnify:hover .base, #filled-lock:hover .bar, #filled-graph:hover .dot_3, #filled-flag:hover .shadow, #filled-email:hover .paper, #filled-disk:hover .top, #filled-diamond:hover .top_left, #filled-diamond:hover .top_3, #filled-clock:hover .minute, #filled-camera:hover .flash, #filled-calander:hover .number, #filled-brush:hover .brush_highlight, #filled-browser:hover .green {
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: left-top;
+    -moz-animation-name: left-top;
+    -ms-animation-name: left-top;
+    -o-animation-name: left-top;
+    animation-name: left-top;
+}
+
+#filled-user:hover .collar_left, #filled-screen:hover .logo, #filled-rocket:hover .flame, #filled-picture:hover .back, #filled-pencil:hover .tip, #filled-paper:hover .text, #filled-message:hover .front, #filled-graph:hover .dot_2, #filled-folder:hover .front, #filled-email:hover .top, #filled-diamond:hover .top_2, #filled-clock:hover .hour, #filled-camera:hover .red, #filled-calander:hover .base_bottom, #filled-browser:hover .orange {
+    -webkit-animation-delay: .05s;
+    -moz-animation-delay: 0.05s;
+    -ms-animation-delay: 0.05s;
+    -o-animation-delay: 0.05s;
+    animation-delay: 0.05s;
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    -webkit-animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -ms-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: left-top;
+    -moz-animation-name: left-top;
+    -ms-animation-name: left-top;
+    -o-animation-name: left-top;
+    animation-name: left-top;
+    -webkit-animation-name: left-top;
+    -moz-animation-name: left-top;
+    -ms-animation-name: left-top;
+    -o-animation-name: left-top;
+    animation-name: left-top;
+}
+
+#filled-user:hover .collar_right, #filled-plane:hover .bottom, #filled-pencil:hover .wood, #filled-message:hover .back, #filled-graph:hover .dot_1, #filled-folder:hover .back, #filled-diamond:hover .top_1, #filled-clock:hover .middle, #filled-camera:hover .button, #filled-camera:hover .lens, #filled-camera:hover .lens_inner, #filled-brush:hover .brush_tip, #filled-browser:hover .red {
+    /*animation-timing-function*/
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+    /*animation-iteration-count*/
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    -webkit-animation-name: left-top;
+    -moz-animation-name: left-top;
+    -ms-animation-name: left-top;
+    -o-animation-name: left-top;
+    animation-name: left-top;
+}
+
+/*Keyframes*/
+
+@-moz-keyframes left-top {
+    0% {
+        -webki-transform: translate(-100px, -100px) scale(3, 3)
+    }
+    1% {
+        -webkit-transform: translate(-100px, -100px) scale(3, 3)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@-webkit-keyframes left-top {
+    0% {
+        -webki-transform: translate(-100px, -100px) scale(3, 3)
+    }
+    1% {
+        -webkit-transform: translate(-100px, -100px) scale(3, 3)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@keyframes left-top {
+    0% {
+        transform: translate(-100px, -100px) scale(3, 3)
+    }
+    1% {
+        transform: translate(-100px, -100px) scale(3, 3)
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@-moz-keyframes right-top {
+    0% {
+        -webki-transform: translate(100px, -200px) scale(3, 3)
+    }
+    1% {
+        -webkit-transform: translate(100px, -200px) scale(3, 3)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@-webkit-keyframes right-top {
+    0% {
+        -webki-transform: translate(100px, -200px) scale(3, 3)
+    }
+    1% {
+        -webkit-transform: translate(100px, -200px) scale(3, 3)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@keyframes right-top {
+    0% {
+        transform: translate(100px, -200px) scale(3, 3)
+    }
+    1% {
+        transform: translate(100px, -200px) scale(3, 3)
+    }
+    100% {
+        transform: translate(0px, 0px) scale(1, 1)
+    }
+}
+
+@-moz-keyframes right {
+    0% {
+        -webki-transform: translate(100px, 0px)
+    }
+    1% {
+        -webkit-transform: translate(100px, 0px)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px)
+    }
+}
+
+@-webkit-keyframes right {
+    0% {
+        -webki-transform: translate(100px, 0px)
+    }
+    1% {
+        -webkit-transform: translate(100px, 0px)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px)
+    }
+}
+
+@keyframes right {
+    0% {
+        transform: translate(100px, 0px)
+    }
+    1% {
+        transform: translate(100px, 0px)
+    }
+    100% {
+        transform: translate(0px, 0px)
+    }
+}
+
+@-moz-keyframes left {
+    0% {
+        -webki-transform: translate(-100px, 0px)
+    }
+    1% {
+        -webkit-transform: translate(-100px, 0px)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px)
+    }
+}
+
+@-webkit-keyframes left {
+    0% {
+        -webki-transform: translate(-100px, 0px)
+    }
+    1% {
+        -webkit-transform: translate(-100px, 0px)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px)
+    }
+}
+
+@keyframes left {
+    0% {
+        transform: translate(-100px, 0px)
+    }
+    1% {
+        transform: translate(-100px, 0px)
+    }
+    100% {
+        transform: translate(0px, 0px)
+    }
+}
+
+/*=============================================
+[ Inactive Styles ]
+==============================================*/
+
+/*Genral*/
+
+.flat-line .icon>path {
+    stroke: #fff;
+    stroke-width: 3px;
+    fill: transparent;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+.flat-line .circle {
+    stroke: #fff;
+    stroke-width: 3px;
+    fill: #52be7f;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+/*Exceptions*/
+
+.flat-line .icon>.lightning {
+    stroke: #fff;
+    stroke-width: 1.5px;
+    fill: transparent;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-user .collar_right {
+    fill: #52be7f;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-user .collar_left {
+    fill: #52be7f;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-lightning .bolt {
+    stroke: #fff;
+    stroke-width: 3px;
+    fill: transparent;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-lightning .highlight {
+    fill: transparent;
+    stroke: 0px;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-mic .bars_right rect {
+    fill: #52be7f;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+#line-coffee .top {
+    fill: #52be7f;
+    transform: translate(0px, 0px) scale(1, 1);
+    -webkit-transform: translate(0px, 0px) scale(1, 1);
+    -moz-transform: translate(0px, 0px) scale(1, 1);
+}
+
+/*Specifics*/
+
+#line-browser .green {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-browser .orange {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-browser .red {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-browser .screen {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-brush .brush_silver {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-calander .number {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-camera .lens_inner {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-camera .lens {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-camera .strip {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-camera .red {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-clock .seconds {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-clock .middle {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-clock .hour {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-clock .minute {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-clock .face {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-coffee .top {
+    fill: transparent;
+    stroke-width: 3px;
+    stroke: #fff;
+}
+
+#line-coffee .middle {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-disk .top {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-disk .top_right {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-disk .text {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-email .paper {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-email .text {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-film .top {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-film .bottom {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-folder .paper_front {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-folder .paper_back {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-graph .dot_1, #line-graph .dot_2, #line-graph .dot_3, #line-graph .dot_4 {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-home .hole {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-home .roof {
+    -webkit-transform: translateY(-5px)
+}
+
+#line-location .inner {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-lock .keyhole {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-lock .baselight {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-magnify .glass {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-message .dots {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-picture .sun {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-picture .mountain {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-mic .bars_left {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-mic .bars_right rect {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-paper .text {
+    fill: transparent;
+    stroke-width: 0px;
+}
+
+#line-paper .corner {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-pencil .metal {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-phone .screen {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-phone .details {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-robot .eyes {
+    fill: #FFFFFF;
+    stroke-width: 0px;
+}
+
+#line-suitcase .buttons {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-tag .dot {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-thumbsdown .dot {
+    fill: #FFFFFF;
+    stroke-width: 0px;
+}
+
+#line-thumbsup .dot {
+    fill: #FFFFFF;
+    stroke-width: 0px;
+}
+
+#line-trash .details {
+    fill: #FFF;
+    stroke-width: 0px;
+}
+
+#line-winner .text {
+    fill: #FFFFFF;
+    : ;
+    stroke-width: 0px;
+}
+
+#line-spaceship .light {
+    -webkit-transform: translateY(1px);
+    -moz-transform: translateY(1px);
+    transform: translateY(1px);
+}
+
+/*=============================================
+[ Hover Styles ]
+==============================================*/
+
 .flat-line:hover .icon {
-    -moz-transform: scale(1,1);
-    -webkit-transform: scale(1,1);
-    transform: scale(1,1);
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
     /*animation-name*/
     -webkit-animation-name: line-burst;
     -moz-animation-name: line-burst;
@@ -67,106 +2503,848 @@
     -o-transform-origin: 50% 50%;
     transform-origin: 50% 50%;
 }
-.flat-line:hover .icon > path {
+
+.flat-line:hover .icon>path {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover .circle {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 /*Exceptions*/
-.flat-line:hover .icon > .lightning {
+
+.flat-line:hover .icon>.lightning {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover #line-user .collar_right {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover#line-user .collar_left {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover #line-lightning .bolt {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover #line-lightning .highlight {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover #line-mic .bars_right rect {
     stroke: transparent;
     stroke-width: 0px;
 }
+
 .flat-line:hover #line-coffee .top {
     stroke: transparent;
     stroke-width: 0px;
 }
 
-#line-email .paper {
-    fill: transparent;
-    stroke-width: 0px;
-}
-#line-email .text {
-    fill: transparent;
-    stroke-width: 0px;
-}
-#line-email:hover .circle { fill: #7D79BC }
-#line-email:hover .top { fill: #3DD97F }
-#line-email:hover .paper { fill: #FFFFFF }
-#line-email:hover .base { fill: #2DB466 }
-#line-email:hover .text { fill: #BBBBBB }
-
-#line-message .dots {
-    fill: transparent;
-    stroke-width: 0px;
+#line-browser:hover .circle {
+    fill: #B1EB5B
 }
 
-#line-message:hover .circle { fill: #AC5D9F }
-#line-message:hover .back { fill: #FFAD10 }
-#line-message:hover .front { fill: #00A3C6 }
-#line-message:hover .dots { fill: #006A81 }
-
-#line-pencil .metal {
-    fill: #FFF;
-    stroke-width: 0px;
+#line-browser:hover .screen {
+    fill: #b0b0b0
 }
 
-#line-pencil:hover .circle { fill: #CDEFE1 }
-#line-pencil:hover .wood { fill: #FFC833 }
-#line-pencil:hover .base_top { fill: #456FD8 }
-#line-pencil:hover .base_bottom { fill: #3258B6 }
-#line-pencil:hover .base_middle { fill: #567FE5 }
-#line-pencil:hover .tip { fill: #567FE5 }
-#line-pencil:hover .eraser { fill: #FF72B1 }
-#line-pencil:hover .metal { fill: #C6C6C6 }
-
-#line-mic .bars_right rect {
-    fill: #52be7f;
-    transform: translate(0px, 0px) scale(1,1);
-    -webkit-transform: translate(0px ,0px) scale(1,1);
-    -moz-transform: translate(0px ,0px) scale(1,1);
+#line-browser:hover .base {
+    fill: #b0b0b0
 }
 
-#line-mic .bars_left {
-    fill: #FFF;
-    stroke-width: 0px;
-}
-#line-mic .bars_right rect {
-    fill: #FFF;
-    stroke-width: 0px;
+#line-browser:hover .top {
+    fill: #8F8F8F
 }
 
-#line-mic:hover .circle { fill: #F3CF3F }
-#line-mic:hover .base { fill: #40979F }
-#line-mic:hover .stand { fill: #5F8083 }
-#line-mic:hover .bars_left { fill: #267178 }
-#line-mic:hover .bars_right rect { fill: #267178 }
+#line-browser:hover .green {
+    fill: #AEE42D
+}
 
-@-webkit-keyframes line-burst { 
-     {
+#line-browser:hover .orange {
+    fill: #FFD02C
+}
+
+#line-browser:hover .red {
+    fill: #E64545
+}
+
+#line-brush:hover .brush_base {
+    fill: #00A3C6
+}
+
+#line-brush:hover .brush_highlight {
+    fill: #43C1DC
+}
+
+#line-brush:hover .brush_silver {
+    fill: #C8C8C8
+}
+
+#line-brush:hover .brush_tip {
+    fill: #917152
+}
+
+#line-brush:hover .circle {
+    fill: #F0A878
+}
+
+#line-calander:hover .circle {
+    fill: #F3CF3F
+}
+
+#line-calander:hover .base_top {
+    fill: #5B3F89
+}
+
+#line-calander:hover .left {
+    fill: #848484
+}
+
+#line-calander:hover .right {
+    fill: #848484
+}
+
+#line-calander:hover .number {
+    fill: #fff
+}
+
+#line-calander:hover .base_bottom {
+    fill: #644892
+}
+
+#line-camera:hover .circle {
+    fill: #F39C12
+}
+
+#line-camera:hover .base {
+    fill: #E0DECD
+}
+
+#line-camera:hover .strip {
+    fill: #3376D2
+}
+
+#line-camera:hover .lens {
+    fill: #CAC8B7
+}
+
+#line-camera:hover .lens_inner {
+    fill: #A6A495
+}
+
+#line-camera:hover .flash {
+    fill: #FFF
+}
+
+#line-camera:hover .red {
+    fill: #D25133
+}
+
+#line-camera:hover .button {
+    fill: #A6A496
+}
+
+#line-clock:hover .circle {
+    fill: #02BD85
+}
+
+#line-clock:hover .base {
+    fill: #FF8933
+}
+
+#line-clock:hover .face {
+    fill: #FFF
+}
+
+#line-clock:hover .seconds {
+    fill: #FF725F
+}
+
+#line-clock:hover .middle {
+    fill: #808080
+}
+
+#line-clock:hover .hour {
+    fill: #808080
+}
+
+#line-clock:hover .minute {
+    fill: #808080
+}
+
+#line-coffee:hover .circle {
+    fill: #82D8B5
+}
+
+#line-coffee:hover .base {
+    fill: #8F6349
+}
+
+#line-coffee:hover .middle {
+    fill: #9C8679
+}
+
+#line-coffee:hover .top {
+    fill: #F1F1F1
+}
+
+#line-diamond:hover .circle {
+    fill: #02BD85
+}
+
+#line-diamond:hover .middle {
+    fill: #D87598
+}
+
+#line-diamond:hover .top_3 {
+    fill: #FFC8DB
+}
+
+#line-diamond:hover .top_2 {
+    fill: #F2A0BD
+}
+
+#line-diamond:hover .top_1 {
+    fill: #F2A0BD
+}
+
+#line-diamond:hover .top_left {
+    fill: #D87598
+}
+
+#line-diamond:hover .top_right {
+    fill: #D87598
+}
+
+#line-diamond:hover .right {
+    fill: #C15179
+}
+
+#line-diamond:hover .left {
+    fill: #FFC8DB
+}
+
+#line-disk:hover .circle {
+    fill: #F3CF3F
+}
+
+#line-disk:hover .base {
+    fill: #5D699B
+}
+
+#line-disk:hover .top {
+    fill: #B2B2B2
+}
+
+#line-disk:hover .top_right {
+    fill: #747A90
+}
+
+#line-disk:hover .bottom {
+    fill: #D9D9C2
+}
+
+#line-disk:hover .text {
+    fill: #747A90
+}
+
+#line-email:hover .circle {
+    fill: #7D79BC
+}
+
+#line-email:hover .top {
+    fill: #3DD97F
+}
+
+#line-email:hover .paper {
+    fill: #FFFFFF
+}
+
+#line-email:hover .base {
+    fill: #2DB466
+}
+
+#line-email:hover .text {
+    fill: #BBBBBB
+}
+
+#line-film:hover .circle {
+    fill: #8DD0BE
+}
+
+#line-film:hover .base {
+    fill: #6E6E6E
+}
+
+#line-film:hover .bottom {
+    fill: #515151
+}
+
+#line-film:hover .top {
+    fill: #8C8C8C
+}
+
+#line-flag:hover .circle {
+    fill: #8DD0BE
+}
+
+#line-flag:hover .bottom {
+    fill: #FF5400
+}
+
+#line-flag:hover .shadow {
+    fill: #C03F00
+}
+
+#line-flag:hover .top {
+    fill: #FF5400
+}
+
+#line-flag:hover .pole {
+    fill: #676767
+}
+
+#line-folder:hover .circle {
+    fill: #82D8B5
+}
+
+#line-folder:hover .back {
+    fill: #9C4588
+}
+
+#line-folder:hover .paper_back {
+    fill: #D9D9D9
+}
+
+#line-folder:hover .paper_front {
+    fill: #fff
+}
+
+#line-folder:hover .front {
+    fill: #BF67AB
+}
+
+#line-graph:hover .circle {
+    fill: #E3A7C0
+}
+
+#line-graph:hover .bar_left {
+    fill: #7BC156
+}
+
+#line-graph:hover .bar_middle {
+    fill: #92D76C
+}
+
+#line-graph:hover .bar_right {
+    fill: #64A242
+}
+
+#line-graph:hover .front {
+    fill:
+}
+
+#line-graph:hover .dot_4, #line-graph:hover .dot_3, #line-graph:hover .dot_2, #line-graph:hover .dot_1 {
+    fill: #fff
+}
+
+#line-heart:hover .circle {
+    fill: #02BD85
+}
+
+#line-heart:hover .base {
+    fill: #BC4B36
+}
+
+#line-heart:hover .left {
+    fill: #db5940
+}
+
+#line-home:hover .circle {
+    fill: #02BD85
+}
+
+#line-home:hover .base {
+    fill: #F1F1F1
+}
+
+#line-home:hover .hole {
+    fill: #C3C3C3
+}
+
+#line-home:hover .roof {
+    fill: #D34141
+}
+
+#line-lightning:hover .circle {
+    fill: #423D5B
+}
+
+#line-lightning:hover .bolt {
+    fill: #FFD928
+}
+
+#line-lightning:hover .highlight {
+    fill: #FFF3B9
+}
+
+#line-location:hover .circle {
+    fill: #4890A8
+}
+
+#line-location:hover .base {
+    fill: #B6351B
+}
+
+#line-location:hover .inner {
+    fill: #7E2412
+}
+
+#line-lock:hover .circle {
+    fill: #02AF7E
+}
+
+#line-lock:hover .base {
+    fill: #C9A80D
+}
+
+#line-lock:hover .baselight {
+    fill: #D9BC36
+}
+
+#line-lock:hover .keyhole {
+    fill: #8A7200
+}
+
+#line-lock:hover .bar {
+    fill: #C6C6C6
+}
+
+#line-magnify:hover .circle {
+    fill: #F2D65F
+}
+
+#line-magnify:hover .base {
+    fill: #34B9F1
+}
+
+#line-magnify:hover .glass {
+    fill: #8DDDFF
+}
+
+#line-message:hover .circle {
+    fill: #AC5D9F
+}
+
+#line-message:hover .back {
+    fill: #FFAD10
+}
+
+#line-message:hover .front {
+    fill: #00A3C6
+}
+
+#line-message:hover .dots {
+    fill: #006A81
+}
+
+#line-mic:hover .circle {
+    fill: #F3CF3F
+}
+
+#line-mic:hover .base {
+    fill: #40979F
+}
+
+#line-mic:hover .stand {
+    fill: #5F8083
+}
+
+#line-mic:hover .bars_left {
+    fill: #267178
+}
+
+#line-mic:hover .bars_right rect {
+    fill: #267178
+}
+
+#line-paper:hover .circle {
+    fill: #D6D6B8
+}
+
+#line-paper:hover .base {
+    fill: #929292
+}
+
+#line-paper:hover .front {
+    fill: #FFFFFF
+}
+
+#line-paper:hover .corner {
+    fill: #D6D6D6
+}
+
+#line-paper:hover .text {
+    fill: #BBBBBB
+}
+
+#line-pencil:hover .circle {
+    fill: #CDEFE1
+}
+
+#line-pencil:hover .wood {
+    fill: #FFC833
+}
+
+#line-pencil:hover .base_top {
+    fill: #456FD8
+}
+
+#line-pencil:hover .base_bottom {
+    fill: #3258B6
+}
+
+#line-pencil:hover .base_middle {
+    fill: #567FE5
+}
+
+#line-pencil:hover .tip {
+    fill: #567FE5
+}
+
+#line-pencil:hover .eraser {
+    fill: #FF72B1
+}
+
+#line-pencil:hover .metal {
+    fill: #C6C6C6
+}
+
+#line-phone:hover .circle {
+    fill: #E55D57
+}
+
+#line-phone:hover .base {
+    fill: #6F82A4
+}
+
+#line-phone:hover .screen {
+    fill: #A5B5D3
+}
+
+#line-phone:hover .details {
+    fill: #516078
+}
+
+#line-picture:hover .circle {
+    fill: #B1EB5B
+}
+
+#line-picture:hover .back {
+    fill: #A46B49
+}
+
+#line-picture:hover .front {
+    fill: #CE8A61
+}
+
+#line-picture:hover .sky {
+    fill: #DCF5FF
+}
+
+#line-picture:hover .sun {
+    fill: #FF7800
+}
+
+#line-picture:hover .mountain {
+    fill: #3B8C1E
+}
+
+#line-plane:hover .circle {
+    fill: #E88D70
+}
+
+#line-plane:hover .bottom {
+    fill: #007D7E
+}
+
+#line-plane:hover .right {
+    fill: #4ED0D1
+}
+
+#line-plane:hover .middle {
+    fill: #3AAAAB
+}
+
+#line-plane:hover .left {
+    fill: #4ED0D1
+}
+
+#line-present:hover .circle {
+    fill: #4890A8
+}
+
+#line-present:hover .base {
+    fill: #F1F1F1
+}
+
+#line-present:hover .top {
+    fill: #C3C3C3
+}
+
+#line-present:hover .ribbon {
+    fill: #D34141
+}
+
+#line-robot:hover .circle {
+    fill: #E88D70
+}
+
+#line-robot:hover .ears {
+    fill: #39517A
+}
+
+#line-robot:hover .base {
+    fill: #4C70AF
+}
+
+#line-robot:hover .highlight {
+    fill: #6384BE
+}
+
+#line-robot:hover .antenna {
+    fill: #A0ABBD
+}
+
+#line-robot:hover .eyes {
+    fill: #FFFFFF
+}
+
+#line-rocket:hover .circle {
+    fill: #4BAE97
+}
+
+#line-rocket:hover .engine {
+    fill: #7D7D7D
+}
+
+#line-rocket:hover .base {
+    fill: #B0CED8
+}
+
+#line-rocket:hover .window {
+    fill: #8BABB6
+}
+
+#line-rocket:hover .glass {
+    fill: #FFFFFF
+}
+
+#line-rocket:hover .flame {
+    fill: #FF5400
+}
+
+#line-screen:hover .circle {
+    fill: #F8B243
+}
+
+#line-screen:hover .stand {
+    fill: #516078
+}
+
+#line-screen:hover .base {
+    fill: #6F82A4
+}
+
+#line-screen:hover .highlight {
+    fill: #A5B5D3
+}
+
+#line-screen:hover .logo {
+    fill: #516078
+}
+
+#line-settings:hover .circle {
+    fill: #E3A7C0
+}
+
+#line-settings:hover .base {
+    fill: #8BAE5D
+}
+
+#line-settings:hover .top {
+    fill: #698741
+}
+
+#line-spaceship:hover .circle {
+    fill: #02BD85
+}
+
+#line-spaceship:hover .light {
+    fill: #FFF3B9
+}
+
+#line-spaceship:hover .glass {
+    fill: #8DDDFF
+}
+
+#line-spaceship:hover .base {
+    fill: #7E8CA6
+}
+
+#line-spaceship:hover .circles {
+    fill: #56627A
+}
+
+#line-storm:hover .circle {
+    fill: #90C0D8
+}
+
+#line-storm:hover .cloud {
+    fill: #858585
+}
+
+#line-storm:hover .lightning {
+    fill: #FFAD10
+}
+
+#line-suitcase:hover .circle {
+    fill: #02BD85
+}
+
+#line-suitcase:hover .top {
+    fill: #9A4C1D
+}
+
+#line-suitcase:hover .bottom {
+    fill: #B75B24
+}
+
+#line-suitcase:hover .buttons {
+    fill: #C89211
+}
+
+#line-tag:hover .circle {
+    fill: #D6D6B8
+}
+
+#line-tag:hover .base {
+    fill: #FFBA00
+}
+
+#line-tag:hover .dot {
+    fill: #C38E00
+}
+
+#line-thumbsdown:hover .circle {
+    fill: #E74C3C
+}
+
+#line-thumbsdown:hover .base {
+    fill: #F1CDB0
+}
+
+#line-thumbsdown:hover .sleeve {
+    fill: #E1AF45
+}
+
+#line-thumbsdown:hover .cuff {
+    fill: #339FA9
+}
+
+#line-thumbsdown:hover .dot {
+    fill: #FFFFFF
+}
+
+#line-thumbsup:hover .circle {
+    fill: #02BD85
+}
+
+#line-thumbsup:hover .base {
+    fill: #F1CDB0
+}
+
+#line-thumbsup:hover .sleeve {
+    fill: #854D37
+}
+
+#line-thumbsup:hover .cuff {
+    fill: #C24C28
+}
+
+#line-thumbsup:hover .dot {
+    fill: #FFFFFF
+}
+
+#line-trash:hover .circle {
+    fill: #90C0D8
+}
+
+#line-trash:hover .base {
+    fill: #8C8C8C
+}
+
+#line-trash:hover .details {
+    fill: #515151
+}
+
+#line-trash:hover .lid {
+    fill: #6E6E6E
+}
+
+#line-user:hover .circle {
+    fill: #D1F274
+}
+
+#line-user:hover .body {
+    fill: #44B2B6
+}
+
+#line-user:hover .collar_right {
+    fill: #FFFFFF
+}
+
+#line-user:hover .collar_left {
+    fill: #FFFFFF
+}
+
+#line-user:hover .head {
+    fill: #F1CDB0
+}
+
+#line-user:hover .hair {
+    fill: #AB6125
+}
+
+#line-winner:hover .circle {
+    fill: #F8B243
+}
+
+#line-winner:hover .ribbon {
+    fill: #5BB3F0
+}
+
+#line-winner:hover .base {
+    fill: #1983CD
+}
+
+#line-winner:hover .text {
+    fill: #FFFFFF
+}
+
+@-webkit-keyframes line-burst {
+        {
         -webkit-transform: scale(1.1);
         animation-timing-function: ease-in;
     }
@@ -199,124 +3377,1097 @@
         animation-timing-function: ease-out;
     }
 }
-@-moz-keyframes line-burst { 
-     {
-        -moz-transform: scale(1,1);
+
+@-moz-keyframes line-burst {
+        {
+        -moz-transform: scale(1, 1);
         animation-timing-function: ease-in;
     }
     37% {
-        -moz-transform: scale(1.5,1.5);
+        -moz-transform: scale(1.5, 1.5);
         animation-timing-function: ease-out;
     }
     55% {
-        -moz-transform: scale(1.37,1.37);
+        -moz-transform: scale(1.37, 1.37);
         animation-timing-function: ease-in;
     }
     73% {
-        -moz-transform: scale(1,1);
+        -moz-transform: scale(1, 1);
         animation-timing-function: ease-out;
     }
     82% {
-        -moz-transform: scale(1.45,1.45);
+        -moz-transform: scale(1.45, 1.45);
         animation-timing-function: ease-in;
     }
     91% {
-        -moz-transform: scale(1.5,1.5);
+        -moz-transform: scale(1.5, 1.5);
         animation-timing-function: ease-out;
     }
     96% {
-        -moz-transform: scale(1.4,1.4);
+        -moz-transform: scale(1.4, 1.4);
         animation-timing-function: ease-in;
     }
     100% {
-        -moz-transform: scale(1,1);
+        -moz-transform: scale(1, 1);
         animation-timing-function: ease-in;
     }
 }
-@keyframes line-burst { 
-     {
-        transform: scale(1,1);
+
+@keyframes line-burst {
+        {
+        transform: scale(1, 1);
         animation-timing-function: ease-in;
     }
     37% {
-        transform: scale(1.5,1.5);
+        transform: scale(1.5, 1.5);
         animation-timing-function: ease-out;
     }
     55% {
-        transform: scale(1.37,1.37);
+        transform: scale(1.37, 1.37);
         animation-timing-function: ease-in;
     }
     73% {
-        transform: scale(1,1);
+        transform: scale(1, 1);
         animation-timing-function: ease-out;
     }
     82% {
-        transform: scale(1.45,1.45);
+        transform: scale(1.45, 1.45);
         animation-timing-function: ease-in;
     }
     91% {
-        transform: scale(1.5,1.5);
+        transform: scale(1.5, 1.5);
         animation-timing-function: ease-out;
     }
     96% {
-        transform: scale(1.4,1.4);
+        transform: scale(1.4, 1.4);
         animation-timing-function: ease-in;
     }
     100% {
-        transform: scale(1,1);
+        transform: scale(1, 1);
         animation-timing-function: ease-out;
     }
 }
 
+#shadow-camera .circle {
+    fill: #F39C12
+}
+
+#shadow-camera .base {
+    fill: #E0DECD
+}
+
+#shadow-camera .strip {
+    fill: #3376D2
+}
+
+#shadow-camera .lens {
+    fill: #CAC8B7
+}
+
+#shadow-camera .lens_inner {
+    fill: #A6A495
+}
+
+#shadow-camera .flash {
+    fill: #FFF
+}
+
+#shadow-camera .red {
+    fill: #D25133
+}
+
+#shadow-camera .button {
+    fill: #A6A496
+}
+
+#shadow-browser .circle {
+    fill: #B1EB5B
+}
+
+#shadow-browser .screen {
+    fill: #b0b0b0
+}
+
+#shadow-browser .base {
+    fill: #b0b0b0
+}
+
+#shadow-browser .top {
+    fill: #8F8F8F
+}
+
+#shadow-browser .green {
+    fill: #AEE42D
+}
+
+#shadow-browser .orange {
+    fill: #b0b0b0
+}
+
+#shadow-browser .red {
+    fill: #E64545
+}
+
+#shadow-brush .brush_base {
+    fill: #00A3C6
+}
+
+#shadow-brush .brush_highlight {
+    fill: #43C1DC
+}
+
+#shadow-brush .brush_silver {
+    fill: #C8C8C8
+}
+
+#shadow-brush .brush_tip {
+    fill: #917152
+}
+
+#shadow-brush .circle {
+    fill: #F0A878
+}
+
+#shadow-calander .circle {
+    fill: #246f91
+}
+
+#shadow-calander .base_top {
+    fill: #5B3F89
+}
+
+#shadow-calander .left {
+    fill: #848484
+}
+
+#shadow-calander .right {
+    fill: #848484
+}
+
+#shadow-calander .number {
+    fill: #fff
+}
+
+#shadow-calander .base_bottom {
+    fill: #644892
+}
+
+#shadow-clock .circle {
+    fill: #02BD85
+}
+
+#shadow-clock .base {
+    fill: #FF8933
+}
+
+#shadow-clock .face {
+    fill: #FFF
+}
+
+#shadow-clock .seconds {
+    fill: #FF725F
+}
+
+#shadow-clock .middle {
+    fill: #808080
+}
+
+#shadow-clock .hour {
+    fill: #808080
+}
+
+#shadow-clock .minute {
+    fill: #808080
+}
+
+#shadow-coffee .circle {
+    fill: #90c0d8
+}
+
+#shadow-coffee .base {
+    fill: #8F6349
+}
+
+#shadow-coffee .middle {
+    fill: #9C8679
+}
+
+#shadow-coffee .top {
+    fill: #F1F1F1
+}
+
+#shadow-diamond .circle {
+    fill: #02BD85
+}
+
+#shadow-diamond .middle {
+    fill: #D87598
+}
+
+#shadow-diamond .top_3 {
+    fill: #FFC8DB
+}
+
+#shadow-diamond .top_2 {
+    fill: #F2A0BD
+}
+
+#shadow-diamond .top_1 {
+    fill: #F2A0BD
+}
+
+#shadow-diamond .top_left {
+    fill: #D87598
+}
+
+#shadow-diamond .top_right {
+    fill: #D87598
+}
+
+#shadow-diamond .right {
+    fill: #C15179
+}
+
+#shadow-diamond .left {
+    fill: #FFC8DB
+}
+
+#shadow-disk .circle {
+    fill: #f07848
+}
+
+#shadow-disk .base {
+    fill: #5D699B
+}
+
+#shadow-disk .top {
+    fill: #B2B2B2
+}
+
+#shadow-disk .top_right {
+    fill: #747A90
+}
+
+#shadow-disk .bottom {
+    fill: #D9D9C2
+}
+
+#shadow-disk .text {
+    fill: #747A90
+}
+
+#shadow-email .circle {
+    fill: #7D79BC
+}
+
+#shadow-email .top {
+    fill: #3DD97F
+}
+
+#shadow-email .paper {
+    fill: #FFFFFF
+}
+
+#shadow-email .base {
+    fill: #2DB466
+}
+
+#shadow-email .text {
+    fill: #BBBBBB
+}
+
+#shadow-film .circle {
+    fill: #8DD0BE
+}
+
+#shadow-film .base {
+    fill: #6E6E6E
+}
+
+#shadow-film .bottom {
+    fill: #515151
+}
+
+#shadow-film .top {
+    fill: #8C8C8C
+}
+
+#shadow-flag .circle {
+    fill: #8DD0BE
+}
+
+#shadow-flag .bottom {
+    fill: #FF5400
+}
+
+#shadow-flag .shadow {
+    fill: #C03F00
+}
+
+#shadow-flag .top {
+    fill: #FF5400
+}
+
+#shadow-flag .pole {
+    fill: #676767
+}
+
+#shadow-folder .circle {
+    fill: #82D8B5
+}
+
+#shadow-folder .back {
+    fill: #9C4588
+}
+
+#shadow-folder .paper_back {
+    fill: #D9D9D9
+}
+
+#shadow-folder .paper_front {
+    fill: #fff
+}
+
+#shadow-folder .front {
+    fill: #BF67AB
+}
+
+#shadow-graph .circle {
+    fill: #E3A7C0
+}
+
+#shadow-graph .bar_left {
+    fill: #7BC156
+}
+
+#shadow-graph .bar_middle {
+    fill: #92D76C
+}
+
+#shadow-graph .bar_right {
+    fill: #64A242
+}
+
+#shadow-graph .front {
+    fill:
+}
+
+#shadow-graph .dot_4, #shadow-graph .dot_3, #shadow-graph .dot_2, #shadow-graph .dot_1 {
+    fill: #fff
+}
+
+#shadow-heart .circle {
+    fill: #02BD85
+}
+
+#shadow-heart .base {
+    fill: #BC4B36
+}
+
+#shadow-heart .left {
+    fill: #db5940
+}
+
+#shadow-home .circle {
+    fill: #02BD85
+}
+
+#shadow-home .base {
+    fill: #F1F1F1
+}
+
+#shadow-home .hole {
+    fill: #C3C3C3
+}
+
+#shadow-home .roof {
+    fill: #D34141
+}
+
+#shadow-lightning .circle {
+    fill: #423D5B
+}
+
+#shadow-lightning .bolt {
+    fill: #FFD928
+}
+
+#shadow-lightning .highlight {
+    fill: #FFF3B9
+}
+
+#shadow-location .circle {
+    fill: #4890A8
+}
+
+#shadow-location .base {
+    fill: #B6351B
+}
+
+#shadow-location .inner {
+    fill: #7E2412
+}
+
+#shadow-lock .circle {
+    fill: #02AF7E
+}
+
+#shadow-lock .base {
+    fill: #C9A80D
+}
+
+#shadow-lock .baselight {
+    fill: #D9BC36
+}
+
+#shadow-lock .keyhole {
+    fill: #8A7200
+}
+
+#shadow-lock .bar {
+    fill: #C6C6C6
+}
+
+#shadow-magnify .circle {
+    fill: #F2D65F
+}
+
+#shadow-magnify .base {
+    fill: #34B9F1
+}
+
+#shadow-magnify .glass {
+    fill: #8DDDFF
+}
+
+#shadow-message .circle {
+    fill: #AC5D9F
+}
+
+#shadow-message .back {
+    fill: #FFAD10
+}
+
+#shadow-message .front {
+    fill: #00A3C6
+}
+
+#shadow-message .dots {
+    fill: #006A81
+}
+
+#shadow-mic .circle {
+    fill: #f39c12
+}
+
+#shadow-mic .base {
+    fill: #40979F
+}
+
+#shadow-mic .stand {
+    fill: #5F8083
+}
+
+#shadow-mic .bars_left {
+    fill: #267178
+}
+
+#shadow-mic .bars_right rect {
+    fill: #267178
+}
+
+#shadow-paper .circle {
+    fill: #D6D6B8
+}
+
+#shadow-paper .base {
+    fill: #929292
+}
+
+#shadow-paper .front {
+    fill: #FFFFFF
+}
+
+#shadow-paper .corner {
+    fill: #D6D6D6
+}
+
+#shadow-paper .text {
+    fill: #BBBBBB
+}
+
+#shadow-pencil .circle {
+    fill: #CDEFE1
+}
+
+#shadow-pencil .wood {
+    fill: #FFC833
+}
+
+#shadow-pencil .base_top {
+    fill: #456FD8
+}
+
+#shadow-pencil .base_bottom {
+    fill: #3258B6
+}
+
+#shadow-pencil .base_middle {
+    fill: #567FE5
+}
+
+#shadow-pencil .tip {
+    fill: #567FE5
+}
+
+#shadow-pencil .eraser {
+    fill: #FF72B1
+}
+
+#shadow-pencil .metal {
+    fill: #C6C6C6
+}
+
+#shadow-phone .circle {
+    fill: #E55D57
+}
+
+#shadow-phone .base {
+    fill: #6F82A4
+}
+
+#shadow-phone .screen {
+    fill: #A5B5D3
+}
+
+#shadow-phone .details {
+    fill: #516078
+}
+
+#shadow-picture .circle {
+    fill: #B1EB5B
+}
+
+#shadow-picture .back {
+    fill: #A46B49
+}
+
+#shadow-picture .front {
+    fill: #CE8A61
+}
+
+#shadow-picture .sky {
+    fill: #DCF5FF
+}
+
+#shadow-picture .sun {
+    fill: #FF7800
+}
+
+#shadow-picture .mountain {
+    fill: #3B8C1E
+}
+
+#shadow-plane .circle {
+    fill: #E88D70
+}
+
+#shadow-plane .bottom {
+    fill: #007D7E
+}
+
+#shadow-plane .right {
+    fill: #4ED0D1
+}
+
+#shadow-plane .middle {
+    fill: #3AAAAB
+}
+
+#shadow-plane .left {
+    fill: #4ED0D1
+}
+
+#shadow-present .circle {
+    fill: #4890A8
+}
+
+#shadow-present .base {
+    fill: #F1F1F1
+}
+
+#shadow-present .top {
+    fill: #C3C3C3
+}
+
+#shadow-present .ribbon {
+    fill: #D34141
+}
+
+#shadow-robot .circle {
+    fill: #E88D70
+}
+
+#shadow-robot .ears {
+    fill: #39517A
+}
+
+#shadow-robot .base {
+    fill: #4C70AF
+}
+
+#shadow-robot .highlight {
+    fill: #6384BE
+}
+
+#shadow-robot .antenna {
+    fill: #A0ABBD
+}
+
+#shadow-robot .eyes {
+    fill: #FFFFFF
+}
+
+#shadow-rocket .circle {
+    fill: #4BAE97
+}
+
+#shadow-rocket .engine {
+    fill: #7D7D7D
+}
+
+#shadow-rocket .base {
+    fill: #B0CED8
+}
+
+#shadow-rocket .window {
+    fill: #8BABB6
+}
+
+#shadow-rocket .glass {
+    fill: #FFFFFF
+}
+
+#shadow-rocket .flame {
+    fill: #FF5400
+}
+
+#shadow-screen .circle {
+    fill: #F8B243
+}
+
+#shadow-screen .stand {
+    fill: #516078
+}
+
+#shadow-screen .base {
+    fill: #6F82A4
+}
+
+#shadow-screen .highlight {
+    fill: #A5B5D3
+}
+
+#shadow-screen .logo {
+    fill: #516078
+}
+
+#shadow-settings .circle {
+    fill: #E3A7C0
+}
+
+#shadow-settings .base {
+    fill: #8BAE5D
+}
+
+#shadow-settings .top {
+    fill: #698741
+}
+
+#shadow-spaceship .circle {
+    fill: #02BD85
+}
+
+#shadow-spaceship .light {
+    fill: #FFF3B9
+}
+
+#shadow-spaceship .glass {
+    fill: #8DDDFF
+}
+
+#shadow-spaceship .base {
+    fill: #7E8CA6
+}
+
+#shadow-spaceship .circles {
+    fill: #56627A
+}
+
+#shadow-storm .circle {
+    fill: #90C0D8
+}
+
+#shadow-storm .cloud {
+    fill: #858585
+}
+
+#shadow-storm .lightning {
+    fill: #FFAD10
+}
+
+#shadow-suitcase .circle {
+    fill: #02BD85
+}
+
+#shadow-suitcase .top {
+    fill: #9A4C1D
+}
+
+#shadow-suitcase .bottom {
+    fill: #B75B24
+}
+
+#shadow-suitcase .buttons {
+    fill: #C89211
+}
+
+#shadow-tag .circle {
+    fill: #D6D6B8
+}
+
+#shadow-tag .base {
+    fill: #FFBA00
+}
+
+#shadow-tag .dot {
+    fill: #C38E00
+}
+
+#shadow-thumbsdown .circle {
+    fill: #E74C3C
+}
+
+#shadow-thumbsdown .base {
+    fill: #F1CDB0
+}
+
+#shadow-thumbsdown .sleeve {
+    fill: #E1AF45
+}
+
+#shadow-thumbsdown .cuff {
+    fill: #339FA9
+}
+
+#shadow-thumbsdown .dot {
+    fill: #FFFFFF
+}
+
+#shadow-thumbsup .circle {
+    fill: #02BD85
+}
+
+#shadow-thumbsup .base {
+    fill: #F1CDB0
+}
+
+#shadow-thumbsup .sleeve {
+    fill: #854D37
+}
+
+#shadow-thumbsup .cuff {
+    fill: #C24C28
+}
+
+#shadow-thumbsup .dot {
+    fill: #FFFFFF
+}
+
+#shadow-trash .circle {
+    fill: #90C0D8
+}
+
+#shadow-trash .base {
+    fill: #8C8C8C
+}
+
+#shadow-trash .details {
+    fill: #515151
+}
+
+#shadow-trash .lid {
+    fill: #6E6E6E
+}
+
+#shadow-user .circle {
+    fill: #D1F274
+}
+
+#shadow-user .body {
+    fill: #44B2B6
+}
+
+#shadow-user .collar_right {
+    fill: #FFFFFF
+}
+
+#shadow-user .collar_left {
+    fill: #FFFFFF
+}
+
+#shadow-user .head {
+    fill: #F1CDB0
+}
+
+#shadow-user .hair {
+    fill: #AB6125
+}
+
+#shadow-winner .circle {
+    fill: #F8B243
+}
+
+#shadow-winner .ribbon {
+    fill: #5BB3F0
+}
+
+#shadow-winner .base {
+    fill: #1983CD
+}
+
+#shadow-winner .text {
+    fill: #FFFFFF
+}
+
+.iconwrap {
+    display: block;
+    width: 168px;
+    height: 170px;
+    margin: 0;
+    padding: 0;
+    float: left;
+    position: relative;
+}
+
+.long-shadow {
+    background: url(http://www.pencilscoop.com/demos/animated-svg/demo/images/long_shadow.png) no-repeat;
+    width: 168px;
+    height: 170px;
+    position: absolute;
+    z-index: 1;
+    opacity: 0;
+    -webkit-transition: all 0.2s;
+    -moz-transition: all .2s;
+    transition: all .2s;
+    display: block;
+    top: 47px;
+    left: 35px;
+}
+
+.flat-shadow {
+    z-index: 999;
+    position: relative;
+}
+
+.iconwrap:hover .long-shadow {
+    opacity: 1;
+    -moz-transition-delay: .5s !important;
+    -webkit-transition-delay: .5s !important;
+    transition-delay: .5s !important;
+}
+
+.flat-shadow:hover .icon {
+    -moz-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+    transform: scale(1, 1);
+    /*animation-name*/
+    -webkit-animation-name: shadow-burst;
+    -moz-animation-name: shadow-burst;
+    -ms-animation-name: shadow-burst;
+    -o-animation-name: shadow-burst;
+    animation-name: shadow-burst;
+    /*animation-duration*/
+    -webkit-animation-duration: .4s;
+    -moz-animation-duration: .4s;
+    -ms-animation-duration: .4s;
+    -o-animation-duration: .4s;
+    animation-duration: .4s;
+    /*transform-origin*/
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50px 50px !important;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+}
+
+@-webkit-keyframes shadow-burst {
+        {
+        -webkit-transform: scale(1.1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -webkit-transform: scale(1.3);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -webkit-transform: scale(1.17);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -webkit-transform: scale(1.05);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -webkit-transform: scale(1.2);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -webkit-transform: scale(1.3);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -webkit-transform: scale(1.2);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -webkit-transform: scale(1.1);
+        animation-timing-function: ease-out;
+    }
+}
+
+@-moz-keyframes shadow-burst {
+        {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        -moz-transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        -moz-transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        -moz-transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        -moz-transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        -moz-transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+}
+
+@keyframes shadow-burst {
+        {
+        transform: scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    37% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    55% {
+        transform: scale(1.37, 1.37);
+        animation-timing-function: ease-in;
+    }
+    73% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+    82% {
+        transform: scale(1.45, 1.45);
+        animation-timing-function: ease-in;
+    }
+    91% {
+        transform: scale(1.5, 1.5);
+        animation-timing-function: ease-out;
+    }
+    96% {
+        transform: scale(1.4, 1.4);
+        animation-timing-function: ease-in;
+    }
+    100% {
+        transform: scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
+    .long-shadow {
+        background: url(http://www.pencilscoop.com/demos/animated-svg/demo/images/long_shadow@2x.png) no-repeat;
+        width: 168px;
+        height: 170px;
+        background-size: 168px 170px;
+    }
+}
+
 .spinner {
-  margin : 0px auto 10px auto;
-  width: 50px;
-  height: 60px;
-  text-align: center;
-  font-size: 10px;
+    margin: 0px auto 10px auto;
+    width: 50px;
+    height: 60px;
+    text-align: center;
+    font-size: 10px;
 }
- 
-.spinner > div {
-  background-color: #67CF22;
-  height: 100%;
-  width: 6px;
-  display: inline-block;
-   
-  -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
-  animation: stretchdelay 1.2s infinite ease-in-out;
+
+.spinner>div {
+    background-color: #67CF22;
+    height: 100%;
+    width: 6px;
+    display: inline-block;
+    -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+    animation: stretchdelay 1.2s infinite ease-in-out;
 }
- 
+
 .spinner .rect2 {
-  -webkit-animation-delay: -1.1s;
-  animation-delay: -1.1s;
+    -webkit-animation-delay: -1.1s;
+    animation-delay: -1.1s;
 }
- 
+
 .spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s;
 }
- 
+
 .spinner .rect4 {
-  -webkit-animation-delay: -0.9s;
-  animation-delay: -0.9s;
+    -webkit-animation-delay: -0.9s;
+    animation-delay: -0.9s;
 }
- 
+
 .spinner .rect5 {
-  -webkit-animation-delay: -0.8s;
-  animation-delay: -0.8s;
+    -webkit-animation-delay: -0.8s;
+    animation-delay: -0.8s;
 }
- 
+
 @-webkit-keyframes stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) } 
-  20% { -webkit-transform: scaleY(1.0) }
+    0%, 40%, 100% {
+        -webkit-transform: scaleY(0.4)
+    }
+    20% {
+        -webkit-transform: scaleY(1.0)
+    }
 }
- 
+
 @keyframes stretchdelay {
-  0%, 40%, 100% {
-	transform: scaleY(0.4);
-	-webkit-transform: scaleY(0.4);
-  }  20% {
-	transform: scaleY(1.0);
-	-webkit-transform: scaleY(1.0);
-  }
+    0%, 40%, 100% {
+        transform: scaleY(0.4);
+        -webkit-transform: scaleY(0.4);
+    }
+    20% {
+        transform: scaleY(1.0);
+        -webkit-transform: scaleY(1.0);
+    }
 }
