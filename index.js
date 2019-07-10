@@ -9,7 +9,9 @@ var videoLiveMsgWindow = null;
 var superTalkMsgWindow = null;
 var videoLiveApplyDialog = null;
 
-var aecRequestBaseURL = "https://www.starrtc.com/aec";
+// 集成文档请参考 https://docs.starrtc.com/en/docs/web-7.html
+
+var aecRequestBaseURL = "https://www.starrtc.com/aec";				//开启AEC后，才生效，从此url获取各种列表信息
 var privateURL = "demo.starrtc.com";
 
 StarRtc.Instance = new StarRtc.StarSDK();
@@ -335,7 +337,7 @@ function bindEvent() {
 		voipMsgWindow.show();
 	});
 
-	$("#voipCalling").bind("click", callingVOIP);
+	$("#voipCalling").bind("click", openCallDlg);
 	$("#voipHangup").bind("click", hangupVOIP);
 
 	$("#voipSmallVideo").bind("click", switchVoipVideo);
@@ -413,6 +415,14 @@ function starRtcLoginCallBack(data, status) {
 			switch (data.type) {
 				case "voipCall":
 					$("#callerId").html(data.fromId);
+					$("#callerType").html("视频");
+					voipAudio = false;
+					voipResponseDlg.dialog("open");
+					break;
+				case "voipAudioCall":
+					$("#callerId").html(data.fromId);
+					$("#callerType").html("音频");
+					voipAudio = true;
 					voipResponseDlg.dialog("open");
 					break;
 				case "voipHangup":
@@ -1473,6 +1483,8 @@ function videoLiveLinkStop() {
 
 var voipResponseDlg;
 var voipConnectDlg;
+var voipCallDlg;
+var voipAudio = false;
 
 function enterVoipFunc() {
 	currFunc.exit = exitVoipFunc;
@@ -1486,15 +1498,27 @@ function exitVoipFunc() {
 	}
 }
 
-function callingVOIP() {
-	var targetUid = $('#targetUserId').val();
-
+function openCallDlg() {
+	var targetUid = $('#targetUserId').val().trim();
 	if (targetUid == null || targetUid == undefined || targetUid == "") {
 		alert("对方ID不能为空");
 		return;
 	}
+	$("#calleeId").html(targetUid);
+	voipCallDlg.dialog("open");
+}
 
-	currRoom = StarRtc.Instance.getVoipRoomSDK("call", voipCallBack, { "roomInfo": { "targetId": targetUid } });
+function callingVOIP() {
+	var targetUid = $('#targetUserId').val().trim();
+	if (targetUid == null || targetUid == undefined || targetUid == "") {
+		alert("对方ID不能为空");
+		return;
+	}
+	voipCallDlg.dialog("close");
+
+	voipAudio = $('#voipTypeAudioOnly').is(':checked');
+
+	currRoom = StarRtc.Instance.getVoipRoomSDK("call", voipCallBack, { "roomInfo": { "targetId": targetUid, "audioOnly": voipAudio } });
 	currRoom.sigConnect();
 	voipConnectDlg.dialog("open");
 }
@@ -1595,7 +1619,7 @@ function voipAcceptCall() {
 	showVoipTab();
 
 	var targetId = $("#callerId").html();
-	currRoom = StarRtc.Instance.getVoipRoomSDK("response", voipCallBack, { "roomInfo": { "targetId": targetId } });
+	currRoom = StarRtc.Instance.getVoipRoomSDK("response", voipCallBack, { "roomInfo": { "targetId": targetId, "audioOnly": voipAudio } });
 	currRoom.sigConnect();
 	voipResponseDlg.dialog("close");
 }
@@ -1614,6 +1638,8 @@ function voipCancleCall() {
 function stopVoip() {
 	currRoom = null;
 	voipResponseDlg.dialog("close");
+	voipConnectDlg.dialog("close");
+	voipCallDlg.dialog("close");
 	$("#callerId").html("");
 	$('#targetUserId').val("");
 	$("#voipBigVideo")[0].srcObject = null;
@@ -2740,6 +2766,19 @@ $().ready(function () {
 		},
 	});
 
+	voipCallDlg = $("#voipCallDlg").dialog({
+		autoOpen: false,
+		height: 300,
+		width: 350,
+		modal: true,
+		buttons: {
+			"确定": callingVOIP,
+			"取消": function () {
+				voipCallDlg.dialog("close");
+			}
+		}
+	});
+
 	videoMeetingCreateDialog = $("#videoMeetingCreateDlg").dialog({
 		autoOpen: false,
 		height: 300,
@@ -2903,6 +2942,8 @@ $().ready(function () {
 	$("#meetingTypecheck").checkboxradio();
 	$("#liveMediaSourceTypeCheck").checkboxradio();
 	$("#meetingMediaSourceTypeCheck").checkboxradio();
+	$("#voipTypeAudioOnly").checkboxradio();
+
 
 	var localId = getCookie("starrtc_userId");
 	if (localId != "") {

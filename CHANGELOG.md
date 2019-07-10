@@ -1,3 +1,23 @@
+v1.1.1 2019/07/10
+==
+1. SDK功能更新
+---
+- 1.1 SDK支持voip音频对话模式
+---
+2. demo更新
+---
+- 2.1 web demo voip可选择音、视频对话示例
+- 2.2 im demo提供聊天室创建，群组创建，群组成员查看、添加示例
+---
+3. 接口变更
+---
+- 3.1 接口StarRtc.StarSDK.getVoipRoomSDK = function (_oper, _userCallback, _userData)，参数_userData结构变为{"roomInfo":{"targetId":对方id, "audioOnly":是否仅进行音频聊天（可不传入，默认值为false，视频聊天）}}
+- 3.2 接口StarRtc.StarSDK.sendVoipCallMsg = function (_targetId, _ts, _flag) 新加可选参数_flag， 是否是音频呼叫，默认为false（可选）
+---
+4. bug修复
+---
+- 4.1 修复没有摄像头时，voip无法连接的bug
+---
 v1.1.0 2019/07/8
 ==
 1. SDK功能更新
