@@ -19,7 +19,7 @@ StarRtc.Instance = new StarRtc.StarSDK();
 ////////////////////////私有云改配置///////////////////////
 ///////////////////////以下privateURL需替换为私有部署IP////
 
-StarRtc.Instance.setConfigUseAEC(true);    							//是否开启AEC
+//StarRtc.Instance.setConfigUseAEC(true);    							//是否开启AEC
 
 StarRtc.Instance.setMsgServerInfo(privateURL, 19903) 					//ip, websocket port  //需要手动从浏览器输入 https://ip:29991 信任证书
 
