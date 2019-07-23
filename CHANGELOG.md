@@ -1,3 +1,41 @@
+v1.1.2 2019/07/23
+==
+1. SDK功能更新
+---
+- 1.1 SDK支持多浏览器，包括chrome（版本不限），360，腾讯，搜狗，微信浏览器，safari，opera，暂不支持firefox
+- 1.2 修改了切换视频流大小图接口，目前可以自由配置流大图小图，之前版本只支持同时显示一个大图
+---
+2. demo更新
+---
+- 2.1 web demo 支持多浏览器
+- 2.2 web demo 更改切换大小图代码（搜索 streamInfos 变量相关方法）
+---
+3. 新增接口
+---
+- 3.1 接口StarRtc.StarRoomSDK.streamConfigApply（新的切换大小图方法）
+- 3.2 接口StarRtc.StarVideoRoomSDK.streamConfigApply（新的切换大小图方法）
+- 3.3 接口StarRtc.StarVideoSDK.streamConfigApply（新的切换大小图方法）
+---
+4. 接口变更
+---
+- 4.1 接口StarRtc.StarSDK.setSrcServerInfo= function (srcServerUrl, srcServerWebsocketPort, srcServerWebrtcPort, srcServerWebrtcIP)，新加参数srcServerWebrtcIP，此参数为可选参数，不传入时与serverUrl相同，用于chrome72版本以下、firefox、safari使用
+- 4.2 接口StarRtc.StarSDK.setVdnServerInfo = function (vdnServerUrl, vdnServerWebsocketPort, vdnServerWebrtcPort, vdnServerWebrtcIP)，新加参数vdnServerWebrtcIP，此参数为可选参数，不传入时与serverUrl相同，用于chrome72版本以下、firefox、safari使用
+- 4.3 接口StarRtc.StarSDK.setVoipServerInfo = function (voipServerUrl, voipServerPort, voipServerWebsocketPort, voipServerWebrtcPort, voipServerWebrtcIP)，新加参数voipServerWebrtcIP，此参数为可选参数，不传入时与serverUrl相同，用于chrome72版本以下、firefox、safari使用
+---
+5. 接口废弃
+---
+- 5.1 接口StarRtc.StarRoomSDK.streamConfigChange（旧的切换大小图方法）
+- 5.2 接口StarRtc.StarVideoRoomSDK.streamConfigChange（旧的切换大小图方法）
+- 5.3 接口StarRtc.StarVideoSDK.streamConfigChange（旧的切换大小图方法）
+---
+6. bug修复
+---
+- 6.1 demo修复创建房间失败时，再次创建房间会报chatroom重复登录的错误
+---
+7. 已知问题
+---
+- 7.1 多浏览器支持在微信浏览器，safari，opera进行视频互通时，会出现没有画面的情况
+---
 v1.1.1 2019/07/10
 ==
 1. SDK功能更新

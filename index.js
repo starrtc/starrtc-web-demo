@@ -1,19 +1,24 @@
+//当前激活tab
 var activeTab = "main";
 
+//agentId，保留，当前未使用，默认为""
 var agentId = "";
+//userId 
 var userId = "";
 
+//各功能聊天室对话框
 var videoMeetingMsgWindow = null;
 var voipMsgWindow = null;
 var videoLiveMsgWindow = null;
 var superTalkMsgWindow = null;
-var videoLiveApplyDialog = null;
 
 // 集成文档请参考 https://docs.starrtc.com/en/docs/web-7.html
 
 var aecRequestBaseURL = "https://www.starrtc.com/aec";				//开启AEC后，才生效，从此url获取各种列表信息
-var privateURL = "demo.starrtc.com";
+var privateURL = "demo.starrtc.com";								//服务地址
+var webrtcIP = "123.103.93.74";										//webrtc ip (当服务地址为域名时，chrome72版本以下、firefox、safari使用)
 
+//创建SDK对象
 StarRtc.Instance = new StarRtc.StarSDK();
 
 ////////////////////////私有云改配置///////////////////////
@@ -25,12 +30,14 @@ StarRtc.Instance.setMsgServerInfo(privateURL, 19903) 					//ip, websocket port  
 
 StarRtc.Instance.setChatRoomServerInfo(privateURL, 19906) 			//ip, websocket port //需要手动从浏览器输入 https://ip:29993 信任证书
 
-StarRtc.Instance.setSrcServerInfo(privateURL, 19934, 19935)  			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://ip:29994 信任证书
+StarRtc.Instance.setSrcServerInfo(privateURL, 19934, 19935, webrtcIP)  			//ip, websocket port, webrtc port, webrtc ip//需要手动从浏览器输入 https://ip:29994 信任证书
 
-StarRtc.Instance.setVdnServerInfo(privateURL, 19940, 19941) 			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://ip:29995 信任证书
+StarRtc.Instance.setVdnServerInfo(privateURL, 19940, 19941, webrtcIP) 			//ip, websocket port, webrtc port, webrtc ip //需要手动从浏览器输入 https://ip:29995 信任证书
 
-StarRtc.Instance.setVoipServerInfo(privateURL, 10086, 10087, 10088) 	//ip, voipServer port, websocket port, webrtc port //需要手动从浏览器输入 https://ip:29992 信任证书
+StarRtc.Instance.setVoipServerInfo(privateURL, 10086, 10087, 10088, webrtcIP) 	//ip, voipServer port, websocket port, webrtc port, webrtc ip //需要手动从浏览器输入 https://ip:29992 信任证书
 
+
+//白板画布类
 var MyCanvas = function (_id, _draw_mode, _draw_callback) {
 	var id = _id;
 	var draw_mode = false || _draw_mode;
@@ -181,10 +188,12 @@ var MyCanvas = function (_id, _draw_mode, _draw_callback) {
 	return this;
 }
 
+//点击返回触发的函数
 var currFunc = {
 	"exit": undefined
 };
 
+//登陆成功后界面设置
 function loginSuccessViewSet() {
 	switchLogin(false);
 	$("#userId").html(userId);
@@ -212,6 +221,7 @@ function loginSuccessViewSet() {
 	});
 }
 
+//注销
 function starlogout() {
 	StarRtc.Instance.logout();
 	bindTabs(false);
@@ -251,12 +261,6 @@ function showVideoMeetingTab() {
 	$("#videoMeetingTab").slideDown(2000, enterVideoMeetingFunc);
 }
 
-function showIotCarTab() {
-	activeTab = "iotCar";
-	$(".tab").hide();
-	$("#iotCarTab").slideDown(2000, enterIotCarFunc);
-}
-
 function showSuperTalkTab() {
 	activeTab = "superTalk";
 	$(".tab").hide();
@@ -274,7 +278,6 @@ function bindTabs(flag) {
 		$("#voipButton").bind("click", showVoipTab);
 		$("#videoLiveButton").bind("click", showVideoLiveTab);
 		$("#videoMeetingButton").bind("click", showVideoMeetingTab);
-		$("#iotCarButton").bind("click", showIotCarTab);
 		$("#superTalkButton").bind("click", showSuperTalkTab);
 		$("#superVideoButton").bind("click", showSuperVideoTab);
 	}
@@ -283,7 +286,6 @@ function bindTabs(flag) {
 		$("#voipButton").unbind("click");
 		$("#videoLiveButton").unbind("click");
 		$("#videoMeetingButton").unbind("click");
-		$("#iotCarButton").unbind("click");
 		$("#superTalkButton").unbind("click");
 		$("#superVideoButton").unbind("click");
 	}
@@ -342,92 +344,77 @@ function bindEvent() {
 
 	$("#voipSmallVideo").bind("click", switchVoipVideo);
 	$("#voipBigVideo").bind("click", switchVoipVideo);
-
-	$("#iotCarCtrlUp").bind("mousedown", function () {
-		iotCarCtrl("up");
-	});
-	$("#iotCarCtrlDown").bind("mousedown", function () {
-		iotCarCtrl("down")
-	});
-	$("#iotCarCtrlLeft").bind("mousedown", function () {
-		iotCarCtrl("left");
-	});
-	$("#iotCarCtrlRight").bind("mousedown", function () {
-		iotCarCtrl("right");
-	});
-	$("#iotCarStart").bind("click", startIotCar);
 }
 //////////////////////////////////////////////star box////////////////////////////////////////
 function starlogin(evt, _userId) {
+	//userId随机生成，类型为字符串
 	if (_userId == undefined) {
 		_userId = "" + (Math.floor(Math.random() * 899999) + 100000);
 	}
 	userId = _userId;
 	$("#userImage").html("<div class=\"rect1\"></div>\n<div class=\"rect2\"></div>\n<div class=\"rect3\"></div>\n<div class=\"rect4\"></div>\n<div class=\"rect5\"></div>");
 	setCookie("starrtc_userId", userId, null);
-	loginSuccessViewSet();
+	//登录
 	starRtcLogin(agentId, userId, starRtcLoginCallBack);
 }
 
+//登录时传入的回调函数，IM，群组，系统消息在此回调中处理
 function starRtcLoginCallBack(data, status) {
 	switch (status) {
 		//链接状态
 		case "connect success":
+			break;
 		case "connect failed":
+			alert("登录连接失败!");
+			break;
 		case "connect closed":
 			break;
 		//收到登录消息
 		case "onLoginMessage":
+			if (data.status == "success") {
+				loginSuccessViewSet();
+			}
 			console.log("login:" + data.status);
 			break;
-		//收到消息
+		//收到IM消息
 		case "onSingleMessage":
 			var fid = data.fromId;
 			voipMsgWindow.displayMessage(data.fromId, data.msg.contentData, false);
 			break;
+		//收到群组消息
 		case "onGroupMessage":
-			var gid = data.groupId;
-			var fid = data.fromId;
-			var msgJson = JSON.parse(data.msg);
-			var msgTxt = msgJson.contentData;
-			setGroupMessageInnerHTML(gid, fid + ":<br/>&nbsp;&nbsp;&nbsp;" + msgTxt);
 			break;
+		//收到群组私聊消息
 		case "onGroupPrivateMessage":
-			var gid = data.groupId;
-			var fid = data.fromId;
-			var msgJson = JSON.parse(data.msg);
-			var msgTxt = msgJson.contentData;
-			setGroupMessageInnerHTML(gid, fid + ":<br/>&nbsp;&nbsp;&nbsp;" + msgTxt);
 			break;
+		//收到群组推送消息
 		case "onGroupPushMessage":
-			var gid = data.groupId;
-			var msgJson = JSON.parse(data.msg);
-			var msgTxt = msgJson.contentData;
-			setGroupMessageInnerHTML(gid, msgTxt);
 			break;
+		//收到系统推送消息
 		case "onSystemPushMessage":
-			var msgJson = JSON.parse(data.msg);
-			var msgTxt = msgJson.contentData;
-			setSingleMessageInnerHTML(status + ":" + msgTxt);
-			setGroupMessageInnerHTML("all", status + ":" + msgTxt);
 			break;
+		//收到voip消息
 		case "onVoipMessage":
 			switch (data.type) {
+				//收到voip视频呼叫消息
 				case "voipCall":
 					$("#callerId").html(data.fromId);
 					$("#callerType").html("视频");
 					voipAudio = false;
 					voipResponseDlg.dialog("open");
 					break;
+				//收到voip音频呼叫消息
 				case "voipAudioCall":
 					$("#callerId").html(data.fromId);
 					$("#callerType").html("音频");
 					voipAudio = true;
 					voipResponseDlg.dialog("open");
 					break;
+				//收到voip挂断消息
 				case "voipHangup":
 					voipResponseDlg.dialog("close");
 					break;
+				//收到voip拒绝消息
 				case "voipRefuse":
 					voipConnectDlg.dialog("close");
 					$("#callerId").html("");
@@ -435,8 +422,10 @@ function starRtcLoginCallBack(data, status) {
 					break;
 			}
 			break;
+		//收到错误消息
 		case "onErrorMessage":
 			switch (data.errId) {
+				//收到重复登录消息
 				case 2:
 					alert("您的账号在另外的设备登录，您已经下线");
 					$(".backButton")[0].click();
@@ -444,67 +433,183 @@ function starRtcLoginCallBack(data, status) {
 					break;
 			}
 			break;
+		//收到群组列表回调（仅非AEC）
 		case "onGetGroupList":
 			break;
+		//收到在线人数回调
 		case "onGetOnlineNumber":
 			break;
+		//收到推送群组成员回调（仅非AEC）
 		case "onGetGroupUserList":
 			break;
+		//收到推送群组系统消息回调
 		case "onGetAllUserList":
 			break;
+		//收到推送群组系统消息回调
 		case "onPushGroupSystemMsgFin":
 			break;
+		//收到推送系统消息回调
 		case "onPushSystemMsgFin":
 			break;
+		//收到取消免打扰回调（仅非AEC）
 		case "onUnsetGroupMsgIgnoreFin":
 			break;
+		//收到设置免打扰回调（仅非AEC）
 		case "onSetGroupMsgIgnoreFin":
 			break;
+		//收到移除群组成员回调
 		case "onRemoveGroupUserFin":
 			break;
+		//收到添加群组成员回调
 		case "onAddGroupUserFin":
 			break;
+		//收到删除群组回调
 		case "onDelGroupFin":
 			break;
+		//收到创建群组回调
 		case "onCreateGroupFin":
 			break;
+		//收到发送群组消息回调
 		case "onSendGroupMsgFin":
 			break;
 	}
 };
 
+//登录函数
 function starRtcLogin(agentId, userId, callBack) {
+	//获取SDK版本
 	StarRtc.Instance.version();
+	//SDK登录函数
 	StarRtc.Instance.login(agentId, userId, callBack);
 }
 //////////////////////////////////////////////star box end////////////////////////////////////////
 //////////////////////////////////////////////videoMeeting////////////////////////////////////////
+//房间列表
 var videoMeetingIds;
+//当前选中房间下标
 var selectVideoMeetingIndex;
+
 var videoMeetingCreateDialog;
 var videoMeetingDelDialog;
-var oldBigVideo;
-var nowBigVideo;
+//分享屏幕标志位
 var meetingShareScreen = false;
 
+//当前房间
 var currRoom = null;
-//获取视频会议列表 
 
+//流信息，用于切换大小图
+var streamInfos = [];
+//大图辅助变量
+var oldBigVideo = -1;
+var nowBigVideo = -1;
+
+function streamInfo() {
+	this.videoId = "";
+	this.streamObj = null;
+	this.switchFlag = false;
+}
+
+//初始化
+function resetStreamInfos() {
+	streamInfos = [];
+	for (var i = 0; i < 7; ++i) {
+		var stream = new streamInfo();
+		streamInfos.push(stream);
+	}
+}
+
+//切换大小图
+function streamConfigChange(roomSDK, upId) {
+	if (nowBigVideo == upId) {
+		nowBigVideo = oldBigVideo;
+		oldBigVideo = upId
+	}
+	else {
+		oldBigVideo = nowBigVideo;
+		nowBigVideo = upId;
+	}
+
+	var streamConfig = [];
+	for (var i in streamInfos) {
+		var conf = 0;
+		if (oldBigVideo == nowBigVideo) {
+			conf = !streamInfos[i].switchFlag ? 2 : 1;
+		}
+		else if (i == oldBigVideo) {
+			conf = 1;
+		}
+		else if (i == nowBigVideo) {
+			conf = 2;
+		}
+		else {
+			conf = streamInfos[i].switchFlag ? 2 : 1
+		}
+		streamConfig.push(conf);
+	}
+
+	roomSDK.streamConfigApply(streamConfig);
+}
+
+//将stream中两个video track顺序对调，达到显示另一个流的效果
+function switchStream(stream) {
+	var tracks = [];
+	stream.getVideoTracks().forEach(function (track) {
+		tracks.push(track);
+		stream.removeTrack(track);
+	});
+
+	for (var i = tracks.length - 1; i >= 0; i--) {
+		stream.addTrack(tracks[i]);
+	}
+}
+
+function switchStreamInfo(streamInfo) {
+	if (streamInfo) {
+		streamInfo.switchFlag = !streamInfo.switchFlag;
+		switchStream(streamInfo.streamObj);
+	}
+}
+
+function setStreamInfo(upId, videoId, stream) {
+	if (streamInfos[upId]) {
+		streamInfos[upId].videoId = videoId;
+		streamInfos[upId].streamObj = stream;
+	}
+}
+
+function getStreamInfo(upId) {
+	return streamInfos[upId];
+}
+
+//当一个上传者被移除后，需要重置该位置的流，否则当下一个上传者使用该位置时，可能会出现流顺序问题导致的显示异常
+function resetStreamInfo(streamInfo) {
+	if (streamInfo.switchFlag) {
+		switchStreamInfo(streamInfo);
+	}
+}
+
+resetStreamInfos(streamInfos);
+
+//进入视频会议tab
 function enterVideoMeetingFunc() {
 	currFunc.exit = exitVideoMeetingFunc;
 	$("#videoMeetingList").html("");
 	loadVideoMeetingList();
 }
 
+//获取视频会议列表，AEC，非AEC
 function loadVideoMeetingList(_callback) {
 	$("#videoMeetingList").html("");
+	//视频会议的两种类型，标准类型，推流类型
 	var listTypes = [CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING, CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING_PUSH];
+	//开启AEC时
 	if (StarRtc.Instance.starConfig.configUseAEC) {
 		$.get(aecRequestBaseURL + "/list/query.php?listTypes=" + listTypes.join(","), function (data, status) {
 			if (status === "success") {
 				var obj = JSON.parse(data);
 				if (obj.status == 1) {
 					videoMeetingIds = [];
+					//数据存储在obj.data中，为数组，单项存储在obj.data[i].data中，为json字符串，解析后结构为{"id", "name", "creator"}
 					for (var i = 0; i < obj.data.length; i++) {
 						var item = JSON.parse(decodeURIComponent(obj.data[i].data));
 						videoMeetingIds.push(item);
@@ -526,6 +631,7 @@ function loadVideoMeetingList(_callback) {
 		//仅供测试使用
 		StarRtc.Instance.queryRoom(listTypes, function (status, listData) {
 			videoMeetingIds = listData;
+			//数据存储在listData中，为数组，单项结构为{"id", "name", "creator"}
 			for (var i = 0; i < listData.length; i++) {
 				var item = listData[i];
 				$("#videoMeetingList")[0].innerHTML +=
@@ -544,17 +650,22 @@ function openVideoMeeting(index, from) {
 	if (selectVideoMeetingIndex == index) return;
 
 	if (currRoom != null) {
+		//离开房间
 		currRoom.leaveRoom();
+		//断开连接
 		currRoom.sigDisconnect();
 		currRoom = null;
 	}
 
 	selectVideoMeetingIndex = index;
 
+	//获取视频会议SDK
 	currRoom = StarRtc.Instance.getVideoMeetingRoomSDK("open", videoMeetingCallBack, { "roomInfo": videoMeetingIds[index] });
+	//链接
 	currRoom.sigConnect();
 }
 
+//加入视频会议后设置界面
 function joinMeetingRoom(meetingInfo) {
 	$('#videoMeetingTitle').html("");
 	$('#videoMeetingTitle').html(meetingInfo.name);
@@ -568,22 +679,27 @@ function joinMeetingRoom(meetingInfo) {
 	}
 }
 
+//设置自己的本地视频流显示
 function videoMeetingSetStream(object) {
 	var selfVideo = $("#videoMeetingSelfVideo")[0];
 	selfVideo.srcObject = object;
 	selfVideo.play();
 }
 
+//视频会议回调函数
 function videoMeetingCallBack(data, status, oper) {
+	//视频会议SDK对象
 	var thisRoom = data.obj;
 	switch (status) {
 		//链接状态
 		case "connect success":
 			switch (oper) {
 				case "open":
+					//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 					thisRoom.createStream();
 					break;
 				case "new":
+					//创建新房间，会触发onWebrtcMessage中的createChannel回调
 					thisRoom.createNew();
 					break;
 			}
@@ -592,36 +708,45 @@ function videoMeetingCallBack(data, status, oper) {
 		case "connect closed":
 			stopVideoMeeting();
 			break;
+		//收到聊天室回调
 		case "onChatRoomMessage":
 			switch (data.type) {
+				//收到加入聊天室回调
 				case "joinChatRoom":
 					if (data.status == "success") { }
 					else {
 						alert(data.failedStatus);
 					}
 					break;
+				//收到聊天室私聊消息
 				case "recvChatPrivateMsg":
 					videoMeetingMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
 					break;
+				//收到聊天室消息
 				case "recvChatMsg":
 					videoMeetingMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
 					break;
+				//收到聊天室被踢消息
 				case "chatroomUserKicked":
 					thisRoom.leaveRoom();
 					alert("你已被踢出房间！");
 					break;
+				//收到服务器错误消息
 				case "serverErr":
 					alert("服务器错误：" + data.msg);
 					break;
 			}
 			break;
+		//收到视频相关回调
 		case "onWebrtcMessage":
 			switch (data.type) {
+				//收到流创建回调
 				case "streamCreated":
 					if (data.status == "success") {
 						videoMeetingSetStream(data.streamObj);
 						switch (oper) {
 							case "open":
+								//加入房间
 								thisRoom.joinRoom();
 								break;
 							case "new":
@@ -633,6 +758,7 @@ function videoMeetingCallBack(data, status, oper) {
 						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
+				//收到src加入房间回调
 				case "srcApplyUpload":
 					if (data.status == "success") {
 						joinMeetingRoom(data.userData.roomInfo);
@@ -642,16 +768,18 @@ function videoMeetingCallBack(data, status, oper) {
 						console.log("收到_webrtc_apply_failed");
 					}
 					break;
+				//收到添加新的上传者回调
 				case "addUploader":
 					var newVideoId = "webrtc_video_" + data.upUserId;
-					var streamInfo = data.streamInfo;
-					streamInfo.videoId = newVideoId;
-					videoMeetingAddNewVideo(newVideoId, streamInfo.streamObj, function (evt) {
-						thisRoom.streamConfigChange(data.upId);
+					setStreamInfo(data.upId, newVideoId, data.streamInfo.streamObj);
+					videoMeetingAddNewVideo(newVideoId, data.streamInfo.streamObj, function (evt) {
+						streamConfigChange(thisRoom, data.upId);
 					});
 					break;
+				//收到移除上传者回调
 				case "removeUploader":
-					var streamInfo = data.streamInfo;
+					var streamInfo = getStreamInfo(data.upId);
+					resetStreamInfo(streamInfo);
 					var newVideoId = streamInfo.videoId;
 					removeNewVideo($("#videoMeetingVideoZone"), $("#" + newVideoId));
 					if (data.bigFlag) {
@@ -661,8 +789,10 @@ function videoMeetingCallBack(data, status, oper) {
 						}
 					}
 					break;
+				//收到删除房间回调
 				case "delChannel":
 					if (data.status == "success") {
+						//开启AEC时，需要在AEC列表中也删除
 						if (StarRtc.Instance.starConfig.configUseAEC) {
 							$.get(aecRequestBaseURL + "/list/del.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING.toString() + "&roomId=" + data.userData.roomInfo.id, function (data, status) {
 								if (status === "success") {
@@ -690,8 +820,10 @@ function videoMeetingCallBack(data, status, oper) {
 						alert("删除视频会议失败");
 					}
 					break;
+				//收到创建房间回调
 				case "createChannel":
 					if (data.status == "success") {
+						//开启AEC时，需要在AEC列表中保存房间信息
 						if (StarRtc.Instance.starConfig.configUseAEC) {
 							$.get(aecRequestBaseURL + "/list/save.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING.toString() + "&roomId=" + data.userData.roomInfo.id + "&data=" + encodeURIComponent(JSON.stringify(data.userData.roomInfo)), function (data, status) {
 								if (status === "success") {
@@ -727,9 +859,11 @@ function videoMeetingCallBack(data, status, oper) {
 								selectVideoMeetingIndex = undefined;
 							}
 							if (meetingShareScreen) {
+								//创建屏幕分享流
 								thisRoom.createScreenCaptureStream();
 							}
 							else {
+								//创建视频流
 								thisRoom.createStream();
 							}
 
@@ -737,6 +871,27 @@ function videoMeetingCallBack(data, status, oper) {
 					}
 					else {
 						alert("创建失败:" + data.msg);
+					}
+					break;
+				//设置大小图回调
+				case "streamConfig":
+					if (data.status == "success") {
+						if (oldBigVideo == nowBigVideo) {
+							var streamInfo = getStreamInfo(oldBigVideo);
+							switchStreamInfo(streamInfo);
+							break;
+						}
+						if (oldBigVideo != undefined) {
+							var streamInfo = getStreamInfo(oldBigVideo);
+							switchStreamInfo(streamInfo);
+						}
+						if (nowBigVideo != undefined) {
+							var streamInfo = getStreamInfo(nowBigVideo);
+							switchStreamInfo(streamInfo);
+						}
+					}
+					else {
+
 					}
 					break;
 				case "serverErr":
@@ -747,7 +902,13 @@ function videoMeetingCallBack(data, status, oper) {
 	}
 }
 
+//停止视频会议后设置界面
 function stopVideoMeeting() {
+	//流信息，用于切换大小图
+	resetStreamInfos(streamInfos);
+	//大图辅助变量
+	oldBigVideo = -1;
+	nowBigVideo = -1;
 	videoMeetingCreateDialog.dialog("close");
 	videoMeetingDelDialog.dialog("close");
 	selectVideoMeetingIndex = undefined;
@@ -764,6 +925,7 @@ function stopVideoMeeting() {
 	});
 }
 
+//退出视频会议
 function exitVideoMeetingFunc() {
 	if (currRoom != null) {
 		currRoom.leaveRoom();
@@ -772,6 +934,7 @@ function exitVideoMeetingFunc() {
 	}
 }
 
+//添加新的视频对象
 function videoMeetingAddNewVideo(newVideoId, stream, clickCallback) {
 	var parentObj = $("#videoMeetingVideoZone");
 	var wrapperObj = $("<div></div>");
@@ -787,19 +950,31 @@ function videoMeetingAddNewVideo(newVideoId, stream, clickCallback) {
 	videoObj[0].play();
 }
 
+//创建视频会议对话框
 function videoMeetingCreateNewDlg() {
 	$("#newMeetingName").val("网页会议_" + userId);
 	videoMeetingCreateDialog.dialog("open");
 }
 
+//创建视频会议
 function videoMeetingCreateNewMeeting() {
 	var newMeetingName = $("#newMeetingName").val();
 	if (newMeetingName == "") {
 		alert("会议室名称不能为空！");
 	}
 	else {
+
+		if (currRoom != null) {
+			//离开房间
+			currRoom.leaveRoom();
+			//断开连接
+			currRoom.sigDisconnect();
+			currRoom = null;
+		}
+
 		var type = $('#meetingTypecheck').is(':checked') ? 1 : 0;
 		meetingShareScreen = $('#meetingMediaSourceTypeCheck').is(':checked');
+		//获取视频会议SDK
 		currRoom = StarRtc.Instance.getVideoMeetingRoomSDK("new", videoMeetingCallBack, {
 			"roomInfo": {
 				"creator": userId,
@@ -809,10 +984,12 @@ function videoMeetingCreateNewMeeting() {
 			}
 		}
 		);
+		//链接
 		currRoom.sigConnect();
 	}
 }
 
+//删除视频会议房间
 function videoMeetingDelMeeting() {
 	{
 		if (currRoom != null) {
@@ -823,16 +1000,21 @@ function videoMeetingDelMeeting() {
 
 //////////////////////////////////////////////videoMeeting end////////////////////////////////
 //////////////////////////////////////////////videoLive///////////////////////////////////////
+//房间列表
 var videoLiveIds;
+//当前选中房间下标
 var selectVideoLiveIndex;
+
 var videoLiveCreateDialog;
 var videoLiveDelDialog;
 var videoLiveManageDialog;
 var videoLiveMyCanvas = null;
 var videoLiveCanvasDlg;
+var videoLiveApplyDialog = null;
+//分享屏幕标志位
 var liveShareScreen = false;
-//获取视频会议列表 
 
+//进入直播tab
 function enterVideoLiveFunc() {
 	currFunc.exit = exitVideoLiveFunc;
 	$("#videoLiveList").html("");
@@ -847,16 +1029,19 @@ function exitVideoLiveFunc() {
 	}
 }
 
-//获取视频会议列表 
+//获取直播列表，AEC，非AEC
 function loadVideoLiveList(_callback) {
 	$("#videoLiveList").html("");
+	//直播的两种类型，标准类型，推流类型
 	var listTypes = [CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE, CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE_PUSH];
+	//开启AEC时
 	if (StarRtc.Instance.starConfig.configUseAEC) {
 		$.get(aecRequestBaseURL + "/list/query.php?listTypes=" + listTypes.join(","), function (data, status) {
 			if (status === "success") {
 				var obj = JSON.parse(data);
 				if (obj.status == 1) {
 					videoLiveIds = [];
+					//数据存储在obj.data中，为数组，单项存储在obj.data[i].data中，为json字符串，解析后结构为{"id", "name", "creator"}
 					for (var i = 0; i < obj.data.length; i++) {
 						var item = JSON.parse(decodeURIComponent(obj.data[i].data));
 						videoLiveIds.push(item);
@@ -878,6 +1063,7 @@ function loadVideoLiveList(_callback) {
 		//仅供测试使用
 		StarRtc.Instance.queryRoom(listTypes, function (status, listData) {
 			videoLiveIds = listData;
+			//数据存储在listData中，为数组，单项结构为{"id", "name", "creator"}
 			for (var i = 0; i < listData.length; i++) {
 				var item = listData[i];
 				$("#videoLiveList")[0].innerHTML +=
@@ -890,6 +1076,7 @@ function loadVideoLiveList(_callback) {
 	}
 }
 
+//加入直播后设置界面
 function joinLiveRoom(liveInfo) {
 	$('#videoLiveTitle').html("");
 	$('#videoLiveTitle').html(liveInfo.name);
@@ -903,6 +1090,7 @@ function joinLiveRoom(liveInfo) {
 	}
 }
 
+//设置自己的本地视频流显示
 function videoLiveSetStream(object) {
 	$("#videoLiveSelfVideo").parent().show();
 	var selfVideo = $("#videoLiveSelfVideo")[0];
@@ -910,16 +1098,20 @@ function videoLiveSetStream(object) {
 	selfVideo.play();
 }
 
+//直播上传者（SRC）回调函数
 function videoLiveSrcCallBack(data, status, oper) {
+	//直播房间SDK对象
 	var thisRoom = data.obj;
 	switch (status) {
 		//链接状态
 		case "connect success":
 			switch (oper) {
 				case "open":
+					//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 					thisRoom.createStream();
 					break;
 				case "new":
+					//创建新房间，会触发onWebrtcMessage中的createChannel回调
 					thisRoom.createNew();
 					break;
 			}
@@ -928,14 +1120,17 @@ function videoLiveSrcCallBack(data, status, oper) {
 		case "connect closed":
 			stopVideoLive();
 			break;
+		//收到视频相关回调
 		case "onWebrtcMessage":
 			{
 				switch (data.type) {
+					//收到流创建回调
 					case "streamCreated":
 						if (data.status == "success") {
 							videoLiveSetStream(data.streamObj);
 							switch (oper) {
 								case "open":
+									//加入房间
 									thisRoom.joinRoom();
 									break;
 								case "new":
@@ -947,6 +1142,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 							alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 						}
 						break;
+					//收到src加入房间回调
 					case "srcApplyUpload":
 						if (data.status == "success") {
 							if (oper == "new") {
@@ -961,16 +1157,18 @@ function videoLiveSrcCallBack(data, status, oper) {
 							console.log("收到_webrtc_apply_failed");
 						}
 						break;
+					//收到添加新的上传者回调
 					case "addUploader":
 						var newVideoId = "webrtc_video_" + data.upUserId;
-						var streamInfo = data.streamInfo;
-						streamInfo.videoId = newVideoId;
-						videoLiveAddNewVideo(newVideoId, streamInfo.streamObj, function (evt) {
-							thisRoom.streamConfigChange(data.upId);
+						setStreamInfo(data.upId, newVideoId, data.streamInfo.streamObj);
+						videoLiveAddNewVideo(newVideoId, data.streamInfo.streamObj, function (evt) {
+							streamConfigChange(thisRoom, data.upId);
 						});
 						break;
+					//收到移除上传者回调
 					case "removeUploader":
-						var streamInfo = data.streamInfo;
+						var streamInfo = getStreamInfo(data.upId);
+						resetStreamInfo(streamInfo);
 						var newVideoId = streamInfo.videoId;
 						removeNewVideo($("#videoLiveVideoZone"), $("#" + newVideoId));
 						if (data.bigFlag) {
@@ -980,8 +1178,10 @@ function videoLiveSrcCallBack(data, status, oper) {
 							}
 						}
 						break;
+					//收到删除房间回调
 					case "delChannel":
 						if (data.status == "success") {
+							//开启AEC时，需要在AEC列表中也删除
 							if (StarRtc.Instance.starConfig.configUseAEC) {
 								$.get(aecRequestBaseURL + "/list/del.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE.toString() + "&roomId=" + data.userData.roomInfo.id, function (data, status) {
 									if (status === "success") {
@@ -1009,8 +1209,10 @@ function videoLiveSrcCallBack(data, status, oper) {
 							alert("删除视频会议失败");
 						}
 						break;
+					//收到创建房间回调
 					case "createChannel":
 						if (data.status == "success") {
+							//开启AEC时，需要在AEC列表中保存房间信息
 							if (StarRtc.Instance.starConfig.configUseAEC) {
 								$.get(aecRequestBaseURL + "/list/save.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE.toString() + "&roomId=" + data.userData.roomInfo.id + "&data=" + encodeURIComponent(JSON.stringify(data.userData.roomInfo)), function (data, status) {
 									if (status === "success") {
@@ -1046,9 +1248,11 @@ function videoLiveSrcCallBack(data, status, oper) {
 									selectVideoLiveIndex = undefined;
 								}
 								if (liveShareScreen) {
+									//创建屏幕分享流
 									thisRoom.createScreenCaptureStream();
 								}
 								else {
+									//创建视频流
 									thisRoom.createStream();
 								}
 							});
@@ -1057,6 +1261,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 							alert("创建失败:" + data.msg);
 						}
 						break;
+					//收到streamData数据，此处是收到room sdk 的sendStreamData函数所发送来的自定义数据
 					case "streamData":
 						if (data.streamData != "CLEAN") {
 							if (data.streamData.indexOf(",") != -1) {
@@ -1073,41 +1278,72 @@ function videoLiveSrcCallBack(data, status, oper) {
 							videoLiveMyCanvas.clearAll();
 						}
 						break;
+					//设置大小图回调
+					case "streamConfig":
+						if (data.status == "success") {
+							if (oldBigVideo == nowBigVideo) {
+								var streamInfo = getStreamInfo(oldBigVideo);
+								switchStreamInfo(streamInfo);
+								break;
+							}
+							if (oldBigVideo != undefined) {
+								var streamInfo = getStreamInfo(oldBigVideo);
+								switchStreamInfo(streamInfo);
+							}
+							if (nowBigVideo != undefined) {
+								var streamInfo = getStreamInfo(nowBigVideo);
+								switchStreamInfo(streamInfo);
+							}
+						}
+						else {
+
+						}
+						break;
 					case "serverErr":
 						alert("服务器错误：" + data.msg);
 						break;
 				}
 			}
 			break;
+		//收到聊天室回调
 		case "onChatRoomMessage":
 			{
 				switch (data.type) {
+					//收到聊天室私聊消息
 					case "recvChatPrivateMsg":
+						//收到连麦结束消息
 						if (data.msg.msgType == "linkStop") {
 							openVideoLive(selectVideoLiveIndex);
 						}
+						//收到申请连麦消息
 						else if (data.msg.msgType == "apply") {
 							videoLiveManageDialog.userData = { "fromUserId": data.fromUserId };
 							$("#applyTargetId").html(data.msg.fromId);
 							videoLiveManageDialog.dialog("open");
 						}
+						//收到同意邀请连麦消息
 						else if (data.msg.msgType == "inviteAgree") {
 
 						}
+						//收到拒绝邀请连麦消息
 						else if (data.msg.msgType == "inviteDisagree") {
 							alert(data.msg.fromId + "拒绝了您的连麦邀请！")
 						}
+						//收到普通聊天室私聊消息
 						else {
 							videoLiveMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
 						}
 						break;
+					//收到聊天室消息
 					case "recvChatMsg":
 						videoLiveMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
 						break;
+					//收到聊天室被踢消息
 					case "chatroomUserKicked":
 						thisRoom.leaveRoom();
 						alert("你已被踢出房间！");
 						break;
+					//收到删除聊天室回调
 					case "deleteChatRoom":
 						if (data.status == "success") {
 							videoLiveDelDialog.dialog("close");
@@ -1117,6 +1353,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 							alert("删除聊天室失败");
 						}
 						break;
+					//收到服务器错误消息
 					case "serverErr":
 						alert("服务器错误：" + data.msg);
 						break;
@@ -1126,13 +1363,16 @@ function videoLiveSrcCallBack(data, status, oper) {
 	}
 }
 
+//直播观看者（VDN）回调函数
 function videoLiveVdnCallBack(data, status, oper) {
+	//直播SDK对象
 	var thisRoom = data.obj;
 	switch (status) {
 		//链接状态
 		case "connect success":
 			switch (oper) {
 				case "open":
+					//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 					thisRoom.createStream();
 					break;
 				case "new":
@@ -1143,8 +1383,10 @@ function videoLiveVdnCallBack(data, status, oper) {
 		case "connect closed":
 			stopVideoLive();
 			break;
+		//收到视频相关回调
 		case "onWebrtcMessage":
 			switch (data.type) {
+				//收到流创建回调
 				case "streamCreated":
 					if (data.status == "success") {
 						thisRoom.joinRoom();
@@ -1153,6 +1395,7 @@ function videoLiveVdnCallBack(data, status, oper) {
 						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
+				//收到vdn加入房间回调
 				case "vdnApplyDownload":
 					if (data.status == "success") {
 						joinLiveRoom(data.userData.roomInfo);
@@ -1164,16 +1407,18 @@ function videoLiveVdnCallBack(data, status, oper) {
 						thisRoom.leaveRoom();
 					}
 					break;
+				//收到添加新的上传者回调
 				case "addUploader":
 					var newVideoId = "webrtc_video_" + data.upUserId;
-					var streamInfo = data.streamInfo;
-					streamInfo.videoId = newVideoId;
-					videoLiveAddNewVideo(newVideoId, streamInfo.streamObj, function (evt) {
-						thisRoom.streamConfigChange(data.upId);
+					setStreamInfo(data.upId, newVideoId, data.streamInfo.streamObj);
+					videoLiveAddNewVideo(newVideoId, data.streamInfo.streamObj, function (evt) {
+						streamConfigChange(thisRoom, data.upId);
 					});
 					break;
+				//收到移除上传者回调
 				case "removeUploader":
-					var streamInfo = data.streamInfo;
+					var streamInfo = getStreamInfo(data.upId);
+					resetStreamInfo(streamInfo);
 					var newVideoId = streamInfo.videoId;
 					removeNewVideo($("#videoMeetingVideoZone"), $("#" + newVideoId));
 					if (data.bigFlag) {
@@ -1183,6 +1428,7 @@ function videoLiveVdnCallBack(data, status, oper) {
 						}
 					}
 					break;
+				//收到streamData数据，此处是收到room sdk 的sendStreamData函数所发送来的自定义数据
 				case "streamData":
 					videoLiveCanvasDlg.dialog("open");
 					if (data.streamData != "CLEAN") {
@@ -1197,38 +1443,69 @@ function videoLiveVdnCallBack(data, status, oper) {
 						videoLiveMyCanvas.clearAll();
 					}
 					break;
+				//设置大小图回调
+				case "streamConfig":
+					if (data.status == "success") {
+						if (oldBigVideo == nowBigVideo) {
+							var streamInfo = getStreamInfo(oldBigVideo);
+							switchStreamInfo(streamInfo);
+							break;
+						}
+						if (oldBigVideo != undefined) {
+							var streamInfo = getStreamInfo(oldBigVideo);
+							switchStreamInfo(streamInfo);
+						}
+						if (nowBigVideo != undefined) {
+							var streamInfo = getStreamInfo(nowBigVideo);
+							switchStreamInfo(streamInfo);
+						}
+					}
+					else {
+
+					}
+					break;
 				case "serverErr":
 					alert("服务器错误：" + data.msg);
 					break;
 			}
 			break;
+		//收到聊天室回调
 		case "onChatRoomMessage":
 			{
 				switch (data.type) {
+					//收到聊天室私聊消息
 					case "recvChatPrivateMsg":
+						//收到同意连麦以及邀请连麦开始消息
 						if (data.msg.msgType == "applyAgree" || data.msg.msgType == "inviteStart") {
 							openVideoLive(selectVideoLiveIndex, "applyAgree");
 						}
+						//收到连麦结束消息
 						else if (data.msg.msgType == "linkStop") {
 							openVideoLive(selectVideoLiveIndex);
 						}
+						//收到拒绝连麦消息
 						else if (data.msg.msgType == "applyDisagree") {
 							alert("房主拒绝了连麦申请");
 						}
+						//收到邀请连麦消息
 						else if (data.msg.msgType == "invite") {
 
 						}
+						//收到普通聊天室私聊消息
 						else {
 							videoLiveMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
 						}
 						break;
+					//收到聊天室消息
 					case "recvChatMsg":
 						videoLiveMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
 						break;
+					//收到聊天室被踢消息
 					case "chatroomUserKicked":
 						thisRoom.leaveRoom();
 						alert("你已被踢出房间！");
 						break;
+					//收到服务器错误消息
 					case "serverErr":
 						alert("服务器错误：" + data.msg);
 						break;
@@ -1238,7 +1515,13 @@ function videoLiveVdnCallBack(data, status, oper) {
 	}
 }
 
+//停止直播后设置界面
 function stopVideoLive() {
+	//流信息，用于切换大小图
+	resetStreamInfos(streamInfos);
+	//大图辅助变量
+	oldBigVideo = -1;
+	nowBigVideo = -1;
 	if (videoLiveMyCanvas != undefined) {
 		videoLiveMyCanvas.clearAll();
 	}
@@ -1260,6 +1543,7 @@ function stopVideoLive() {
 	});
 }
 
+//添加新的视频对象
 function videoLiveAddNewVideo(newVideoId, stream, clickCallback) {
 
 	var parentObj = $("#videoLiveVideoZone");
@@ -1339,8 +1623,7 @@ function removeNewVideo(parentObj, videoObject) {
 	}
 }
 
-//进入视频会议
-
+//进入直播
 function openVideoLive(index, from) {
 
 	var tmpFrom = from || "";
@@ -1361,6 +1644,7 @@ function openVideoLive(index, from) {
 			videoLiveAddNewVideo("videoLiveSelfVideo", null, null);
 			$("#videoLiveSelfVideo").attr("muted", "true");
 		}
+		//获取直播SDK，上传者、创建者
 		currRoom = StarRtc.Instance.getVideoLiveRoomSDK("src", "open", videoLiveSrcCallBack, { "roomInfo": videoLiveIds[index] });
 	}
 	else {
@@ -1369,19 +1653,22 @@ function openVideoLive(index, from) {
 			removeNewVideo($("#videoMeetingVideoZone"), $("#videoLiveSelfVideo"));
 		}
 
+		//获取直播SDK，观看者
 		currRoom = StarRtc.Instance.getVideoLiveRoomSDK("vdn", "open", videoLiveVdnCallBack, { "roomInfo": videoLiveIds[index] });
 
 	}
-
+	//链接
 	currRoom.sigConnect();
 }
 
+//直播白板界面
 function videoLiveCanvasShow() {
 	if (videoLiveMyCanvas != null) {
 		videoLiveCanvasDlg.dialog("open");
 	}
 }
 
+//清除直播白板
 function videoLiveCleanCanvas() {
 	if (videoLiveMyCanvas != null && currRoom != null) {
 		videoLiveMyCanvas.clearAll();
@@ -1389,6 +1676,7 @@ function videoLiveCleanCanvas() {
 	}
 }
 
+//白板绘制回调
 function canvasDrawCallback(points) {
 	if (currRoom) {
 		var data = points.join("/");
@@ -1396,17 +1684,28 @@ function canvasDrawCallback(points) {
 	}
 }
 
+//创建直播对话框
 function videoLiveCreateNewDlg() {
 	$("#newLiveName").val("网页直播_" + userId);
 	videoLiveCreateDialog.dialog("open");
 }
 
+//创建直播
 function videoLiveCreateNewLive() {
 	var newLiveName = $("#newLiveName").val();
 	if (newLiveName == "") {
 		alert("直播名称不能为空！");
 	}
 	else {
+
+		if (currRoom != null) {
+			//离开房间
+			currRoom.leaveRoom();
+			//断开连接
+			currRoom.sigDisconnect();
+			currRoom = null;
+		}
+
 		var type = $('#liveTypecheck').is(':checked') ? 1 : 0;
 		liveShareScreen = $('#liveMediaSourceTypeCheck').is(':checked');
 		if ($("#videoLiveSelfVideo").length == 0) {
@@ -1426,6 +1725,7 @@ function videoLiveCreateNewLive() {
 	}
 }
 
+//删除直播房间
 function videoLiveDelLive() {
 	//if(selectVideoLiveIndex != undefined)
 	{
@@ -1435,12 +1735,14 @@ function videoLiveDelLive() {
 	}
 }
 
+//发送房间聊天室消息
 function videoLiveInputMsgCallBack(msg) {
 	if (currRoom != null) {
 		currRoom.sendChatMsg(msg);
 	}
 }
 
+//发送连麦申请
 function videoLiveVdnApply() {
 	if (currRoom != null) {
 		currRoom.sendApplyMsg();
@@ -1448,6 +1750,7 @@ function videoLiveVdnApply() {
 	videoLiveApplyDialog.dialog("close");
 }
 
+//房间踢人
 function videoLiveKickOutUser() {
 	if (currRoom != null) {
 		var kickOutUserId = $("#applyTargetId").html();
@@ -1463,6 +1766,7 @@ function videoLiveSendPrivateMsg() {
 
 }
 
+//同意连麦
 function videoLiveApplyAgree() {
 	if (currRoom != null) {
 		var userId = $("#applyTargetId").html();
@@ -1471,6 +1775,7 @@ function videoLiveApplyAgree() {
 	videoLiveManageDialog.dialog("close");
 }
 
+//结束连麦
 function videoLiveLinkStop() {
 	if (currRoom != null) {
 		var userId = $("#applyTargetId").html();
@@ -1484,12 +1789,14 @@ function videoLiveLinkStop() {
 var voipResponseDlg;
 var voipConnectDlg;
 var voipCallDlg;
+//voip 仅音频标志位
 var voipAudio = false;
 
 function enterVoipFunc() {
 	currFunc.exit = exitVoipFunc;
 }
 
+//退出voip
 function exitVoipFunc() {
 	if (currRoom != null) {
 		currRoom.leaveRoom();
@@ -1498,6 +1805,7 @@ function exitVoipFunc() {
 	}
 }
 
+//打开voip呼叫页面
 function openCallDlg() {
 	var targetUid = $('#targetUserId').val().trim();
 	if (targetUid == null || targetUid == undefined || targetUid == "") {
@@ -1508,6 +1816,7 @@ function openCallDlg() {
 	voipCallDlg.dialog("open");
 }
 
+//开始voip呼叫
 function callingVOIP() {
 	var targetUid = $('#targetUserId').val().trim();
 	if (targetUid == null || targetUid == undefined || targetUid == "") {
@@ -1518,31 +1827,39 @@ function callingVOIP() {
 
 	voipAudio = $('#voipTypeAudioOnly').is(':checked');
 
+	//获取voipSDK
 	currRoom = StarRtc.Instance.getVoipRoomSDK("call", voipCallBack, { "roomInfo": { "targetId": targetUid, "audioOnly": voipAudio } });
+	//链接
 	currRoom.sigConnect();
 	voipConnectDlg.dialog("open");
 }
 
+//挂断voip
 function hangupVOIP() {
 	exitVoipFunc();
 }
 
+//voip回调函数
 function voipCallBack(data, status, oper) {
 	var thisRoom = data.obj;
 	switch (status) {
 		//链接状态
 		case "connect success":
+			//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 			thisRoom.createStream();
 			break;
 		case "connect failed":
 		case "connect closed":
 			stopVoip();
 			break;
+		//收到视频相关回调
 		case "onWebrtcMessage":
 			switch (data.type) {
+				//收到流创建回调
 				case "streamCreated":
 					if (data.status == "success") {
 						voipSetStream($("#voipSmallVideo")[0], data.streamObj);
+						//加入房间
 						thisRoom.joinRoom();
 					}
 					else {
@@ -1550,40 +1867,49 @@ function voipCallBack(data, status, oper) {
 						alert("获取摄像头视频失败！请检查摄像头设备是否接入！error:" + data.error);
 					}
 					break;
+				//收到voip 呼叫回调
 				case "voipCalling":
 					if (data.status == "success") {
 
 					}
 					break;
+				//收到voip 应答回调
 				case "voipResponseing":
 					if (data.status == "success") {
 						$('#targetUserId').val(data.userData.roomInfo.targetId);
 					}
 					break;
+				//收到voip 通话成功后，获取到对方视频流
 				case "voipStreamReady":
 					voipSetStream($("#voipBigVideo")[0], data.streamObj);
 					break;
 			}
 			break;
+		//收到voip IM 消息
 		case "onVoipMessage":
 			switch (data.type) {
+				//收到voip 拒绝通话
 				case "voipRefuse":
 					voipConnectDlg.dialog("close");
 					$("#callerId").html("");
 					alert("对方拒绝了通话！");
 					thisRoom.sigDisconnect();
 					break;
+				//收到voip 挂断通话
 				case "voipHangup":
 					alert("对方挂断了通话！");
 					thisRoom.sigDisconnect();
 					break;
+				//收到voip 通话链接
 				case "voipConnect":
 					voipConnectDlg.dialog("close");
 					break;
+				//收到voip 对方忙碌
 				case "voipBusy":
 					alert("对方正忙！");
 					thisRoom.sigDisconnect();
 					break;
+				//收到voip IM 聊天消息
 				case "voipSingleMsg":
 					voipMsgWindow.displayMessage(data.fromId, data.msg.contentData, false);
 					break;
@@ -1612,6 +1938,7 @@ function switchVoipVideo() {
 	voipMode = !voipMode;
 }
 
+//voip 同意接受对方呼叫
 function voipAcceptCall() {
 	if (currFunc.exit != undefined) {
 		currFunc.exit();
@@ -1619,22 +1946,27 @@ function voipAcceptCall() {
 	showVoipTab();
 
 	var targetId = $("#callerId").html();
+	//获取voipSDK
 	currRoom = StarRtc.Instance.getVoipRoomSDK("response", voipCallBack, { "roomInfo": { "targetId": targetId, "audioOnly": voipAudio } });
+	//链接
 	currRoom.sigConnect();
 	voipResponseDlg.dialog("close");
 }
 
+//voip 拒绝接受对方呼叫
 function voipRefuseCall() {
 	var targetId = $("#callerId").html();
 	StarRtc.Instance.sendVoipRefuseMsg(targetId);
 	voipResponseDlg.dialog("close");
 }
 
+//voip 取消呼叫
 function voipCancleCall() {
 	hangupVOIP();
 	voipConnectDlg.dialog("close");
 }
 
+//停止voip
 function stopVoip() {
 	currRoom = null;
 	voipResponseDlg.dialog("close");
@@ -1648,6 +1980,7 @@ function stopVoip() {
 	$("#voipSmallVideo")[0].load();
 }
 
+//voip 发送消息
 function voipInputMsgCallBack(msg) {
 	if (currRoom != null) {
 		currRoom.sendVoipMsg(msg);
@@ -1655,418 +1988,19 @@ function voipInputMsgCallBack(msg) {
 }
 
 //////////////////////////////////////////////void end////////////////////////////////////////
-//////////////////////////////////////////////iot car start////////////////////////////////////////
-var Demo = window.NameSpace || {};
-Demo.IotCarSDK = function () {
-	var self = this;
-	var roomSDK = null;
-	var starImInterface = StarRtc.Instance;
-	var car0Id = "xh_iot_car_0";
-	var userData = { "roomInfo": {} };
-
-	starImInterface.setIMExtraback(function (_data, status) {
-		iotInnerCallback(_data, "onIotMessage");
-	});
-
-	var iotInnerCallback = function (data, status) {
-		data.userData = userData;
-		data.obj = self;
-		switch (status) {
-			case "onIotMessage":
-				{
-					if (data.msg.fromId == car0Id) {
-						userData.roomInfo.id = data.msg.contentData;
-						userData.roomInfo.creator = car0Id;
-						roomSDK = StarRtc.Instance.getVideoLiveRoomSDK("vdn", "open", iotCarVdnCallBack, userData);
-						roomSDK.sigConnect();
-					}
-				}
-				break;
-			default:
-				break;
-		}
-	}
-
-	function iotCarVdnCallBack(data, status, oper) {
-		data.obj = self;
-		switch (status) {
-			//链接状态
-			case "connect success":
-				roomSDK.createStream();
-				break;
-			case "connect failed":
-			case "connect closed":
-				//stopVideoLive();
-				break;
-			case "onWebrtcMessage":
-				switch (data.type) {
-					case "streamCreated":
-						if (data.status == "success") {
-							roomSDK.joinRoom();
-						}
-						else {
-
-						}
-						break;
-					case "vdnApplyDownload":
-						if (data.status == "success") {
-							roomSDK.sendApplyMsg();
-							//joinLiveRoom(data.userData.roomInfo);
-							//$("#videoLiveApplyButton").show();
-						}
-						else {
-							console.log("收到vdnApplyDownload_failed");
-							roomSDK.leaveRoom();
-						}
-						break;
-					/* case "addUploader":
-						var newVideoId = "webrtc_video_" + data.upUserId;
-						var streamInfo = data.streamInfo;
-						streamInfo.videoId = newVideoId;
-						videoLiveAddNewVideo(newVideoId, streamInfo.streamObj, function(evt){
-							thisRoom.streamConfigChange(data.upId);
-						});
-						break;
-					case "removeUploader":
-						var streamInfo = data.streamInfo;
-						var newVideoId = streamInfo.videoId;
-						removeNewVideo($("#videoMeetingVideoZone"), $("#" + newVideoId));
-						if(data.bigFlag)
-						{
-							var videos = $("#videoLiveVideoZone").find("video[id!='videoLiveSelfVideo']");
-							if(videos.length > 0)
-							{
-								videos[videos.length - 1].click();
-							}
-						}
-						break;
-					case "streamData":
-						videoLiveCanvasDlg.dialog("open");
-						if(data.streamData != "CLEAN")
-						{
-							var points = data.streamData.split("/");
-							for(var i in points)
-							{
-								var point = points[i].split(",");
-								videoLiveMyCanvas.addPoint(data.upId, parseInt(point[0]), parseInt(point[1]));
-							}
-							videoLiveMyCanvas.redraw();
-						}
-						else
-						{
-							videoLiveMyCanvas.clearAll();
-						}
-						break; */
-				}
-				break;
-			case "onChatRoomMessage":
-				{
-					switch (data.type) {
-						case "recvChatPrivateMsg":
-							if (data.msg.msgType == "applyAgree" || data.msg.msgType == "inviteStart") {
-								roomSDK.leaveRoom();
-								roomSDK.sigDisconnect();
-								roomSDK = null;
-								roomSDK = StarRtc.Instance.getVideoLiveRoomSDK("src", "open", iotCarSrcCallBack, userData);
-								roomSDK.sigConnect();
-								//openVideoLive(selectVideoLiveIndex, "applyAgree");
-							}
-							else if (data.msg.msgType == "linkStop") {
-								//openVideoLive(selectVideoLiveIndex);
-							}
-							else if (data.msg.msgType == "applyDisagree") {
-								alert("房主拒绝了连麦申请");
-							}
-							else if (data.msg.msgType == "invite") {
-
-							}
-							else {
-								//videoLiveMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
-							}
-							break;
-						case "recvChatMsg":
-							//videoLiveMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
-							break;
-						case "chatroomUserKicked":
-							roomSDK.leaveRoom();
-							alert("你已被踢出房间！");
-							break;
-					}
-				}
-				break;
-		}
-	}
-
-	function iotCarSrcCallBack(data, status, oper) {
-		data.obj = self;
-		switch (status) {
-			//链接状态
-			case "connect success":
-				alert("启动小车成功！");
-				roomSDK.createStream();
-				break;
-			case "connect failed":
-			case "connect closed":
-				//stopVideoLive();
-				break;
-			case "onWebrtcMessage":
-				{
-					switch (data.type) {
-						case "streamCreated":
-							if (data.status == "success") {
-								//videoLiveSetStream(data.streamObj);
-								switch (oper) {
-									case "open":
-										roomSDK.joinRoom();
-										break;
-								}
-							}
-							else {
-
-							}
-							break;
-						case "srcApplyUpload":
-							if (data.status == "success") {
-								//$("#videoLiveApplyButton").hide();
-								//joinLiveRoom(data.userData.roomInfo);
-							}
-							else {
-								console.log("收到_webrtc_apply_failed");
-							}
-							break;
-						case "addUploader":
-							var newVideoId = "webrtc_video_" + data.upUserId;
-							var streamInfo = data.streamInfo;
-							streamInfo.videoId = newVideoId;
-							roomSDK.streamConfigChange(data.upId);
-							iotCarAddNewVideo(newVideoId, streamInfo.streamObj, function (evt) {
-								roomSDK.streamConfigChange(data.upId);
-							});
-							break;
-						case "removeUploader":
-							var streamInfo = data.streamInfo;
-							var newVideoId = streamInfo.videoId;
-							removeNewVideo($("#iotCarVideoZone"), $("#" + newVideoId));
-							if (data.bigFlag) {
-								var videos = $("#iotCarVideoZone").find("video[id!='videoLiveSelfVideo']");
-								if (videos.length > 0) {
-									videos[videos.length - 1].click();
-								}
-							}
-							break;
-					}
-				}
-				break;
-			case "onChatRoomMessage":
-				{
-					switch (data.type) {
-						case "recvChatPrivateMsg":
-							if (data.msg.msgType == "linkStop") {
-								//openVideoLive(selectVideoLiveIndex);
-							}
-							else if (data.msg.msgType == "apply") {
-								//videoLiveManageDialog.userData = {"fromUserId":data.fromUserId};
-								//$("#applyTargetId").html(data.msg.fromId);
-								//videoLiveManageDialog.dialog("open");
-							}
-							else if (data.msg.msgType == "inviteAgree") {
-
-							}
-							else if (data.msg.msgType == "inviteDisagree") {
-								alert(data.msg.fromId + "拒绝了您的连麦邀请！")
-							}
-							else {
-								//videoLiveMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
-							}
-							break;
-						case "recvChatMsg":
-							//videoLiveMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
-							break;
-						case "chatroomUserKicked":
-							roomSDK.leaveRoom();
-							alert("你已被踢出房间！");
-							break;
-					}
-				}
-				break;
-		}
-	}
-
-	self.startIotCar = function () {
-		starImInterface.sendSingleMsg(car0Id, "新消息", "IotCarStart", MSG_DATA_TYPE.MSG_DATA_TYPE_CONTROL);
-	}
-
-
-	self.stopIotCar = function () {
-		starImInterface.setIMExtraback(null);
-		if (roomSDK != null) {
-			roomSDK.leaveRoom();
-			roomSDK.sigDisconnect();
-			roomSDK = null;
-		}
-	}
-
-	self.iotCarCtrl = function (type) {
-		if (roomSDK != null) {
-			roomSDK.sendStreamData(type);
-		}
-	}
-
-	return self;
-}
-
-function iotCarAddNewVideo(newVideoId, stream, clickCallback) {
-
-	var parentObj = $("#iotCarVideoZone");
-	var wrapperObj = $("<div></div>");
-	var videoObj = $("<video id=\"" + newVideoId + "\" style=\"width:100%;height:100%\"></video>");
-
-	videoObj.bind("click", clickCallback);
-
-	wrapperObj.append(videoObj);
-
-	addNewVideo(parentObj, wrapperObj);
-
-	videoObj[0].srcObject = stream;
-	videoObj[0].play();
-}
-
-function enterIotCarFunc() {
-	currFunc.exit = exitIotCarFunc;
-}
-
-function exitIotCarFunc() {
-	if (currRoom != null) {
-		currRoom.stopIotCar();
-		currRoom = null;
-	}
-}
-
-function startIotCar() {
-	if (currRoom != null) {
-		currRoom.stopIotCar();
-		currRoom = null;
-	}
-
-	currRoom = new Demo.IotCarSDK();
-
-	currRoom.startIotCar();
-}
-
-function iotCarCtrl(type) {
-	if (currRoom != null) {
-		currRoom.iotCarCtrl("start");
-		currRoom.iotCarCtrl(type);
-		$(window).bind("mouseup", function () {
-			currRoom.iotCarCtrl("stop");
-			$(window).unbind("mouseup");
-		});
-	}
-}
-
-var lastData = "camera==";
-
-function iotCarDragStop(event, ui) {
-	lastData = "camera==";
-	if (currRoom) {
-		currRoom.iotCarCtrl(lastData);
-	}
-}
-
-function iotCarDrag(event, ui) {
-
-	// Keep the left edge of the element
-	// at least 100 pixels from the container
-	/* ui.position.left = Math.min( 50, ui.position.left );
-ui.position.top = Math.min( 50, ui.position.top );
-ui.position.left = Math.max( -50, ui.position.left );
-ui.position.top = Math.max( -50, ui.position.top ); */
-	var data = lastData;
-	if (ui.position.left >= 16) {
-		if (ui.position.top >= 16) {
-			data = "camera-+";
-		}
-		else if (ui.position.top <= -17) {
-			data = "camera--";
-		}
-		else {
-			data = "camera-=";
-		}
-	}
-	else if (ui.position.left <= -17) {
-		if (ui.position.top >= 16) {
-			data = "camera++";
-		}
-		else if (ui.position.top <= -17) {
-			data = "camera+-";
-		}
-		else {
-			data = "camera+=";
-		}
-	}
-	else {
-		if (ui.position.top >= 16) {
-			data = "camera=+";
-		}
-		else if (ui.position.top <= -17) {
-			data = "camera=-";
-		}
-		else {
-			data = "camera==";
-		}
-	}
-
-	if (lastData != data) {
-		lastData = data;
-		//console.log(data);
-		if (currRoom) {
-			currRoom.iotCarCtrl(data);
-		}
-	}
-}
-
-function showAndroidQr() {
-	var evt = event || window.event;
-	var x = evt.clientX;
-	var y = evt.clientY - 300;
-
-
-	$("#android_app").css({ "left": x + "px", "top": y + "px", "display": "block", "zIndex": "999" });
-
-	//document.getElementById("android_app").style.left = x + "px";
-	//document.getElementById("android_app").style.top = y + "px";		
-	//document.getElementById("android_app").style.display='block';
-	//document.getElementById("android_app").style.zIndex='999';
-}
-function hideAndroidQr() {
-	document.getElementById("android_app").style.display = 'none';
-}
-
-function showiOSQr() {
-	var evt = event || window.event;
-	var x = evt.clientX;
-	var y = evt.clientY - 300;
-
-	document.getElementById("ios_app").style.left = x + "px";
-	document.getElementById("ios_app").style.top = y + "px";
-
-	document.getElementById("ios_app").style.display = 'block';
-	document.getElementById("ios_app").style.zIndex = '999';
-}
-function hideiOSQr() {
-	document.getElementById("ios_app").style.display = 'none';
-}
-
-//////////////////////////////////////////////iot car end////////////////////////////////////////
 //////////////////////////////////////////////superTalk start////////////////////////////////////
+//房间列表
 var superTalkIds;
+//当前选中房间下标
 var selectSuperTalkIndex;
+
 var superTalkCreateDialog;
 var superTalkDelDialog;
 var superTalkStartTalkDialog;
 var superTalkEndTalkDialog;
 var superTalkStartTalkConnectDlg;
 
+//进入超级对讲tab
 function enterSuperTalkFunc() {
 	currFunc.exit = exitSuperTalkFunc;
 	$("#superTalkList").html("");
@@ -2081,15 +2015,20 @@ function exitSuperTalkFunc() {
 	}
 }
 
+//获取超级对讲列表，AEC，非AEC
 function loadSuperTalkList(_callback) {
 	$("#superTalkList").html("");
+	//超级房间的两种类型，标准类型，推流类型
 	var listTypes = [CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_SUPER_ROOM, CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_SUPER_ROOM_PUSH];
+	//开启AEC时
 	if (StarRtc.Instance.starConfig.configUseAEC) {
 		$.get(aecRequestBaseURL + "/list/query.php?listTypes=" + listTypes.join(","), function (data, status) {
 			if (status === "success") {
 				var obj = JSON.parse(data);
 				if (obj.status == 1) {
 					superTalkIds = [];
+
+					//数据存储在obj.data中，为数组，单项存储在obj.data[i].data中，为json字符串，解析后结构为{"id", "name", "creator"}
 					for (var i = 0; i < obj.data.length; i++) {
 						var item = JSON.parse(decodeURIComponent(obj.data[i].data));
 						superTalkIds.push(item);
@@ -2111,6 +2050,7 @@ function loadSuperTalkList(_callback) {
 		//仅供测试使用
 		StarRtc.Instance.queryRoom(listTypes, function (status, listData) {
 			superTalkIds = listData;
+			//数据存储在listData中，为数组，单项结构为{"id", "name", "creator"}
 			for (var i = 0; i < listData.length; i++) {
 				var item = listData[i];
 				$("#superTalkList")[0].innerHTML +=
@@ -2124,16 +2064,20 @@ function loadSuperTalkList(_callback) {
 
 }
 
+//超级对讲回调函数
 function superTalkCallBack(data, status, oper) {
+	//超级对讲房间SDK对象
 	var thisRoom = data.obj;
 	switch (status) {
 		//链接状态
 		case "connect success":
 			switch (oper) {
 				case "open":
+					//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 					thisRoom.createStream();
 					break;
 				case "new":
+					//创建新房间，会触发onWebrtcMessage中的createChannel回调
 					thisRoom.createNew();
 					break;
 			}
@@ -2142,10 +2086,13 @@ function superTalkCallBack(data, status, oper) {
 		case "connect closed":
 			stopSuperTalk();
 			break;
+		//收到视频相关回调
 		case "onWebrtcMessage":
 			switch (data.type) {
+				//收到创建房间回调
 				case "createChannel":
 					if (data.status == "success") {
+						//开启AEC时，需要在AEC列表中保存房间信息
 						if (StarRtc.Instance.starConfig.configUseAEC) {
 							$.get(aecRequestBaseURL + "/list/save.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_SUPER_ROOM.toString() + "&roomId=" + data.userData.roomInfo.id + "&data=" + encodeURIComponent(JSON.stringify(data.userData.roomInfo)), function (data, status) {
 								if (status === "success") {
@@ -2180,13 +2127,15 @@ function superTalkCallBack(data, status, oper) {
 							else {
 								selectSuperTalkIndex = undefined;
 							}
-
+							//创建视频流
 							thisRoom.createStream();
 						});
 					}
 					break;
+				//收到删除房间回调
 				case "delChannel":
 					if (data.status == "success") {
+						//开启AEC时，需要在AEC列表中也删除
 						if (StarRtc.Instance.starConfig.configUseAEC) {
 							$.get(aecRequestBaseURL + "/list/del.php?userId=" + StarRtc.Instance.starUser.userId + "&listType=" + CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_SUPER_ROOM.toString() + "&roomId=" + data.userData.roomInfo.id, function (data, status) {
 								if (status === "success") {
@@ -2214,8 +2163,10 @@ function superTalkCallBack(data, status, oper) {
 						alert("删除视频会议失败");
 					}
 					break;
+				//收到流创建回调
 				case "streamCreated":
 					if (data.status == "success") {
+						//加入房间
 						thisRoom.joinRoom();
 					}
 					else {
@@ -2223,6 +2174,7 @@ function superTalkCallBack(data, status, oper) {
 					}
 					superTalkStartTalkConnectDlg.dialog("close");
 					break;
+				//收到src加入房间回调（即开始说话回调）
 				case "srcApplyUpload":
 					if (data.status == "success") {
 						alert("开启说话成功");
@@ -2237,6 +2189,7 @@ function superTalkCallBack(data, status, oper) {
 					superTalkStartTalkConnectDlg.dialog("close");
 					console.log("收到srcApplyUpload");
 					break;
+				//收到vdn加入房间回调（即加入房间回调）
 				case "vdnApplyDownload":
 					if (data.status == "success") {
 						joinSuperTalkRoom(data.userData.roomInfo);
@@ -2248,13 +2201,15 @@ function superTalkCallBack(data, status, oper) {
 						thisRoom.leaveRoom();
 					}
 					break;
+				//收到添加新的上传者回调
 				case "addUploader":
-					var streamInfo = data.streamInfo;
-					streamInfo.videoId = data.upUserId;
-					superTalkSetUploader(true, data.upId, data.upUserId, streamInfo.streamObj);
+					setStreamInfo(data.upId, newVideoId, data.streamInfo.streamObj);
+					superTalkSetUploader(true, data.upId, data.upUserId, data.streamInfo.streamObj);
 					break;
+				//收到移除上传者回调
 				case "removeUploader":
-					var streamInfo = data.streamInfo;
+					var streamInfo = getStreamInfo(data.upId);
+					resetStreamInfo(streamInfo);
 					var newVideoId = streamInfo.videoId;
 					superTalkSetUploader(false, data.upId, data.upUserId, streamInfo.streamObj);
 					break;
@@ -2263,19 +2218,24 @@ function superTalkCallBack(data, status, oper) {
 					break;
 			}
 			break;
+		//收到聊天室回调
 		case "onChatRoomMessage":
 			{
 				switch (data.type) {
+					//收到聊天室私聊消息
 					case "recvChatPrivateMsg":
 						superTalkMsgWindow.displayMessage(data.msg.fromId + "私信", data.msg.contentData, false);
 						break;
+					//收到聊天室消息
 					case "recvChatMsg":
 						superTalkMsgWindow.displayMessage(data.msg.fromId, data.msg.contentData, false);
 						break;
+					//收到聊天室被踢消息
 					case "chatroomUserKicked":
 						thisRoom.leaveRoom();
 						alert("你已被踢出房间！");
 						break;
+					//收到服务器错误消息
 					case "serverErr":
 						alert("服务器错误：" + data.msg);
 						break;
@@ -2285,7 +2245,13 @@ function superTalkCallBack(data, status, oper) {
 	}
 }
 
+//停止超级对讲后设置界面
 function stopSuperTalk() {
+	//流信息，用于切换大小图
+	resetStreamInfos(streamInfos);
+	//大图辅助变量
+	oldBigVideo = -1;
+	nowBigVideo = -1;
 	superTalkCreateDialog.dialog("close");
 	superTalkDelDialog.dialog("close");
 	superTalkStartTalkDialog.dialog("close");
@@ -2300,6 +2266,7 @@ function stopSuperTalk() {
 	});
 }
 
+//加入超级对讲后设置界面
 function joinSuperTalkRoom(roomInfo) {
 	$('#superTalkTitle').html("");
 	$('#superTalkTitle').html(roomInfo.name);
@@ -2313,6 +2280,7 @@ function joinSuperTalkRoom(roomInfo) {
 	}
 }
 
+//设置远程流界面显示
 function superTalkSetUploader(flag, upId, userId, stream) {
 	var container = $("#superTalkUser" + upId);
 	var userName = $("#superTalkUserName" + upId);
@@ -2335,6 +2303,7 @@ function superTalkSetUploader(flag, upId, userId, stream) {
 	}
 }
 
+//进入超级对讲
 function openSuperTalk(index) {
 	if (selectSuperTalkIndex == index) return;
 	if (currRoom != null) {
@@ -2344,18 +2313,29 @@ function openSuperTalk(index) {
 	}
 
 	selectSuperTalkIndex = index;
-
+	//获取超级对讲SDK
 	currRoom = StarRtc.Instance.getSuperRoomSDK("open", superTalkCallBack, { "roomInfo": superTalkIds[index] });
-
+	//链接
 	currRoom.sigConnect();
 }
 
+//创建超级对讲
 function superTalkCreateNew() {
 	var newSuperTalkName = $("#newSuperTalkName").val();
 	if (newSuperTalkName == "") {
 		alert("超级聊天室名称不能为空！");
 	}
 	else {
+
+		if (currRoom != null) {
+			//离开房间
+			currRoom.leaveRoom();
+			//断开连接
+			currRoom.sigDisconnect();
+			currRoom = null;
+		}
+
+		//获取超级对讲SDK
 		currRoom = StarRtc.Instance.getSuperRoomSDK("new", superTalkCallBack, {
 			"roomInfo": {
 				"creator": userId,
@@ -2364,10 +2344,12 @@ function superTalkCreateNew() {
 			}
 		}
 		);
+		//链接
 		currRoom.sigConnect();
 	}
 }
 
+//开始对讲
 function superTalkStartTalk() {
 	if (currRoom) {
 		currRoom.startTalk();
@@ -2376,6 +2358,7 @@ function superTalkStartTalk() {
 	}
 }
 
+//结束对讲
 function superTalkEndTalk() {
 	if (currRoom) {
 		currRoom.endTalk();
@@ -2416,16 +2399,17 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 
 	var loginStatus = false;
 
-	starSDK.setMsgServerInfo(privateURL, 19903) 					//ip, websocket port  //需要手动从浏览器输入 https://10.90.7.70:29991 信任证书
+	starSDK.setMsgServerInfo(privateURL, 19903) 					//ip, websocket port  //需要手动从浏览器输入 https://ip:29991 信任证书
 
-	starSDK.setChatRoomServerInfo(privateURL, 19906) 			//ip, websocket port //需要手动从浏览器输入 https://10.90.7.70:29993 信任证书
+	starSDK.setChatRoomServerInfo(privateURL, 19906) 			//ip, websocket port //需要手动从浏览器输入 https://ip:29993 信任证书
 
-	starSDK.setSrcServerInfo(privateURL, 19934, 19935)  			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29994 信任证书
+	starSDK.setSrcServerInfo(privateURL, 19934, 19935, webrtcIP)  			//ip, websocket port, webrtc port, webrtc ip//需要手动从浏览器输入 https://ip:29994 信任证书
 
-	starSDK.setVdnServerInfo(privateURL, 19940, 19941) 			//ip, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29995 信任证书
+	starSDK.setVdnServerInfo(privateURL, 19940, 19941, webrtcIP) 			//ip, websocket port, webrtc port, webrtc ip //需要手动从浏览器输入 https://ip:29995 信任证书
 
-	starSDK.setVoipServerInfo(privateURL, 10086, 10087, 10088) 	//ip, voipServer port, websocket port, webrtc port //需要手动从浏览器输入 https://10.90.7.70:29992 信任证书
+	starSDK.setVoipServerInfo(privateURL, 10086, 10087, 10088, webrtcIP) 	//ip, voipServer port, websocket port, webrtc port, webrtc ip //需要手动从浏览器输入 https://ip:29992 信任证书
 
+	//登录回调
 	var loginCallBack = function (data, status) {
 		data.sdk = self;
 		switch (status) {
@@ -2494,13 +2478,15 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 		}
 	}
 
-
+	//视频回调
 	var videoCallBack = function (data, status, oper) {
 		data.sdk = self;
+		//房间SDK对象
 		var thisRoom = data.obj;
 		switch (status) {
 			//链接状态
 			case "connect success":
+				//创建视频流，会触发onWebrtcMessage中的streamCreated回调
 				thisRoom.createStream();
 				callback(data, status);
 				break;
@@ -2509,16 +2495,20 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 				starRoomSDK = null;
 				callback(data, status);
 				break;
+			//收到视频相关回调
 			case "onWebrtcMessage":
 				switch (data.type) {
+					//收到流创建回调
 					case "streamCreated":
 						if (data.status == "success") {
+							//加入房间
 							thisRoom.joinRoom();
 						}
 						else {
 
 						}
 						break;
+					//收到src加入房间回调（会议）
 					case "srcApplyUpload":
 						if (data.status == "success") {
 
@@ -2529,6 +2519,7 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 						}
 						console.log("收到srcApplyUpload:" + data.status);
 						break;
+					//收到vdn加入房间回调（直播观看者）
 					case "vdnApplyDownload":
 						if (data.status == "success") {
 
@@ -2540,6 +2531,7 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 						console.log("收到vdnApplyDownload:" + data.status);
 						callback(data, status);
 						break;
+					//收到添加新的上传者回调，目前仅监控房间中的一个视频，其他上传者视频可自行实现
 					case "addUploader":
 						if (!domVideoSet) {
 							domVideoSet = true;
@@ -2549,6 +2541,7 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 							videoEle[0].load();
 						}
 						break;
+					//收到移除上传者回调
 					case "removeUploader":
 						if (domVideoSet) {
 							domVideoSet = false;
@@ -2566,20 +2559,26 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 		}
 	}
 
+	//登录
 	starSDK.login("", userId, loginCallBack);
 
+	//开始监控
 	self.start = function () {
 		if (loginStatus) {
 			if (flag) {
+				//获取会议SDK
 				starRoomSDK = starSDK.getVideoMeetingRoomSDK("open", videoCallBack, { "roomInfo": roomInfo });
 			}
 			else {
+				//获取直播SDK
 				starRoomSDK = starSDK.getVideoLiveRoomSDK("vdn", "open", videoCallBack, { "roomInfo": roomInfo });
 			}
+			//链接
 			starRoomSDK.sigConnect();
 		}
 	}
 
+	//停止
 	self.stop = function () {
 		if (starRoomSDK) {
 			starRoomSDK.leaveRoom();
@@ -2588,6 +2587,7 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 		}
 	}
 
+	//重新登录
 	self.reLogin = function () {
 		if (loginStatus) {
 			starSDK.logout();
@@ -2596,19 +2596,21 @@ SuperVideoSDK = function (flag, roomInfo, dom, callback) {
 		starSDK.login("", userId, "", loginCallBack);
 	}
 
+	//登出
 	self.logout = function () {
 		starSDK.logout();
 	}
 
 	return this;
 }
-
+//超级监控所有列表
 var superVideoRooms = [];
 function enterSuperVideoFunc() {
 	currFunc.exit = exitSuperVideoFunc;
 	$("#superTalkList").html("");
 }
 
+//退出超级监控
 function exitSuperVideoFunc() {
 	for (var i in superVideoRooms) {
 		superVideoRooms[i].stop();
@@ -2617,6 +2619,8 @@ function exitSuperVideoFunc() {
 	superVideoRooms = [];
 }
 
+
+//登录回调
 function callback(data, status) {
 	switch (status) {
 		case "onLoginMessage":
@@ -2628,18 +2632,24 @@ function callback(data, status) {
 	}
 }
 
+
+//打开超级会议监控，获取所有会议列表，目前只获取前七个
 function openSuperVideoMeeting() {
 	if (superVideoRooms.length != 0) {
 		exitSuperVideoFunc();
 	}
+	//会议的两种类型，标准类型，推流类型
 	var listTypes = [CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING, CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_MEETING_PUSH];
+	//开启AEC时
 	if (StarRtc.Instance.starConfig.configUseAEC) {
 		$.get(aecRequestBaseURL + "/list/query.php?listTypes=" + listTypes.join(","), function (data, status) {
 			if (status === "success") {
 				var obj = JSON.parse(data);
 				if (obj.status == 1) {
+					//数据存储在obj.data中，为数组，单项存储在obj.data[i].data中，为json字符串，解析后结构为{"id", "name", "creator"}
 					for (var i = 0; i < obj.data.length && i <= 7; i++) {
 						var item = JSON.parse(decodeURIComponent(obj.data[i].data));
+						//每个房间创建一个对象
 						var room = new SuperVideoSDK(true, item, $("#superVideo" + i), callback);
 						superVideoRooms.push(room);
 					}
@@ -2650,6 +2660,7 @@ function openSuperVideoMeeting() {
 	else {
 		//仅供测试使用
 		StarRtc.Instance.queryRoom(listTypes, function (status, listData) {
+			//数据存储在listData中，为数组，单项结构为{"id", "name", "creator"}
 			for (var i = 0; i < listData.length && i <= 7; i++) {
 				var item = listData[i];
 				var room = new SuperVideoSDK(true, item, $("#superVideo" + i), callback)
@@ -2659,18 +2670,23 @@ function openSuperVideoMeeting() {
 	}
 }
 
+//打开超级直播监控，获取所有直播列表，目前只获取前七个
 function openSuperVideoLive() {
 	if (superVideoRooms.length != 0) {
 		exitSuperVideoFunc();
 	}
+	//直播的两种类型，标准类型，推流类型
 	var listTypes = [CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE, CHATROOM_LIST_TYPE.CHATROOM_LIST_TYPE_LIVE_PUSH];
+	//开启AEC时
 	if (StarRtc.Instance.starConfig.configUseAEC) {
 		$.get(aecRequestBaseURL + "/list/query.php?listTypes=" + listTypes.join(","), function (data, status) {
 			if (status === "success") {
 				var obj = JSON.parse(data);
 				if (obj.status == 1) {
+					//数据存储在obj.data中，为数组，单项存储在obj.data[i].data中，为json字符串，解析后结构为{"id", "name", "creator"}
 					for (var i = 0; i < obj.data.length && i <= 7; i++) {
 						var item = JSON.parse(decodeURIComponent(obj.data[i].data));
+						//每个房间创建一个对象
 						var room = new SuperVideoSDK(false, item, $("#superVideo" + i), callback);
 						superVideoRooms.push(room);
 					}
@@ -2707,8 +2723,6 @@ $().ready(function () {
 	$("#voipCtrl").height(fullHeight - backButtonHeight);
 	$("#voipZone").height(fullHeight - backButtonHeight);
 
-	$("#iotCarZone").height(fullHeight - backButtonHeight);
-
 	$("#superTalkList").height(fullHeight - backButtonHeight);
 	$("#superTalkZone").height(fullHeight - backButtonHeight);
 
@@ -2720,24 +2734,14 @@ $().ready(function () {
 	videoLiveMsgWindow = new MyMsgWindow("videoLiveMsgWindow", videoLiveInputMsgCallBack);
 	superTalkMsgWindow = new MyMsgWindow("superTalkMsgWindow", videoLiveInputMsgCallBack);
 
-	$("#iotCarMsgWindow").hide();
 	$("#videoLiveMsgWindow").hide();
 	$("#videoMeetingMsgWindow").hide();
 	$("#voipMsgWindow").hide();
 	$("#videoLiveApplyButton").hide();
 	$("#videoCanvasButton").hide();
-	$("#iotCarButton").hide();
 	$("#superTalkMsgWindow").hide();
 
 	$("#videoLiveSelfVideo").parent().hide();
-
-	$("#iotCarDrag").draggable({
-		drag: iotCarDrag,
-		revert: true,
-		containment: "#iotCarDragZone",
-		stop: iotCarDragStop
-	});
-
 
 	voipResponseDlg = $("#voipResponseDlg").dialog({
 		autoOpen: false,
@@ -2948,7 +2952,6 @@ $().ready(function () {
 	var localId = getCookie("starrtc_userId");
 	if (localId != "") {
 		userId = localId;
-		loginSuccessViewSet();
 
 		starRtcLogin(agentId, userId, starRtcLoginCallBack);
 	}
