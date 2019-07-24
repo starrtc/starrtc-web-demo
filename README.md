@@ -35,6 +35,10 @@ pdf文档上传标记直播，白板
 ![screen_web](assets/screen_web.jpg)
 
 
+更新记录
+===
+https://github.com/starrtc/starrtc-web-demo/wiki/Changelog
+
 Contact
 =====
 QQ ： 2162-498-688
