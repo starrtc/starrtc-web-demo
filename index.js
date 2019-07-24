@@ -546,7 +546,7 @@ function streamConfigChange(roomSDK, upId) {
 		}
 		streamConfig.push(conf);
 	}
-
+	//切换大小图，streamConfig为数组，1为小图，2为大图[1,2,1,2...]
 	roomSDK.streamConfigApply(streamConfig);
 }
 
