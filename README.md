@@ -1,8 +1,6 @@
 # webrtc-demo
 在线效果演示： https://www.starrtc.com/demo/web/
 
-请使用最新版chrome浏览器进行测试。至少要72以上! 
-
 私有部署请参考：https://docs.starrtc.com/en/docs/web-10.html
 
 本地测试可以直接拖到浏览器里。 放在服务器上需要web服务器支持https才行（没有https，没法使用webrtc api，这是谷歌定的 ）。
