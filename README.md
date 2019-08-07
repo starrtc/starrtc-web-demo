@@ -1,8 +1,6 @@
 # webrtc-demo
 在线效果演示： https://www.starrtc.com/demo/web/
 
-私有部署请参考：https://docs.starrtc.com/en/docs/web-10.html
-
 本地测试可以直接拖到浏览器里。 放在服务器上需要web服务器支持https才行（没有https，没法使用webrtc api，这是谷歌定的 ）
 
 部署https方法（有备案好的域名和正规证书的情况下）：http://www.elesos.com/index.php?title=Nginx%E9%85%8D%E7%BD%AEHTTPS
