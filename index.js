@@ -16,7 +16,17 @@ var superTalkMsgWindow = null;
 
 var aecRequestBaseURL = "https://www.starrtc.com/aec";				//开启AEC后，才生效，从此url获取各种列表信息
 var privateURL = "demo.starrtc.com";								//服务地址
-var webrtcIP = "123.103.93.74";										//webrtc ip (当服务地址为域名时，chrome72版本以下、firefox、safari使用)
+var webrtcIP = "123.103.93.74";										//webrtc ip，用于设置webrtc udp ip，用于setSrcServerInfo，setVdnServerInfo，setVoipServerInfo接口，不设置时与其server url一致
+
+
+/* var LOG_LEVEL = {
+	LOG_LEVEL_DEBUG: i++,
+	LOG_LEVEL_INFO: i++,
+	LOG_LEVEL_WARN: i++,
+	LOG_LEVEL_ERROR: i++ */
+
+//设置日志等级，开启低等级日志会包含高等级日志，如开启DEBUG，则同时开启INFO、WARN、ERROR，默认为开启DEBUG
+StarRtc.InitlogLevel(LOG_LEVEL.LOG_LEVEL_DEBUG);
 
 //创建SDK对象
 StarRtc.Instance = new StarRtc.StarSDK();
@@ -2706,6 +2716,39 @@ function openSuperVideoLive() {
 	}
 }
 //////////////////////////////////////////////superVideo end/////////////////////////////////////
+
+function showAndroidQr() {
+	var evt = event || window.event;
+	var x = evt.clientX;
+	var y = evt.clientY - 300;
+
+
+	$("#android_app").css({ "left": x + "px", "top": y + "px", "display": "block", "zIndex": "999" });
+
+	//document.getElementById("android_app").style.left = x + "px";
+	//document.getElementById("android_app").style.top = y + "px";		
+	//document.getElementById("android_app").style.display='block';
+	//document.getElementById("android_app").style.zIndex='999';
+}
+function hideAndroidQr() {
+	document.getElementById("android_app").style.display = 'none';
+}
+
+function showiOSQr() {
+	var evt = event || window.event;
+	var x = evt.clientX;
+	var y = evt.clientY - 300;
+
+	document.getElementById("ios_app").style.left = x + "px";
+	document.getElementById("ios_app").style.top = y + "px";
+
+	document.getElementById("ios_app").style.display = 'block';
+	document.getElementById("ios_app").style.zIndex = '999';
+}
+function hideiOSQr() {
+	document.getElementById("ios_app").style.display = 'none';
+}
+
 $().ready(function () {
 
 	showMainTab();
