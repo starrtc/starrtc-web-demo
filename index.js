@@ -354,6 +354,9 @@ function bindEvent() {
 
 	$("#voipSmallVideo").bind("click", switchVoipVideo);
 	$("#voipBigVideo").bind("click", switchVoipVideo);
+
+	$("#videoMeetingVideoCtrl").bind("click", videoMeetingSelfVideoCtrl);
+	$("#videoMeetingAudioCtrl").bind("click", videoMeetingSelfAudioCtrl);
 }
 //////////////////////////////////////////////star box////////////////////////////////////////
 function starlogin(evt, _userId) {
@@ -694,6 +697,7 @@ function videoMeetingSetStream(object) {
 	var selfVideo = $("#videoMeetingSelfVideo")[0];
 	selfVideo.srcObject = object;
 	selfVideo.play();
+	$("#videoMeetingSelfVideoCtrl").show();
 }
 
 //视频会议回调函数
@@ -923,6 +927,7 @@ function stopVideoMeeting() {
 	videoMeetingDelDialog.dialog("close");
 	selectVideoMeetingIndex = undefined;
 	$('#videoMeetingTitle').html("");
+	$("#videoMeetingSelfVideoCtrl").hide();
 	$("#videoMeetingVideoZone").children().each(function (ids, ele) {
 		var video = $(ele).children("video").first();
 		if (video.attr("id") != "videoMeetingSelfVideo") {
@@ -1001,9 +1006,40 @@ function videoMeetingCreateNewMeeting() {
 
 //删除视频会议房间
 function videoMeetingDelMeeting() {
-	{
-		if (currRoom != null) {
-			currRoom.deleteCurrRoom();
+	if (currRoom != null) {
+		currRoom.deleteCurrRoom();
+	}
+}
+
+var videoEnable = true;
+//控制视频会议自己的视频，影响其他人观看
+function videoMeetingSelfVideoCtrl() {
+	if (currRoom) {
+		videoEnable = !videoEnable;
+		if (videoEnable) {
+			$("#videoMeetingVideoCtrl").css("background-image", "url(./images/icon-video.png)");
+			currRoom.publishStream({ "video": true });
+		}
+		else {
+			$("#videoMeetingVideoCtrl").css("background-image", "url(./images/icon-video-close.png)");
+			currRoom.publishStream({ "video": false });
+		}
+
+	}
+}
+
+var audioEnable = true;
+//控制视频会议自己的音频，影响其他人收听
+function videoMeetingSelfAudioCtrl() {
+	if (currRoom) {
+		audioEnable = !audioEnable;
+		if (audioEnable) {
+			$("#videoMeetingAudioCtrl").css("background-image", "url(./images/icon-audio.png)");
+			currRoom.publishStream({ "audio": true });
+		}
+		else {
+			$("#videoMeetingAudioCtrl").css("background-image", "url(./images/icon-audio-close.png)");
+			currRoom.publishStream({ "audio": false });
 		}
 	}
 }
@@ -2784,6 +2820,8 @@ $().ready(function () {
 	$("#videoCanvasButton").hide();
 	$("#superTalkMsgWindow").hide();
 
+	$("#videoMeetingSelfVideoCtrl").hide();
+
 	$("#videoLiveSelfVideo").parent().hide();
 
 	voipResponseDlg = $("#voipResponseDlg").dialog({
@@ -2982,8 +3020,6 @@ $().ready(function () {
 			"清除": videoLiveCleanCanvas
 		},
 	});
-
-
 
 	$("#liveTypecheck").checkboxradio();
 	$("#meetingTypecheck").checkboxradio();
