@@ -1927,7 +1927,12 @@ function voipCallBack(data, status, oper) {
 					break;
 				//收到voip 通话成功后，获取到对方视频流
 				case "voipStreamReady":
-					voipSetStream($("#voipBigVideo")[0], data.streamObj);
+					if (data.userData.roomInfo.audioOnly) {
+						voipSetStream($("#voipBigAudio")[0], data.streamObj);
+					}
+					else {
+						voipSetStream($("#voipBigVideo")[0], data.streamObj);
+					}
 					break;
 			}
 			break;
