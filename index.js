@@ -1926,12 +1926,15 @@ function voipCallBack(data, status, oper) {
 				//收到voip 呼叫回调
 				case "voipCalling":
 					if (data.status == "success") {
-
+						//服务端录屏session id
+						console.log("recSessionId:" + data.recSessionId);
 					}
 					break;
 				//收到voip 应答回调
 				case "voipResponseing":
 					if (data.status == "success") {
+						//服务端录屏session id
+						console.log("recSessionId:" + data.recSessionId);
 						$('#targetUserId').val(data.userData.roomInfo.targetId);
 					}
 					break;
