@@ -775,12 +775,14 @@ function videoMeetingCallBack(data, status, oper) {
 				//收到src加入房间回调
 				case "srcApplyUpload":
 					if (data.status == "success") {
+						//服务端录屏session id
+						console.log("recSessionId:" + data.recSessionId);
 						joinMeetingRoom(data.userData.roomInfo);
 					}
 					else {
 						alert("上传申请失败");
-						console.log("收到_webrtc_apply_failed");
 					}
+					console.log("收到srcApplyUpload:" + data.status);
 					break;
 				//收到添加新的上传者回调
 				case "addUploader":
@@ -807,7 +809,7 @@ function videoMeetingCallBack(data, status, oper) {
 						}
 					}
 					break;
-				//收到删除房间回调
+				//收到删除房间回调（废弃）,不会触发，以下代码是正常的删除逻辑，请在回调外使用
 				case "delChannel":
 					if (data.status == "success") {
 						//开启AEC时，只需要在AEC列表中删除，不需要走此回调，也不需要调用对应删除函数，放在这个位置仅为示例
@@ -1007,7 +1009,7 @@ function videoMeetingCreateNewMeeting() {
 	}
 }
 
-//删除视频会议房间
+//删除视频会议房间（废弃）,删除房间请使用delroom接口
 function videoMeetingDelMeeting() {
 	if (currRoom != null) {
 		currRoom.deleteCurrRoom();
@@ -1194,6 +1196,8 @@ function videoLiveSrcCallBack(data, status, oper) {
 					//收到src加入房间回调
 					case "srcApplyUpload":
 						if (data.status == "success") {
+							//服务端录屏session id
+							console.log("recSessionId:" + data.recSessionId);
 							if (oper == "new") {
 								videoLiveMyCanvas = new MyCanvas("videoLiveMyCanvas", true, canvasDrawCallback);
 							}
@@ -1203,8 +1207,8 @@ function videoLiveSrcCallBack(data, status, oper) {
 						}
 						else {
 							alert("上传视频申请失败！");
-							console.log("收到_webrtc_apply_failed");
 						}
+						console.log("收到srcApplyUpload:" + data.status);
 						break;
 					//收到添加新的上传者回调
 					case "addUploader":
@@ -1231,7 +1235,7 @@ function videoLiveSrcCallBack(data, status, oper) {
 							}
 						}
 						break;
-					//收到删除房间回调
+					//收到删除房间回调（废弃）,不会触发，以下代码是正常的删除逻辑，请在回调外使用
 					case "delChannel":
 						if (data.status == "success") {
 							//开启AEC时，只需要在AEC列表中删除，不需要走此回调，也不需要调用对应删除函数，放在这个位置仅为示例
@@ -2194,7 +2198,7 @@ function superTalkCallBack(data, status, oper) {
 						});
 					}
 					break;
-				//收到删除房间回调
+				//收到删除房间回调（废弃）,不会触发，以下代码是正常的删除逻辑，请在回调外使用
 				case "delChannel":
 					if (data.status == "success") {
 						//开启AEC时，只需要在AEC列表中删除，不需要走此回调，也不需要调用对应删除函数，放在这个位置仅为示例
@@ -2239,6 +2243,8 @@ function superTalkCallBack(data, status, oper) {
 				//收到src加入房间回调（即开始说话回调）
 				case "srcApplyUpload":
 					if (data.status == "success") {
+						//服务端录屏session id
+						console.log("recSessionId:" + data.recSessionId);
 						alert("开启说话成功");
 						$("#superTalkEndTalkButton").show();
 						$("#superTalkStartTalkButton").hide();
@@ -2249,7 +2255,7 @@ function superTalkCallBack(data, status, oper) {
 						$("#superTalkStartTalkButton").show();
 					}
 					superTalkStartTalkConnectDlg.dialog("close");
-					console.log("收到srcApplyUpload");
+					console.log("收到srcApplyUpload:" + data.status);
 					break;
 				//收到vdn加入房间回调（即加入房间回调）
 				case "vdnApplyDownload":
