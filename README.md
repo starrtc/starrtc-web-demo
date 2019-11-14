@@ -1,5 +1,5 @@
 # webrtc-demo
-[Endlish Version](README_English.md "Endlish Version")
+[English Version](README_English.md "Endlish Version")
 ==
 在线效果演示： https://www.starrtc.com/demo/web/
 
