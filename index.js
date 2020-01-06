@@ -16,7 +16,7 @@ var superTalkMsgWindow = null;
 
 var aecRequestBaseURL = "https://www.starrtc.com/aec";				//开启AEC后，才生效，从此url获取各种列表信息
 var privateURL = "demo.starrtc.com";								//后端服务地址，可为ip，也可为域名
-var webrtcIP = "123.103.93.74";										//后端服务地址，必须为ip（目前只有chrome72以上支持设置成域名），webrtc ip，用于设置webrtc udp ip，用于setSrcServerInfo，setVdnServerInfo，setVoipServerInfo接口，不设置时与后端服务地址privateURL一致
+var webrtcIP = "47.105.65.73";										//后端服务地址，必须为ip（目前只有chrome72以上支持设置成域名），webrtc ip，用于设置webrtc udp ip，用于setSrcServerInfo，setVdnServerInfo，setVoipServerInfo接口，不设置时与后端服务地址privateURL一致
 
 
 /* var LOG_LEVEL = {
@@ -2271,15 +2271,14 @@ function superTalkCallBack(data, status, oper) {
 					break;
 				//收到添加新的上传者回调
 				case "addUploader":
-					setStreamInfo(data.upId, newVideoId, data.streamInfo.streamObj);
-					superTalkSetUploader(true, data.upId, data.upUserId, data.streamInfo.streamObj);
+					setStreamInfo(data.upId, "", data.streamInfo.streamObj);
+					superTalkSetUploader(true, data.upId, data.upUserId, data.streamInfo.streamObj, data.upUserId == StarRtc.Instance.starUser.starUid);
 					break;
 				//收到移除上传者回调
 				case "removeUploader":
 					var streamInfo = getStreamInfo(data.upId);
 					resetStreamInfo(streamInfo);
-					var newVideoId = streamInfo.videoId;
-					superTalkSetUploader(false, data.upId, data.upUserId, streamInfo.streamObj);
+					superTalkSetUploader(false, data.upId, data.upUserId, streamInfo.streamObj, data.upUserId == StarRtc.Instance.starUser.starUid);
 					break;
 				case "serverErr":
 					alert("服务器错误：" + data.msg);
@@ -2349,7 +2348,7 @@ function joinSuperTalkRoom(roomInfo) {
 }
 
 //设置远程流界面显示
-function superTalkSetUploader(flag, upId, userId, stream) {
+function superTalkSetUploader(flag, upId, userId, stream, isSelf) {
 	var container = $("#superTalkUser" + upId);
 	var userName = $("#superTalkUserName" + upId);
 	var audio = $("#superTalkAudioUser" + upId);
@@ -2362,8 +2361,9 @@ function superTalkSetUploader(flag, upId, userId, stream) {
 			userName.html(tmp[0]);
 		}
 		container.show();
-
-		audio[0].srcObject = stream;
+		if (!isSelf) {
+			audio[0].srcObject = stream;
+		}
 	}
 	else {
 		container.hide();

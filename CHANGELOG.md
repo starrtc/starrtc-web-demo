@@ -1,3 +1,32 @@
+v1.1.8 2020/1/6
+==
+# 注：1.1.8版本的web SDK 只兼容最新的2.9.4版本及以后的服务端程序，不兼容以前更低版本
+1. SDK BUG 修复
+---
+- 1.1 修复删除群成员时，会报错的问题
+- 1.2 修复voip呼叫时，对方选择拒绝后，对方发起voip呼叫，收不到呼叫请求的问题
+- 1.3 修复给数组扩展自定义属性时，因为 for in 循环产生的问题
+---
+2. SDK功能更新
+---
+- 2.1 StarRtc.StarSDK.setGroupMsgPush 增加返回值标识，批量创建时用以识别对应
+- 2.2 StarRtc.StarSDK.removeGroupUsers 增加返回值标识，批量创建时用以识别对应
+- 2.3 StarRtc.StarSDK.addGroupUsers 增加返回值标识，批量创建时用以识别对应
+- 2.4 StarRtc.StarSDK.delGroup 增加返回值标识，批量创建时用以识别对应
+- 2.5 StarRtc.StarSDK.createGroup 增加返回值标识，批量创建时用以识别对应
+- 2.6 StarRtc.StarSDK.getGroupList 增加返回值标识，批量创建时用以识别对应
+- 2.7 StarRtc.StarSDK.getGroupUserList 增加返回值标识，批量创建时用以识别对应
+---
+3. demo更新
+---
+- 3.1 更新超级对讲，有人开启说话时，判断是不是自己，防止听到自己的声音
+---
+4. 已知问题
+---
+- 4.1 多浏览器支持在微信浏览器，safari，opera，firefox进行视频互通时，会出现没有画面的情况
+- 4.2 直播观看者（vdn），切换到大图时，会出现花屏情况
+- 4.3 由web发起的超清（1080p）视频，在其他端上看会模糊
+---
 v1.1.7 2019/11/8
 ==
 # 注：1.1.7版本的web SDK 只兼容最新的2.9.4版本及以后的服务端程序，不兼容以前更低版本
